@@ -1,0 +1,2597 @@
+=================
+[2019-03-27 09:16:10,571][6]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_USERS:  USER_ID  :  VARCHAR2  :   String   |
+USER_NAME  :  VARCHAR2  :   String   |
+USER_PASSWD  :  VARCHAR2  :   String   |
+LOGINED_FLAGS  :  NUMBER  :   Decimal   |
+ROLES_ID  :  VARCHAR2  :   String   |
+ROLES_ID_V_D_FW_S_ROLES__MC  :  VARCHAR2  :   String   |
+VER  :  NUMBER  :   Decimal   |
+DISABLED  :  NUMBER  :   Decimal   |
+CREATE_BY  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+DELETED_MARK  :  NUMBER  :   Decimal   |
+COMPANY_ID  :  VARCHAR2  :   String   |
+COMPANY_ID_D_XZQH__MC  :  VARCHAR2  :   String   |
+TEL1  :  VARCHAR2  :   String   |
+TEL2  :  VARCHAR2  :   String   |
+EMAIL  :  VARCHAR2  :   String   |
+ADDR  :  VARCHAR2  :   String   |
+    PK: 
+USER_ID
+=================
+
+=================
+[2019-03-27 09:16:10,616][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-27 09:16:10,619][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-27 09:16:10,621][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-27 09:16:10,621][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-27 09:16:10,629][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ update FW_S_USERS set LOGINED_FLAGS = :p0,UPDATE_ON = :p1,VER=VER+1 where (DELETED_MARK=0 AND ((USER_ID = :p2)))
+
+p0[Decimal]:-1761490496
+p1[DateTime]:2019/3/27 上午 09:16:10
+p2[String]:admin
+=================
+
+=================
+[2019-03-27 09:16:10,634][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS where (DELETED_MARK=0 AND ((USER_ID = :p0)))
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-27 09:16:10,724][6]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_USERS_M_ROLES:  ID  :  NUMBER  :   Decimal   |
+USER_ID  :  VARCHAR2  :   String   |
+ROLE_ID  :  NUMBER  :   Decimal   |
+DISABLED  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 09:16:10,725][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS_M_ROLES where USER_ID = :p0
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-27 09:16:10,832][6]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_ROLES:  ID  :  NUMBER  :   Decimal   |
+SORT_CODE  :  NUMBER  :   Decimal   |
+ROLE_NAME  :  VARCHAR2  :   String   |
+ROLE_DESCRIPT  :  VARCHAR2  :   String   |
+DISABLED  :  NUMBER  :   Decimal   |
+CREATE_BY  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+DELETED_MARK  :  NUMBER  :   Decimal   |
+VER  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 09:16:10,833][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select ID,SORT_CODE,ROLE_NAME,DISABLED from FW_S_ROLES where (DELETED_MARK=0 AND ((ID = :p0)))
+
+p0[Decimal]:1
+=================
+
+=================
+[2019-03-27 09:16:10,971][6]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_ROLES_OPERATE:  ID  :  NUMBER  :   Decimal   |
+ROLE_ID  :  NUMBER  :   Decimal   |
+OPERATE_ID  :  VARCHAR2  :   String   |
+DISABLED  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 09:16:10,973][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select OPERATE_ID from FW_S_ROLES_OPERATE where (DISABLED = :p0 AND (ROLE_ID = :p1)) group by OPERATE_ID
+
+p0[Decimal]:0
+p1[Decimal]:1
+=================
+
+=================
+[2019-03-27 09:16:14,013][12]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_FACILITY:  ID  :  NUMBER  :   Decimal   |
+FACILITY_CODE  :  VARCHAR2  :   String   |
+FACILITY_NAME  :  VARCHAR2  :   String   |
+FAC_TYPE  :  VARCHAR2  :   String   |
+FAC_TYPE_D_FACILITY_TYPE__MC  :  VARCHAR2  :   String   |
+FACILITY_GROUP  :  VARCHAR2  :   String   |
+FACILITY_GROUP_V_D_B_GROUP__MC  :  VARCHAR2  :   String   |
+FACILITY_PLAN  :  VARCHAR2  :   String   |
+FACILITY_PLAN_V_D_B_PLAN__MC  :  VARCHAR2  :   String   |
+FACILITY_ADDRESS  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+CREATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+SSQFJGDM  :  VARCHAR2  :   String   |
+SSQFJGDM_D_XZQH__MC  :  VARCHAR2  :   String   |
+SSSLDWJGDM  :  VARCHAR2  :   String   |
+SSSLDWJGDM_D_XZQH__MC  :  VARCHAR2  :   String   |
+SSSLDWTELPHONE  :  VARCHAR2  :   String   |
+SSSLDWLXR  :  VARCHAR2  :   String   |
+CSJBDXJSDHHM  :  VARCHAR2  :   String   |
+CSQMHLTQTS  :  NUMBER  :   Decimal   |
+CSJZZMDYJGTS  :  NUMBER  :   Decimal   |
+CSIP  :  VARCHAR2  :   String   |
+CSMAC  :  VARCHAR2  :   String   |
+CSVERSION  :  VARCHAR2  :   String   |
+CSFIRSTTIME  :  DATE  :   DateTime   |
+CSLASTTIME  :  DATE  :   DateTime   |
+NUM_QMHL  :  NUMBER  :   Decimal   |
+NUM_DSBL  :  NUMBER  :   Decimal   |
+NUM_JZZMDY  :  NUMBER  :   Decimal   |
+MACHINEMEMO  :  VARCHAR2  :   String   |
+EG_MSG_LZH  :  VARCHAR2  :   String   |
+EG_MSG_SHL  :  VARCHAR2  :   String   |
+YXZT  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 09:16:14,027][12]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-27 09:16:14,070][12]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_SFZ_ZZSL:  SLXLH  :  VARCHAR2  :   String   |
+SLJQH  :  VARCHAR2  :   String   |
+PERSON_ID  :  VARCHAR2  :   String   |
+PID  :  VARCHAR2  :   String   |
+NAME  :  VARCHAR2  :   String   |
+GENDER  :  VARCHAR2  :   String   |
+NATION  :  VARCHAR2  :   String   |
+DOB  :  DATE  :   DateTime   |
+ADDR_REGION_ID  :  VARCHAR2  :   String   |
+FULLADDR  :  VARCHAR2  :   String   |
+META_ADDR_ID  :  VARCHAR2  :   String   |
+IMAGE_ID  :  VARCHAR2  :   String   |
+ISSUED_UNIT  :  VARCHAR2  :   String   |
+USEFUL_LIFE  :  VARCHAR2  :   String   |
+UL_FROM_DATE  :  DATE  :   DateTime   |
+UL_END_DATE  :  DATE  :   DateTime   |
+APPLIED_REASON  :  VARCHAR2  :   String   |
+ACCEPT_DATE  :  DATE  :   DateTime   |
+ACCEPT_UNIT  :  VARCHAR2  :   String   |
+ACCEPT_ORG_ID  :  VARCHAR2  :   String   |
+ACCEPT_PSN  :  VARCHAR2  :   String   |
+PCS  :  VARCHAR2  :   String   |
+ORG_ID  :  VARCHAR2  :   String   |
+WHEN_REGISTERED  :  DATE  :   DateTime   |
+IMAGE  :  BLOB  :   Binary   |
+ZWCJJG  :  VARCHAR2  :   String   |
+ZWY_ZCJG  :  VARCHAR2  :   String   |
+ZWY_ZW  :  VARCHAR2  :   String   |
+ZWY_TXBH  :  VARCHAR2  :   String   |
+ZWY_TXZLZ  :  VARCHAR2  :   String   |
+ZWY_TZSJ  :  BLOB  :   Binary   |
+ZWY_TXSJ  :  BLOB  :   Binary   |
+ZWE_ZCJG  :  VARCHAR2  :   String   |
+ZWE_ZW  :  VARCHAR2  :   String   |
+ZWE_TXBH  :  VARCHAR2  :   String   |
+ZWE_TXZLZ  :  VARCHAR2  :   String   |
+ZWE_TZSJ  :  BLOB  :   Binary   |
+ZWE_TXSJ  :  BLOB  :   Binary   |
+XTZCH  :  VARCHAR2  :   String   |
+ZWCJQID  :  VARCHAR2  :   String   |
+CJDW_GAJGJGDM  :  VARCHAR2  :   String   |
+CJDW_GAJGMC  :  VARCHAR2  :   String   |
+CJR_BH  :  VARCHAR2  :   String   |
+CJR_XM  :  VARCHAR2  :   String   |
+CJSJ  :  DATE  :   DateTime   |
+ZT  :  VARCHAR2  :   String   |
+RKXT_SLH  :  VARCHAR2  :   String   |
+RKXT_XGSJ  :  DATE  :   DateTime   |
+RKXT_SHSJ  :  DATE  :   DateTime   |
+CWMS  :  VARCHAR2  :   String   |
+TEL  :  VARCHAR2  :   String   |
+XCZP  :  BLOB  :   Binary   |
+RKXT_ZTTBSJ  :  DATE  :   DateTime   |
+TEL_SMS  :  VARCHAR2  :   String   |
+RKXT_ZTTB  :  VARCHAR2  :   String   |
+ZT_D_ACCEPT_STATE__MC  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-27 09:16:14,072][12]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 09:16:14,315][12]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-27 09:16:14,763][11]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_XZQH:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-27 09:16:14,765][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 09:16:14,766][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-27 09:16:14,868][11]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_ACCEPT_STATE:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+WB  :  VARCHAR2  :   String   |
+PY  :  VARCHAR2  :   String   |
+    PK: 
+DM
+=================
+
+=================
+[2019-03-27 09:16:14,869][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_ACCEPT_STATE where 1=1
+
+=================
+
+=================
+[2019-03-27 09:16:14,970][11]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_MZ:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+WB  :  VARCHAR2  :   String   |
+PY  :  VARCHAR2  :   String   |
+    PK: 
+DM
+=================
+
+=================
+[2019-03-27 09:16:14,971][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_MZ where 1=1
+
+=================
+
+=================
+[2019-03-27 09:16:15,423][12]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-27 09:16:15,428][12]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 09:16:15,850][12]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-27 09:16:27,968][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-27 09:16:27,971][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((ACCEPT_DATE >= :p0 AND ACCEPT_DATE <= :p1 AND SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+p0[DateTime]:2016/5/16 上午 12:00:00
+p1[DateTime]:2016/5/16 下午 11:59:59
+=================
+
+=================
+[2019-03-27 09:16:28,276][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((ACCEPT_DATE >= :p0 AND ACCEPT_DATE <= :p1 AND SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+p0[DateTime]:2016/5/16 上午 12:00:00
+p1[DateTime]:2016/5/16 下午 11:59:59
+=================
+
+=================
+[2019-03-27 09:59:35,892][20]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_USERS:  USER_ID  :  VARCHAR2  :   String   |
+USER_NAME  :  VARCHAR2  :   String   |
+USER_PASSWD  :  VARCHAR2  :   String   |
+LOGINED_FLAGS  :  NUMBER  :   Decimal   |
+ROLES_ID  :  VARCHAR2  :   String   |
+ROLES_ID_V_D_FW_S_ROLES__MC  :  VARCHAR2  :   String   |
+VER  :  NUMBER  :   Decimal   |
+DISABLED  :  NUMBER  :   Decimal   |
+CREATE_BY  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+DELETED_MARK  :  NUMBER  :   Decimal   |
+COMPANY_ID  :  VARCHAR2  :   String   |
+COMPANY_ID_D_XZQH__MC  :  VARCHAR2  :   String   |
+TEL1  :  VARCHAR2  :   String   |
+TEL2  :  VARCHAR2  :   String   |
+EMAIL  :  VARCHAR2  :   String   |
+ADDR  :  VARCHAR2  :   String   |
+    PK: 
+USER_ID
+=================
+
+=================
+[2019-03-27 09:59:35,928][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-27 09:59:35,930][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-27 09:59:35,933][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-27 09:59:35,933][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-27 09:59:35,941][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ update FW_S_USERS set LOGINED_FLAGS = :p0,UPDATE_ON = :p1,VER=VER+1 where (DELETED_MARK=0 AND ((USER_ID = :p2)))
+
+p0[Decimal]:1186735552
+p1[DateTime]:2019/3/27 上午 09:59:35
+p2[String]:admin
+=================
+
+=================
+[2019-03-27 09:59:35,962][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS where (DELETED_MARK=0 AND ((USER_ID = :p0)))
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-27 09:59:36,085][20]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_USERS_M_ROLES:  ID  :  NUMBER  :   Decimal   |
+USER_ID  :  VARCHAR2  :   String   |
+ROLE_ID  :  NUMBER  :   Decimal   |
+DISABLED  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 09:59:36,086][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS_M_ROLES where USER_ID = :p0
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-27 09:59:36,194][20]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_ROLES:  ID  :  NUMBER  :   Decimal   |
+SORT_CODE  :  NUMBER  :   Decimal   |
+ROLE_NAME  :  VARCHAR2  :   String   |
+ROLE_DESCRIPT  :  VARCHAR2  :   String   |
+DISABLED  :  NUMBER  :   Decimal   |
+CREATE_BY  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+DELETED_MARK  :  NUMBER  :   Decimal   |
+VER  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 09:59:36,195][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select ID,SORT_CODE,ROLE_NAME,DISABLED from FW_S_ROLES where (DELETED_MARK=0 AND ((ID = :p0)))
+
+p0[Decimal]:1
+=================
+
+=================
+[2019-03-27 09:59:36,298][20]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_ROLES_OPERATE:  ID  :  NUMBER  :   Decimal   |
+ROLE_ID  :  NUMBER  :   Decimal   |
+OPERATE_ID  :  VARCHAR2  :   String   |
+DISABLED  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 09:59:36,299][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select OPERATE_ID from FW_S_ROLES_OPERATE where (DISABLED = :p0 AND (ROLE_ID = :p1)) group by OPERATE_ID
+
+p0[Decimal]:0
+p1[Decimal]:1
+=================
+
+=================
+[2019-03-27 09:59:39,342][23]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_FACILITY:  ID  :  NUMBER  :   Decimal   |
+FACILITY_CODE  :  VARCHAR2  :   String   |
+FACILITY_NAME  :  VARCHAR2  :   String   |
+FAC_TYPE  :  VARCHAR2  :   String   |
+FAC_TYPE_D_FACILITY_TYPE__MC  :  VARCHAR2  :   String   |
+FACILITY_GROUP  :  VARCHAR2  :   String   |
+FACILITY_GROUP_V_D_B_GROUP__MC  :  VARCHAR2  :   String   |
+FACILITY_PLAN  :  VARCHAR2  :   String   |
+FACILITY_PLAN_V_D_B_PLAN__MC  :  VARCHAR2  :   String   |
+FACILITY_ADDRESS  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+CREATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+SSQFJGDM  :  VARCHAR2  :   String   |
+SSQFJGDM_D_XZQH__MC  :  VARCHAR2  :   String   |
+SSSLDWJGDM  :  VARCHAR2  :   String   |
+SSSLDWJGDM_D_XZQH__MC  :  VARCHAR2  :   String   |
+SSSLDWTELPHONE  :  VARCHAR2  :   String   |
+SSSLDWLXR  :  VARCHAR2  :   String   |
+CSJBDXJSDHHM  :  VARCHAR2  :   String   |
+CSQMHLTQTS  :  NUMBER  :   Decimal   |
+CSJZZMDYJGTS  :  NUMBER  :   Decimal   |
+CSIP  :  VARCHAR2  :   String   |
+CSMAC  :  VARCHAR2  :   String   |
+CSVERSION  :  VARCHAR2  :   String   |
+CSFIRSTTIME  :  DATE  :   DateTime   |
+CSLASTTIME  :  DATE  :   DateTime   |
+NUM_QMHL  :  NUMBER  :   Decimal   |
+NUM_DSBL  :  NUMBER  :   Decimal   |
+NUM_JZZMDY  :  NUMBER  :   Decimal   |
+MACHINEMEMO  :  VARCHAR2  :   String   |
+EG_MSG_LZH  :  VARCHAR2  :   String   |
+EG_MSG_SHL  :  VARCHAR2  :   String   |
+YXZT  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 09:59:39,343][23]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-27 09:59:39,382][23]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_SFZ_ZZSL:  SLXLH  :  VARCHAR2  :   String   |
+SLJQH  :  VARCHAR2  :   String   |
+PERSON_ID  :  VARCHAR2  :   String   |
+PID  :  VARCHAR2  :   String   |
+NAME  :  VARCHAR2  :   String   |
+GENDER  :  VARCHAR2  :   String   |
+NATION  :  VARCHAR2  :   String   |
+DOB  :  DATE  :   DateTime   |
+ADDR_REGION_ID  :  VARCHAR2  :   String   |
+FULLADDR  :  VARCHAR2  :   String   |
+META_ADDR_ID  :  VARCHAR2  :   String   |
+IMAGE_ID  :  VARCHAR2  :   String   |
+ISSUED_UNIT  :  VARCHAR2  :   String   |
+USEFUL_LIFE  :  VARCHAR2  :   String   |
+UL_FROM_DATE  :  DATE  :   DateTime   |
+UL_END_DATE  :  DATE  :   DateTime   |
+APPLIED_REASON  :  VARCHAR2  :   String   |
+ACCEPT_DATE  :  DATE  :   DateTime   |
+ACCEPT_UNIT  :  VARCHAR2  :   String   |
+ACCEPT_ORG_ID  :  VARCHAR2  :   String   |
+ACCEPT_PSN  :  VARCHAR2  :   String   |
+PCS  :  VARCHAR2  :   String   |
+ORG_ID  :  VARCHAR2  :   String   |
+WHEN_REGISTERED  :  DATE  :   DateTime   |
+IMAGE  :  BLOB  :   Binary   |
+ZWCJJG  :  VARCHAR2  :   String   |
+ZWY_ZCJG  :  VARCHAR2  :   String   |
+ZWY_ZW  :  VARCHAR2  :   String   |
+ZWY_TXBH  :  VARCHAR2  :   String   |
+ZWY_TXZLZ  :  VARCHAR2  :   String   |
+ZWY_TZSJ  :  BLOB  :   Binary   |
+ZWY_TXSJ  :  BLOB  :   Binary   |
+ZWE_ZCJG  :  VARCHAR2  :   String   |
+ZWE_ZW  :  VARCHAR2  :   String   |
+ZWE_TXBH  :  VARCHAR2  :   String   |
+ZWE_TXZLZ  :  VARCHAR2  :   String   |
+ZWE_TZSJ  :  BLOB  :   Binary   |
+ZWE_TXSJ  :  BLOB  :   Binary   |
+XTZCH  :  VARCHAR2  :   String   |
+ZWCJQID  :  VARCHAR2  :   String   |
+CJDW_GAJGJGDM  :  VARCHAR2  :   String   |
+CJDW_GAJGMC  :  VARCHAR2  :   String   |
+CJR_BH  :  VARCHAR2  :   String   |
+CJR_XM  :  VARCHAR2  :   String   |
+CJSJ  :  DATE  :   DateTime   |
+ZT  :  VARCHAR2  :   String   |
+RKXT_SLH  :  VARCHAR2  :   String   |
+RKXT_XGSJ  :  DATE  :   DateTime   |
+RKXT_SHSJ  :  DATE  :   DateTime   |
+CWMS  :  VARCHAR2  :   String   |
+TEL  :  VARCHAR2  :   String   |
+XCZP  :  BLOB  :   Binary   |
+RKXT_ZTTBSJ  :  DATE  :   DateTime   |
+TEL_SMS  :  VARCHAR2  :   String   |
+RKXT_ZTTB  :  VARCHAR2  :   String   |
+ZT_D_ACCEPT_STATE__MC  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-27 09:59:39,384][23]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 09:59:39,587][23]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-27 09:59:40,044][21]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_XZQH:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-27 09:59:40,045][21]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 09:59:40,047][21]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-27 09:59:40,148][21]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_ACCEPT_STATE:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+WB  :  VARCHAR2  :   String   |
+PY  :  VARCHAR2  :   String   |
+    PK: 
+DM
+=================
+
+=================
+[2019-03-27 09:59:40,148][21]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_ACCEPT_STATE where 1=1
+
+=================
+
+=================
+[2019-03-27 09:59:40,251][21]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_MZ:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+WB  :  VARCHAR2  :   String   |
+PY  :  VARCHAR2  :   String   |
+    PK: 
+DM
+=================
+
+=================
+[2019-03-27 09:59:40,252][21]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_MZ where 1=1
+
+=================
+
+=================
+[2019-03-27 09:59:40,760][23]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-27 09:59:40,761][23]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 09:59:40,970][23]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-27 09:59:51,404][21]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-27 09:59:51,407][21]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((ACCEPT_DATE >= :p0 AND ACCEPT_DATE <= :p1 AND SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+p0[DateTime]:2016/5/16 上午 12:00:00
+p1[DateTime]:2016/5/16 下午 11:59:59
+=================
+
+=================
+[2019-03-27 09:59:51,658][21]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((ACCEPT_DATE >= :p0 AND ACCEPT_DATE <= :p1 AND SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+p0[DateTime]:2016/5/16 上午 12:00:00
+p1[DateTime]:2016/5/16 下午 11:59:59
+=================
+
+=================
+[2019-03-27 17:40:31,977][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_USERS:  USER_ID  :  VARCHAR2  :   String   |
+USER_NAME  :  VARCHAR2  :   String   |
+USER_PASSWD  :  VARCHAR2  :   String   |
+LOGINED_FLAGS  :  NUMBER  :   Decimal   |
+ROLES_ID  :  VARCHAR2  :   String   |
+ROLES_ID_V_D_FW_S_ROLES__MC  :  VARCHAR2  :   String   |
+VER  :  NUMBER  :   Decimal   |
+DISABLED  :  NUMBER  :   Decimal   |
+CREATE_BY  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+DELETED_MARK  :  NUMBER  :   Decimal   |
+COMPANY_ID  :  VARCHAR2  :   String   |
+COMPANY_ID_D_XZQH__MC  :  VARCHAR2  :   String   |
+TEL1  :  VARCHAR2  :   String   |
+TEL2  :  VARCHAR2  :   String   |
+EMAIL  :  VARCHAR2  :   String   |
+ADDR  :  VARCHAR2  :   String   |
+    PK: 
+USER_ID
+=================
+
+=================
+[2019-03-27 17:40:32,029][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-27 17:40:32,031][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-27 17:40:32,034][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-27 17:40:32,035][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-27 17:40:32,044][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ update FW_S_USERS set LOGINED_FLAGS = :p0,UPDATE_ON = :p1,VER=VER+1 where (DELETED_MARK=0 AND ((USER_ID = :p2)))
+
+p0[Decimal]:-187556096
+p1[DateTime]:2019/3/27 下午 05:40:32
+p2[String]:admin
+=================
+
+=================
+[2019-03-27 17:40:32,050][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS where (DELETED_MARK=0 AND ((USER_ID = :p0)))
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-27 17:40:32,167][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_USERS_M_ROLES:  ID  :  NUMBER  :   Decimal   |
+USER_ID  :  VARCHAR2  :   String   |
+ROLE_ID  :  NUMBER  :   Decimal   |
+DISABLED  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 17:40:32,168][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS_M_ROLES where USER_ID = :p0
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-27 17:40:32,294][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_ROLES:  ID  :  NUMBER  :   Decimal   |
+SORT_CODE  :  NUMBER  :   Decimal   |
+ROLE_NAME  :  VARCHAR2  :   String   |
+ROLE_DESCRIPT  :  VARCHAR2  :   String   |
+DISABLED  :  NUMBER  :   Decimal   |
+CREATE_BY  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+DELETED_MARK  :  NUMBER  :   Decimal   |
+VER  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 17:40:32,295][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select ID,SORT_CODE,ROLE_NAME,DISABLED from FW_S_ROLES where (DELETED_MARK=0 AND ((ID = :p0)))
+
+p0[Decimal]:1
+=================
+
+=================
+[2019-03-27 17:40:32,408][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_ROLES_OPERATE:  ID  :  NUMBER  :   Decimal   |
+ROLE_ID  :  NUMBER  :   Decimal   |
+OPERATE_ID  :  VARCHAR2  :   String   |
+DISABLED  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 17:40:32,409][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select OPERATE_ID from FW_S_ROLES_OPERATE where (DISABLED = :p0 AND (ROLE_ID = :p1)) group by OPERATE_ID
+
+p0[Decimal]:0
+p1[Decimal]:1
+=================
+
+=================
+[2019-03-27 17:41:14,780][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 17:41:14,922][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))
+
+=================
+
+=================
+[2019-03-27 17:41:15,328][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 17:41:15,335][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))
+
+=================
+
+=================
+[2019-03-27 17:41:15,581][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_XZQH:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-27 17:41:15,583][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 17:41:37,589][14]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_FACILITY:  ID  :  NUMBER  :   Decimal   |
+FACILITY_CODE  :  VARCHAR2  :   String   |
+FACILITY_NAME  :  VARCHAR2  :   String   |
+FAC_TYPE  :  VARCHAR2  :   String   |
+FAC_TYPE_D_FACILITY_TYPE__MC  :  VARCHAR2  :   String   |
+FACILITY_GROUP  :  VARCHAR2  :   String   |
+FACILITY_GROUP_V_D_B_GROUP__MC  :  VARCHAR2  :   String   |
+FACILITY_PLAN  :  VARCHAR2  :   String   |
+FACILITY_PLAN_V_D_B_PLAN__MC  :  VARCHAR2  :   String   |
+FACILITY_ADDRESS  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+CREATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+SSQFJGDM  :  VARCHAR2  :   String   |
+SSQFJGDM_D_XZQH__MC  :  VARCHAR2  :   String   |
+SSSLDWJGDM  :  VARCHAR2  :   String   |
+SSSLDWJGDM_D_XZQH__MC  :  VARCHAR2  :   String   |
+SSSLDWTELPHONE  :  VARCHAR2  :   String   |
+SSSLDWLXR  :  VARCHAR2  :   String   |
+CSJBDXJSDHHM  :  VARCHAR2  :   String   |
+CSQMHLTQTS  :  NUMBER  :   Decimal   |
+CSJZZMDYJGTS  :  NUMBER  :   Decimal   |
+CSIP  :  VARCHAR2  :   String   |
+CSMAC  :  VARCHAR2  :   String   |
+CSVERSION  :  VARCHAR2  :   String   |
+CSFIRSTTIME  :  DATE  :   DateTime   |
+CSLASTTIME  :  DATE  :   DateTime   |
+NUM_QMHL  :  NUMBER  :   Decimal   |
+NUM_DSBL  :  NUMBER  :   Decimal   |
+NUM_JZZMDY  :  NUMBER  :   Decimal   |
+MACHINEMEMO  :  VARCHAR2  :   String   |
+EG_MSG_LZH  :  VARCHAR2  :   String   |
+EG_MSG_SHL  :  VARCHAR2  :   String   |
+YXZT  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 17:41:37,591][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-27 17:41:37,633][14]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_SFZ_ZZSL:  SLXLH  :  VARCHAR2  :   String   |
+SLJQH  :  VARCHAR2  :   String   |
+PERSON_ID  :  VARCHAR2  :   String   |
+PID  :  VARCHAR2  :   String   |
+NAME  :  VARCHAR2  :   String   |
+GENDER  :  VARCHAR2  :   String   |
+NATION  :  VARCHAR2  :   String   |
+DOB  :  DATE  :   DateTime   |
+ADDR_REGION_ID  :  VARCHAR2  :   String   |
+FULLADDR  :  VARCHAR2  :   String   |
+META_ADDR_ID  :  VARCHAR2  :   String   |
+IMAGE_ID  :  VARCHAR2  :   String   |
+ISSUED_UNIT  :  VARCHAR2  :   String   |
+USEFUL_LIFE  :  VARCHAR2  :   String   |
+UL_FROM_DATE  :  DATE  :   DateTime   |
+UL_END_DATE  :  DATE  :   DateTime   |
+APPLIED_REASON  :  VARCHAR2  :   String   |
+ACCEPT_DATE  :  DATE  :   DateTime   |
+ACCEPT_UNIT  :  VARCHAR2  :   String   |
+ACCEPT_ORG_ID  :  VARCHAR2  :   String   |
+ACCEPT_PSN  :  VARCHAR2  :   String   |
+PCS  :  VARCHAR2  :   String   |
+ORG_ID  :  VARCHAR2  :   String   |
+WHEN_REGISTERED  :  DATE  :   DateTime   |
+IMAGE  :  BLOB  :   Binary   |
+ZWCJJG  :  VARCHAR2  :   String   |
+ZWY_ZCJG  :  VARCHAR2  :   String   |
+ZWY_ZW  :  VARCHAR2  :   String   |
+ZWY_TXBH  :  VARCHAR2  :   String   |
+ZWY_TXZLZ  :  VARCHAR2  :   String   |
+ZWY_TZSJ  :  BLOB  :   Binary   |
+ZWY_TXSJ  :  BLOB  :   Binary   |
+ZWE_ZCJG  :  VARCHAR2  :   String   |
+ZWE_ZW  :  VARCHAR2  :   String   |
+ZWE_TXBH  :  VARCHAR2  :   String   |
+ZWE_TXZLZ  :  VARCHAR2  :   String   |
+ZWE_TZSJ  :  BLOB  :   Binary   |
+ZWE_TXSJ  :  BLOB  :   Binary   |
+XTZCH  :  VARCHAR2  :   String   |
+ZWCJQID  :  VARCHAR2  :   String   |
+CJDW_GAJGJGDM  :  VARCHAR2  :   String   |
+CJDW_GAJGMC  :  VARCHAR2  :   String   |
+CJR_BH  :  VARCHAR2  :   String   |
+CJR_XM  :  VARCHAR2  :   String   |
+CJSJ  :  DATE  :   DateTime   |
+ZT  :  VARCHAR2  :   String   |
+RKXT_SLH  :  VARCHAR2  :   String   |
+RKXT_XGSJ  :  DATE  :   DateTime   |
+RKXT_SHSJ  :  DATE  :   DateTime   |
+CWMS  :  VARCHAR2  :   String   |
+TEL  :  VARCHAR2  :   String   |
+XCZP  :  BLOB  :   Binary   |
+RKXT_ZTTBSJ  :  DATE  :   DateTime   |
+TEL_SMS  :  VARCHAR2  :   String   |
+RKXT_ZTTB  :  VARCHAR2  :   String   |
+ZT_D_ACCEPT_STATE__MC  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-27 17:41:37,634][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 17:41:38,135][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-27 17:41:38,274][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 17:41:38,276][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-27 17:41:38,411][11]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_ACCEPT_STATE:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+WB  :  VARCHAR2  :   String   |
+PY  :  VARCHAR2  :   String   |
+    PK: 
+DM
+=================
+
+=================
+[2019-03-27 17:41:38,412][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_ACCEPT_STATE where 1=1
+
+=================
+
+=================
+[2019-03-27 17:41:38,635][11]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_MZ:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+WB  :  VARCHAR2  :   String   |
+PY  :  VARCHAR2  :   String   |
+    PK: 
+DM
+=================
+
+=================
+[2019-03-27 17:41:38,637][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_MZ where 1=1
+
+=================
+
+=================
+[2019-03-27 17:41:38,984][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-27 17:41:38,988][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 17:41:39,280][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-27 17:42:30,869][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select DM,MC from D_XZQH where 1=1) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 17:42:30,925][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 17:42:33,735][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select DM,MC from D_XZQH where 1=1) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 17:42:33,737][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 17:43:31,502][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select DM,MC from D_XZQH where 1=1) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 17:43:31,505][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 17:49:54,739][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_USERS:  USER_ID  :  VARCHAR2  :   String   |
+USER_NAME  :  VARCHAR2  :   String   |
+USER_PASSWD  :  VARCHAR2  :   String   |
+LOGINED_FLAGS  :  NUMBER  :   Decimal   |
+ROLES_ID  :  VARCHAR2  :   String   |
+ROLES_ID_V_D_FW_S_ROLES__MC  :  VARCHAR2  :   String   |
+VER  :  NUMBER  :   Decimal   |
+DISABLED  :  NUMBER  :   Decimal   |
+CREATE_BY  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+DELETED_MARK  :  NUMBER  :   Decimal   |
+COMPANY_ID  :  VARCHAR2  :   String   |
+COMPANY_ID_D_XZQH__MC  :  VARCHAR2  :   String   |
+TEL1  :  VARCHAR2  :   String   |
+TEL2  :  VARCHAR2  :   String   |
+EMAIL  :  VARCHAR2  :   String   |
+ADDR  :  VARCHAR2  :   String   |
+    PK: 
+USER_ID
+=================
+
+=================
+[2019-03-27 17:49:54,774][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-27 17:49:54,778][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-27 17:49:54,782][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-27 17:49:54,783][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-27 17:49:54,794][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ update FW_S_USERS set LOGINED_FLAGS = :p0,UPDATE_ON = :p1,VER=VER+1 where (DELETED_MARK=0 AND ((USER_ID = :p2)))
+
+p0[Decimal]:-709150848
+p1[DateTime]:2019/3/27 下午 05:49:54
+p2[String]:admin
+=================
+
+=================
+[2019-03-27 17:49:54,802][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS where (DELETED_MARK=0 AND ((USER_ID = :p0)))
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-27 17:49:54,943][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_USERS_M_ROLES:  ID  :  NUMBER  :   Decimal   |
+USER_ID  :  VARCHAR2  :   String   |
+ROLE_ID  :  NUMBER  :   Decimal   |
+DISABLED  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 17:49:54,944][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS_M_ROLES where USER_ID = :p0
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-27 17:49:55,065][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_ROLES:  ID  :  NUMBER  :   Decimal   |
+SORT_CODE  :  NUMBER  :   Decimal   |
+ROLE_NAME  :  VARCHAR2  :   String   |
+ROLE_DESCRIPT  :  VARCHAR2  :   String   |
+DISABLED  :  NUMBER  :   Decimal   |
+CREATE_BY  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+DELETED_MARK  :  NUMBER  :   Decimal   |
+VER  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 17:49:55,065][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select ID,SORT_CODE,ROLE_NAME,DISABLED from FW_S_ROLES where (DELETED_MARK=0 AND ((ID = :p0)))
+
+p0[Decimal]:1
+=================
+
+=================
+[2019-03-27 17:49:55,168][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_ROLES_OPERATE:  ID  :  NUMBER  :   Decimal   |
+ROLE_ID  :  NUMBER  :   Decimal   |
+OPERATE_ID  :  VARCHAR2  :   String   |
+DISABLED  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 17:49:55,169][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select OPERATE_ID from FW_S_ROLES_OPERATE where (DISABLED = :p0 AND (ROLE_ID = :p1)) group by OPERATE_ID
+
+p0[Decimal]:0
+p1[Decimal]:1
+=================
+
+=================
+[2019-03-27 17:49:59,446][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 17:49:59,453][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))
+
+=================
+
+=================
+[2019-03-27 17:49:59,970][16]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_XZQH:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-27 17:49:59,971][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 17:50:00,101][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 17:50:00,103][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))
+
+=================
+
+=================
+[2019-03-27 17:50:02,220][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select DM,MC from D_XZQH where 1=1) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 17:50:02,223][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 17:50:33,669][16]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_PLAN:  ID  :  NUMBER  :   Decimal   |
+PLAN_NAME  :  VARCHAR2  :   String   |
+PLAN_TYPE  :  VARCHAR2  :   String   |
+PLAN_TYPE_D_FACILITY_TYPE__MC  :  VARCHAR2  :   String   |
+BEFORE_CMD  :  VARCHAR2  :   String   |
+AFTER_CMD  :  VARCHAR2  :   String   |
+DESCRIPTION  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_ON  :  DATE  :   DateTime   |
+CREATE_BY  :  VARCHAR2  :   String   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+PLAN_FILE  :  VARCHAR2  :   String   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 17:50:33,694][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_PLAN where (1=1)) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 17:50:33,753][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_PLAN where (1=1)
+
+=================
+
+=================
+[2019-03-27 17:50:34,047][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_PLAN where (1=1)) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 17:50:34,052][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_PLAN where (1=1)
+
+=================
+
+=================
+[2019-03-27 17:50:34,364][16]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_FACILITY_TYPE:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+WB  :  VARCHAR2  :   String   |
+PY  :  VARCHAR2  :   String   |
+    PK: 
+DM
+=================
+
+=================
+[2019-03-27 17:50:34,365][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_FACILITY_TYPE where 1=1
+
+=================
+
+=================
+[2019-03-27 17:50:59,862][7]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from FW_S_ROLES where (DELETED_MARK=0 AND (1=1))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 17:50:59,953][7]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_ROLES where (DELETED_MARK=0 AND (1=1))
+
+=================
+
+=================
+[2019-03-27 17:51:00,413][10]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from FW_S_ROLES where (DELETED_MARK=0 AND (1=1))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 17:51:00,415][10]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_ROLES where (DELETED_MARK=0 AND (1=1))
+
+=================
+
+=================
+[2019-03-27 18:09:15,269][90]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from FW_S_ROLES where (DELETED_MARK=0 AND (1=1))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:09:15,272][90]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_ROLES where (DELETED_MARK=0 AND (1=1))
+
+=================
+
+=================
+[2019-03-27 18:09:15,801][91]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from FW_S_ROLES where (DELETED_MARK=0 AND (1=1))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:09:15,811][91]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_ROLES where (DELETED_MARK=0 AND (1=1))
+
+=================
+
+=================
+[2019-03-27 18:09:16,001][90]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:09:16,003][90]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))
+
+=================
+
+=================
+[2019-03-27 18:09:16,039][87]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:09:16,043][87]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))
+
+=================
+
+=================
+[2019-03-27 18:09:16,269][90]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 18:09:21,794][93]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select DM,MC from D_XZQH where 1=1) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:09:21,800][93]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 18:12:10,206][104]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND (((USER_ID = :p0) AND 1=1)))) where rownum <= 30
+
+p0[String]:450206620000
+=================
+
+=================
+[2019-03-27 18:12:10,296][104]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND (((USER_ID = :p0) AND 1=1)))
+
+p0[String]:450206620000
+=================
+
+=================
+[2019-03-27 18:12:10,442][102]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select DM,MC from D_XZQH where ((DM = :p0))) where rownum <= 30
+
+p0[String]:450206620000
+=================
+
+=================
+[2019-03-27 18:12:10,446][102]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from D_XZQH where ((DM = :p0))
+
+p0[String]:450206620000
+=================
+
+=================
+[2019-03-27 18:12:10,710][104]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_ROLES where (DELETED_MARK=0 AND (1=1)) order by SORT_CODE,ID
+
+=================
+
+=================
+[2019-03-27 18:12:10,713][104]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_ROLES where (DELETED_MARK=0 AND (1=1))
+
+=================
+
+=================
+[2019-03-27 18:12:10,715][104]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS_M_ROLES where (USER_ID = :p0 AND ROLE_ID = :p1)
+
+p0[String]:450206620000
+p1[Decimal]:1
+=================
+
+=================
+[2019-03-27 18:12:10,718][104]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS_M_ROLES where (USER_ID = :p0 AND ROLE_ID = :p1)
+
+p0[String]:450206620000
+p1[Decimal]:2
+=================
+
+=================
+[2019-03-27 18:12:10,720][104]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS_M_ROLES where (USER_ID = :p0 AND ROLE_ID = :p1)
+
+p0[String]:450206620000
+p1[Decimal]:3
+=================
+
+=================
+[2019-03-27 18:12:10,721][104]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS_M_ROLES where (USER_ID = :p0 AND ROLE_ID = :p1)
+
+p0[String]:450206620000
+p1[Decimal]:4
+=================
+
+=================
+[2019-03-27 18:20:37,929][6]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_USERS:  USER_ID  :  VARCHAR2  :   String   |
+USER_NAME  :  VARCHAR2  :   String   |
+USER_PASSWD  :  VARCHAR2  :   String   |
+LOGINED_FLAGS  :  NUMBER  :   Decimal   |
+ROLES_ID  :  VARCHAR2  :   String   |
+ROLES_ID_V_D_FW_S_ROLES__MC  :  VARCHAR2  :   String   |
+VER  :  NUMBER  :   Decimal   |
+DISABLED  :  NUMBER  :   Decimal   |
+CREATE_BY  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+DELETED_MARK  :  NUMBER  :   Decimal   |
+COMPANY_ID  :  VARCHAR2  :   String   |
+COMPANY_ID_D_XZQH__MC  :  VARCHAR2  :   String   |
+TEL1  :  VARCHAR2  :   String   |
+TEL2  :  VARCHAR2  :   String   |
+EMAIL  :  VARCHAR2  :   String   |
+ADDR  :  VARCHAR2  :   String   |
+    PK: 
+USER_ID
+=================
+
+=================
+[2019-03-27 18:20:37,969][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-27 18:20:37,972][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-27 18:20:37,975][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-27 18:20:37,976][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-27 18:20:37,986][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ update FW_S_USERS set LOGINED_FLAGS = :p0,UPDATE_ON = :p1,VER=VER+1 where (DELETED_MARK=0 AND ((USER_ID = :p2)))
+
+p0[Decimal]:515975616
+p1[DateTime]:2019/3/27 下午 06:20:37
+p2[String]:admin
+=================
+
+=================
+[2019-03-27 18:20:37,993][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS where (DELETED_MARK=0 AND ((USER_ID = :p0)))
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-27 18:20:38,107][6]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_USERS_M_ROLES:  ID  :  NUMBER  :   Decimal   |
+USER_ID  :  VARCHAR2  :   String   |
+ROLE_ID  :  NUMBER  :   Decimal   |
+DISABLED  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 18:20:38,109][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS_M_ROLES where USER_ID = :p0
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-27 18:20:38,240][6]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_ROLES:  ID  :  NUMBER  :   Decimal   |
+SORT_CODE  :  NUMBER  :   Decimal   |
+ROLE_NAME  :  VARCHAR2  :   String   |
+ROLE_DESCRIPT  :  VARCHAR2  :   String   |
+DISABLED  :  NUMBER  :   Decimal   |
+CREATE_BY  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+DELETED_MARK  :  NUMBER  :   Decimal   |
+VER  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 18:20:38,241][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select ID,SORT_CODE,ROLE_NAME,DISABLED from FW_S_ROLES where (DELETED_MARK=0 AND ((ID = :p0)))
+
+p0[Decimal]:1
+=================
+
+=================
+[2019-03-27 18:20:38,391][6]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_ROLES_OPERATE:  ID  :  NUMBER  :   Decimal   |
+ROLE_ID  :  NUMBER  :   Decimal   |
+OPERATE_ID  :  VARCHAR2  :   String   |
+DISABLED  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 18:20:38,392][6]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select OPERATE_ID from FW_S_ROLES_OPERATE where (DISABLED = :p0 AND (ROLE_ID = :p1)) group by OPERATE_ID
+
+p0[Decimal]:0
+p1[Decimal]:1
+=================
+
+=================
+[2019-03-27 18:20:42,394][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:20:42,419][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))
+
+=================
+
+=================
+[2019-03-27 18:20:42,764][16]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_XZQH:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-27 18:20:42,765][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 18:20:42,934][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:20:42,936][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))
+
+=================
+
+=================
+[2019-03-27 18:20:45,640][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select DM,MC from D_XZQH where 1=1) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:20:45,643][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 18:22:16,777][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from D_XZQH where (DM = :p0)
+
+p0[String]:451102530000
+=================
+
+=================
+[2019-03-27 18:22:16,925][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertLoadOracleSequence
+=================
+
+=================
+[2019-03-27 18:22:16,979][11]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=DUAL:      PK: 
+
+=================
+
+=================
+[2019-03-27 18:22:16,993][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select SEQ_FW_S_USERS.NextVal as val from dual where 1=1
+
+=================
+
+=================
+[2019-03-27 18:22:16,997][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-27 18:22:17,062][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork.core.db.Listener.BeforeInsertLoadSortCode
+=================
+
+=================
+[2019-03-27 18:22:17,071][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-27 18:22:17,078][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-27 18:22:17,082][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-27 18:22:17,102][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ insert into FW_S_USERS (COMPANY_ID,USER_ID,USER_NAME,USER_PASSWD,TEL1,TEL2,EMAIL,ADDR,DISABLED,DELETED_MARK,VER,COMPANY_ID_D_XZQH__MC,CREATE_ON,CREATE_BY) values(:p0,:p1,:p2,:p3,:p4,:p5,:p6,:p7,:p8,:p9,:p10,:p11,:p12,:p13)
+
+p0[String]:451102530000
+p1[String]:HB0004
+p2[String]:HB0004
+p3[String]:6E462A289B494A5120D446D37CF711E0
+p4[String]:
+p5[String]:
+p6[String]:
+p7[String]:
+p8[Decimal]:0
+p9[Decimal]:0
+p10[Decimal]:1
+p11[String]:贺州市公安局桂岭派出所
+p12[DateTime]:2019/3/27 下午 06:22:17
+p13[String]:admin
+=================
+
+=================
+[2019-03-27 18:22:17,892][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:22:17,895][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))
+
+=================
+
+=================
+[2019-03-27 18:22:25,929][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from FW_S_ROLES where (DELETED_MARK=0 AND (1=1))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:22:25,954][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_ROLES where (DELETED_MARK=0 AND (1=1))
+
+=================
+
+=================
+[2019-03-27 18:22:25,966][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from FW_S_ROLES where (DELETED_MARK=0 AND (1=1))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:22:25,968][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_ROLES where (DELETED_MARK=0 AND (1=1))
+
+=================
+
+=================
+[2019-03-27 18:22:26,942][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:22:26,944][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))
+
+=================
+
+=================
+[2019-03-27 18:22:26,979][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:22:26,982][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))
+
+=================
+
+=================
+[2019-03-27 18:22:27,175][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 18:22:30,114][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND (((USER_ID = :p0) AND 1=1)))) where rownum <= 30
+
+p0[String]:HB0004
+=================
+
+=================
+[2019-03-27 18:22:30,115][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND (((USER_ID = :p0) AND 1=1)))
+
+p0[String]:HB0004
+=================
+
+=================
+[2019-03-27 18:22:30,160][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select DM,MC from D_XZQH where ((DM = :p0))) where rownum <= 30
+
+p0[String]:451102530000
+=================
+
+=================
+[2019-03-27 18:22:30,162][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from D_XZQH where ((DM = :p0))
+
+p0[String]:451102530000
+=================
+
+=================
+[2019-03-27 18:22:30,619][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_ROLES where (DELETED_MARK=0 AND (1=1)) order by SORT_CODE,ID
+
+=================
+
+=================
+[2019-03-27 18:22:30,625][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_ROLES where (DELETED_MARK=0 AND (1=1))
+
+=================
+
+=================
+[2019-03-27 18:22:30,627][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS_M_ROLES where (USER_ID = :p0 AND ROLE_ID = :p1)
+
+p0[String]:HB0004
+p1[Decimal]:1
+=================
+
+=================
+[2019-03-27 18:22:30,629][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS_M_ROLES where (USER_ID = :p0 AND ROLE_ID = :p1)
+
+p0[String]:HB0004
+p1[Decimal]:2
+=================
+
+=================
+[2019-03-27 18:22:30,632][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS_M_ROLES where (USER_ID = :p0 AND ROLE_ID = :p1)
+
+p0[String]:HB0004
+p1[Decimal]:3
+=================
+
+=================
+[2019-03-27 18:22:30,634][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS_M_ROLES where (USER_ID = :p0 AND ROLE_ID = :p1)
+
+p0[String]:HB0004
+p1[Decimal]:4
+=================
+
+=================
+[2019-03-27 18:22:33,224][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-27 18:22:33,226][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-27 18:22:33,227][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-27 18:22:33,227][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-27 18:22:33,228][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ update FW_S_USERS set LOGINED_FLAGS = :p0,UPDATE_ON = :p1,UPDATE_BY = :p2,VER=VER+1 where (DELETED_MARK=0 AND ((USER_ID = :p3)))
+
+p0[Decimal]:906726208
+p1[DateTime]:2019/3/27 下午 06:22:33
+p2[String]:admin
+p3[String]:HB0004
+=================
+
+=================
+[2019-03-27 18:22:33,299][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS where (DELETED_MARK=0 AND ((USER_ID = :p0)))
+
+p0[String]:HB0004
+=================
+
+=================
+[2019-03-27 18:22:33,301][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS_M_ROLES where USER_ID = :p0
+
+p0[String]:HB0004
+=================
+
+=================
+[2019-03-27 18:22:33,303][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select OPERATE_ID from FW_S_ROLES_OPERATE where (DISABLED = :p0 AND 1=1) group by OPERATE_ID
+
+p0[Decimal]:0
+=================
+
+=================
+[2019-03-27 18:22:33,315][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ DELETE FROM FW_S_USERS_M_ROLES WHERE USER_ID='HB0004'
+
+=================
+
+=================
+[2019-03-27 18:22:33,321][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-27 18:22:33,326][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-27 18:22:33,328][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-27 18:22:33,329][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-27 18:22:33,332][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ update FW_S_USERS set COMPANY_ID = :p0,USER_NAME = :p1,TEL1 = :p2,TEL2 = :p3,EMAIL = :p4,ADDR = :p5,ROLES_ID = :p6,COMPANY_ID_D_XZQH__MC = :p7,ROLES_ID_V_D_FW_S_ROLES__MC = :p8,UPDATE_ON = :p9,UPDATE_BY = :p10,VER=VER+1 where (DELETED_MARK=0 AND ((USER_ID = :p11)))
+
+p0[String]:451102530000
+p1[String]:HB0004
+p2[String]:
+p3[String]:
+p4[String]:
+p5[String]:
+p6[String]:2
+p7[String]:贺州市公安局桂岭派出所
+p8[String]:单位一级管理员
+p9[DateTime]:2019/3/27 下午 06:22:33
+p10[String]:admin
+p11[String]:HB0004
+=================
+
+=================
+[2019-03-27 18:22:33,396][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertLoadOracleSequence
+=================
+
+=================
+[2019-03-27 18:22:33,397][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select SEQ_FW_S_USERS_M_ROLES.NextVal as val from dual where 1=1
+
+=================
+
+=================
+[2019-03-27 18:22:33,400][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-27 18:22:33,403][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork.core.db.Listener.BeforeInsertLoadSortCode
+=================
+
+=================
+[2019-03-27 18:22:33,404][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-27 18:22:33,405][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-27 18:22:33,406][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-27 18:22:33,407][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ insert into FW_S_USERS_M_ROLES (USER_ID,ROLE_ID,ID) values(:p0,:p1,:p2)
+
+p0[String]:HB0004
+p1[Decimal]:2
+p2[Decimal]:1060
+=================
+
+=================
+[2019-03-27 18:22:34,385][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:22:34,388][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))
+
+=================
+
+=================
+[2019-03-27 18:22:42,454][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND (((USER_ID = :p0) AND 1=1)))) where rownum <= 30
+
+p0[String]:HB0004
+=================
+
+=================
+[2019-03-27 18:22:42,456][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND (((USER_ID = :p0) AND 1=1)))
+
+p0[String]:HB0004
+=================
+
+=================
+[2019-03-27 18:22:42,466][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_ROLES where (DELETED_MARK=0 AND (1=1)) order by SORT_CODE,ID
+
+=================
+
+=================
+[2019-03-27 18:22:42,468][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_ROLES where (DELETED_MARK=0 AND (1=1))
+
+=================
+
+=================
+[2019-03-27 18:22:42,470][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS_M_ROLES where (USER_ID = :p0 AND ROLE_ID = :p1)
+
+p0[String]:HB0004
+p1[Decimal]:1
+=================
+
+=================
+[2019-03-27 18:22:42,474][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS_M_ROLES where (USER_ID = :p0 AND ROLE_ID = :p1)
+
+p0[String]:HB0004
+p1[Decimal]:2
+=================
+
+=================
+[2019-03-27 18:22:42,482][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS_M_ROLES where (USER_ID = :p0 AND ROLE_ID = :p1)
+
+p0[String]:HB0004
+p1[Decimal]:3
+=================
+
+=================
+[2019-03-27 18:22:42,484][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS_M_ROLES where (USER_ID = :p0 AND ROLE_ID = :p1)
+
+p0[String]:HB0004
+p1[Decimal]:4
+=================
+
+=================
+[2019-03-27 18:22:43,016][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select DM,MC from D_XZQH where ((DM = :p0))) where rownum <= 30
+
+p0[String]:451102530000
+=================
+
+=================
+[2019-03-27 18:22:43,019][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from D_XZQH where ((DM = :p0))
+
+p0[String]:451102530000
+=================
+
+=================
+[2019-03-27 18:22:45,371][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select DM,MC from D_XZQH where 1=1) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:22:45,374][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 18:22:47,291][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-27 18:22:47,291][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-27 18:22:47,292][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-27 18:22:47,292][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-27 18:22:47,293][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ update FW_S_USERS set LOGINED_FLAGS = :p0,UPDATE_ON = :p1,UPDATE_BY = :p2,VER=VER+1 where (DELETED_MARK=0 AND ((USER_ID = :p3)))
+
+p0[Decimal]:1408282944
+p1[DateTime]:2019/3/27 下午 06:22:47
+p2[String]:admin
+p3[String]:HB0004
+=================
+
+=================
+[2019-03-27 18:22:47,325][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS where (DELETED_MARK=0 AND ((USER_ID = :p0)))
+
+p0[String]:HB0004
+=================
+
+=================
+[2019-03-27 18:22:47,327][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS_M_ROLES where USER_ID = :p0
+
+p0[String]:HB0004
+=================
+
+=================
+[2019-03-27 18:22:47,329][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select ID,SORT_CODE,ROLE_NAME,DISABLED from FW_S_ROLES where (DELETED_MARK=0 AND ((ID = :p0)))
+
+p0[Decimal]:2
+=================
+
+=================
+[2019-03-27 18:22:47,330][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select OPERATE_ID from FW_S_ROLES_OPERATE where (DISABLED = :p0 AND (ROLE_ID = :p1)) group by OPERATE_ID
+
+p0[Decimal]:0
+p1[Decimal]:2
+=================
+
+=================
+[2019-03-27 18:22:47,333][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ DELETE FROM FW_S_USERS_M_ROLES WHERE USER_ID='HB0004'
+
+=================
+
+=================
+[2019-03-27 18:22:47,334][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-27 18:22:47,337][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-27 18:22:47,337][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-27 18:22:47,339][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-27 18:22:47,340][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ update FW_S_USERS set COMPANY_ID = :p0,USER_NAME = :p1,TEL1 = :p2,TEL2 = :p3,EMAIL = :p4,ADDR = :p5,ROLES_ID = :p6,COMPANY_ID_D_XZQH__MC = :p7,ROLES_ID_V_D_FW_S_ROLES__MC = :p8,UPDATE_ON = :p9,UPDATE_BY = :p10,VER=VER+1 where (DELETED_MARK=0 AND ((USER_ID = :p11)))
+
+p0[String]:450303000000
+p1[String]:HB0004
+p2[String]:
+p3[String]:
+p4[String]:
+p5[String]:
+p6[String]:2
+p7[String]:桂林市公安局叠彩分局
+p8[String]:单位一级管理员
+p9[DateTime]:2019/3/27 下午 06:22:47
+p10[String]:admin
+p11[String]:HB0004
+=================
+
+=================
+[2019-03-27 18:22:47,383][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertLoadOracleSequence
+=================
+
+=================
+[2019-03-27 18:22:47,387][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select SEQ_FW_S_USERS_M_ROLES.NextVal as val from dual where 1=1
+
+=================
+
+=================
+[2019-03-27 18:22:47,392][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-27 18:22:47,394][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork.core.db.Listener.BeforeInsertLoadSortCode
+=================
+
+=================
+[2019-03-27 18:22:47,396][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-27 18:22:47,398][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-27 18:22:47,402][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-27 18:22:47,406][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ insert into FW_S_USERS_M_ROLES (USER_ID,ROLE_ID,ID) values(:p0,:p1,:p2)
+
+p0[String]:HB0004
+p1[Decimal]:2
+p2[Decimal]:1061
+=================
+
+=================
+[2019-03-27 18:22:48,234][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:22:48,237][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))
+
+=================
+
+=================
+[2019-03-27 18:23:42,839][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-27 18:23:42,840][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-27 18:23:42,841][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-27 18:23:42,841][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-27 18:23:42,842][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ update FW_S_USERS set LOGINED_FLAGS = :p0,UPDATE_ON = :p1,VER=VER+1 where (DELETED_MARK=0 AND ((USER_ID = :p2)))
+
+p0[Decimal]:-1559316608
+p1[DateTime]:2019/3/27 下午 06:23:42
+p2[String]:HB0004
+=================
+
+=================
+[2019-03-27 18:23:42,872][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS where (DELETED_MARK=0 AND ((USER_ID = :p0)))
+
+p0[String]:HB0004
+=================
+
+=================
+[2019-03-27 18:23:42,874][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS_M_ROLES where USER_ID = :p0
+
+p0[String]:HB0004
+=================
+
+=================
+[2019-03-27 18:23:42,875][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select ID,SORT_CODE,ROLE_NAME,DISABLED from FW_S_ROLES where (DELETED_MARK=0 AND ((ID = :p0)))
+
+p0[Decimal]:2
+=================
+
+=================
+[2019-03-27 18:23:42,877][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select OPERATE_ID from FW_S_ROLES_OPERATE where (DISABLED = :p0 AND (ROLE_ID = :p1)) group by OPERATE_ID
+
+p0[Decimal]:0
+p1[Decimal]:2
+=================
+
+=================
+[2019-03-27 18:23:49,997][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-27 18:23:49,998][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-27 18:23:49,999][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-27 18:23:50,000][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-27 18:23:50,001][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ update FW_S_USERS set LOGINED_FLAGS = :p0,UPDATE_ON = :p1,VER=VER+1 where (DELETED_MARK=0 AND ((USER_ID = :p2)))
+
+p0[Decimal]:1222789376
+p1[DateTime]:2019/3/27 下午 06:23:49
+p2[String]:admin
+=================
+
+=================
+[2019-03-27 18:23:50,011][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS where (DELETED_MARK=0 AND ((USER_ID = :p0)))
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-27 18:23:50,012][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS_M_ROLES where USER_ID = :p0
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-27 18:23:50,014][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select ID,SORT_CODE,ROLE_NAME,DISABLED from FW_S_ROLES where (DELETED_MARK=0 AND ((ID = :p0)))
+
+p0[Decimal]:1
+=================
+
+=================
+[2019-03-27 18:23:50,015][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select OPERATE_ID from FW_S_ROLES_OPERATE where (DISABLED = :p0 AND (ROLE_ID = :p1)) group by OPERATE_ID
+
+p0[Decimal]:0
+p1[Decimal]:1
+=================
+
+=================
+[2019-03-27 18:28:13,171][40]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_FACILITY:  ID  :  NUMBER  :   Decimal   |
+FACILITY_CODE  :  VARCHAR2  :   String   |
+FACILITY_NAME  :  VARCHAR2  :   String   |
+FAC_TYPE  :  VARCHAR2  :   String   |
+FAC_TYPE_D_FACILITY_TYPE__MC  :  VARCHAR2  :   String   |
+FACILITY_GROUP  :  VARCHAR2  :   String   |
+FACILITY_GROUP_V_D_B_GROUP__MC  :  VARCHAR2  :   String   |
+FACILITY_PLAN  :  VARCHAR2  :   String   |
+FACILITY_PLAN_V_D_B_PLAN__MC  :  VARCHAR2  :   String   |
+FACILITY_ADDRESS  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+CREATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+SSQFJGDM  :  VARCHAR2  :   String   |
+SSQFJGDM_D_XZQH__MC  :  VARCHAR2  :   String   |
+SSSLDWJGDM  :  VARCHAR2  :   String   |
+SSSLDWJGDM_D_XZQH__MC  :  VARCHAR2  :   String   |
+SSSLDWTELPHONE  :  VARCHAR2  :   String   |
+SSSLDWLXR  :  VARCHAR2  :   String   |
+CSJBDXJSDHHM  :  VARCHAR2  :   String   |
+CSQMHLTQTS  :  NUMBER  :   Decimal   |
+CSJZZMDYJGTS  :  NUMBER  :   Decimal   |
+CSIP  :  VARCHAR2  :   String   |
+CSMAC  :  VARCHAR2  :   String   |
+CSVERSION  :  VARCHAR2  :   String   |
+CSFIRSTTIME  :  DATE  :   DateTime   |
+CSLASTTIME  :  DATE  :   DateTime   |
+NUM_QMHL  :  NUMBER  :   Decimal   |
+NUM_DSBL  :  NUMBER  :   Decimal   |
+NUM_JZZMDY  :  NUMBER  :   Decimal   |
+MACHINEMEMO  :  VARCHAR2  :   String   |
+EG_MSG_LZH  :  VARCHAR2  :   String   |
+EG_MSG_SHL  :  VARCHAR2  :   String   |
+YXZT  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 18:28:13,186][40]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-27 18:28:13,187][40]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 18:28:13,341][40]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_PLAN:  ID  :  NUMBER  :   Decimal   |
+PLAN_NAME  :  VARCHAR2  :   String   |
+PLAN_TYPE  :  VARCHAR2  :   String   |
+PLAN_TYPE_D_FACILITY_TYPE__MC  :  VARCHAR2  :   String   |
+BEFORE_CMD  :  VARCHAR2  :   String   |
+AFTER_CMD  :  VARCHAR2  :   String   |
+DESCRIPTION  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_ON  :  DATE  :   DateTime   |
+CREATE_BY  :  VARCHAR2  :   String   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+PLAN_FILE  :  VARCHAR2  :   String   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-27 18:28:13,342][40]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select ID as DM, PLAN_NAME as MC from B_PLAN where 1=1
+
+=================
+
+=================
+[2019-03-27 18:28:13,638][39]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_FACILITY where ((FAC_TYPE = :p0))) where rownum <= 10
+
+p0[String]:AD
+=================
+
+=================
+[2019-03-27 18:28:13,642][39]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_FACILITY where ((FAC_TYPE = :p0))
+
+p0[String]:AD
+=================
+
+=================
+[2019-03-27 18:28:13,699][40]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_FACILITY where ((FAC_TYPE = :p0))) where rownum <= 10
+
+p0[String]:AD
+=================
+
+=================
+[2019-03-27 18:28:13,702][40]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_FACILITY where ((FAC_TYPE = :p0))
+
+p0[String]:AD
+=================
+
+=================
+[2019-03-27 18:28:13,791][39]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_FACILITY where ((FAC_TYPE = :p0))) where rownum <= 10
+
+p0[String]:AC
+=================
+
+=================
+[2019-03-27 18:28:13,793][39]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_FACILITY where ((FAC_TYPE = :p0))
+
+p0[String]:AC
+=================
+
+=================
+[2019-03-27 18:28:13,857][38]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_FACILITY where ((FAC_TYPE = :p0))) where rownum <= 10
+
+p0[String]:AC
+=================
+
+=================
+[2019-03-27 18:28:13,860][38]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_FACILITY where ((FAC_TYPE = :p0))
+
+p0[String]:AC
+=================
+
+=================
+[2019-03-27 18:43:20,532][73]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-27 18:43:20,638][73]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_SFZ_ZZSL:  SLXLH  :  VARCHAR2  :   String   |
+SLJQH  :  VARCHAR2  :   String   |
+PERSON_ID  :  VARCHAR2  :   String   |
+PID  :  VARCHAR2  :   String   |
+NAME  :  VARCHAR2  :   String   |
+GENDER  :  VARCHAR2  :   String   |
+NATION  :  VARCHAR2  :   String   |
+DOB  :  DATE  :   DateTime   |
+ADDR_REGION_ID  :  VARCHAR2  :   String   |
+FULLADDR  :  VARCHAR2  :   String   |
+META_ADDR_ID  :  VARCHAR2  :   String   |
+IMAGE_ID  :  VARCHAR2  :   String   |
+ISSUED_UNIT  :  VARCHAR2  :   String   |
+USEFUL_LIFE  :  VARCHAR2  :   String   |
+UL_FROM_DATE  :  DATE  :   DateTime   |
+UL_END_DATE  :  DATE  :   DateTime   |
+APPLIED_REASON  :  VARCHAR2  :   String   |
+ACCEPT_DATE  :  DATE  :   DateTime   |
+ACCEPT_UNIT  :  VARCHAR2  :   String   |
+ACCEPT_ORG_ID  :  VARCHAR2  :   String   |
+ACCEPT_PSN  :  VARCHAR2  :   String   |
+PCS  :  VARCHAR2  :   String   |
+ORG_ID  :  VARCHAR2  :   String   |
+WHEN_REGISTERED  :  DATE  :   DateTime   |
+IMAGE  :  BLOB  :   Binary   |
+ZWCJJG  :  VARCHAR2  :   String   |
+ZWY_ZCJG  :  VARCHAR2  :   String   |
+ZWY_ZW  :  VARCHAR2  :   String   |
+ZWY_TXBH  :  VARCHAR2  :   String   |
+ZWY_TXZLZ  :  VARCHAR2  :   String   |
+ZWY_TZSJ  :  BLOB  :   Binary   |
+ZWY_TXSJ  :  BLOB  :   Binary   |
+ZWE_ZCJG  :  VARCHAR2  :   String   |
+ZWE_ZW  :  VARCHAR2  :   String   |
+ZWE_TXBH  :  VARCHAR2  :   String   |
+ZWE_TXZLZ  :  VARCHAR2  :   String   |
+ZWE_TZSJ  :  BLOB  :   Binary   |
+ZWE_TXSJ  :  BLOB  :   Binary   |
+XTZCH  :  VARCHAR2  :   String   |
+ZWCJQID  :  VARCHAR2  :   String   |
+CJDW_GAJGJGDM  :  VARCHAR2  :   String   |
+CJDW_GAJGMC  :  VARCHAR2  :   String   |
+CJR_BH  :  VARCHAR2  :   String   |
+CJR_XM  :  VARCHAR2  :   String   |
+CJSJ  :  DATE  :   DateTime   |
+ZT  :  VARCHAR2  :   String   |
+RKXT_SLH  :  VARCHAR2  :   String   |
+RKXT_XGSJ  :  DATE  :   DateTime   |
+RKXT_SHSJ  :  DATE  :   DateTime   |
+CWMS  :  VARCHAR2  :   String   |
+TEL  :  VARCHAR2  :   String   |
+XCZP  :  BLOB  :   Binary   |
+RKXT_ZTTBSJ  :  DATE  :   DateTime   |
+TEL_SMS  :  VARCHAR2  :   String   |
+RKXT_ZTTB  :  VARCHAR2  :   String   |
+ZT_D_ACCEPT_STATE__MC  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-27 18:43:20,639][73]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:43:20,854][73]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-27 18:43:20,902][74]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-27 18:43:20,905][74]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-27 18:43:21,061][74]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_ACCEPT_STATE:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+WB  :  VARCHAR2  :   String   |
+PY  :  VARCHAR2  :   String   |
+    PK: 
+DM
+=================
+
+=================
+[2019-03-27 18:43:21,062][74]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_ACCEPT_STATE where 1=1
+
+=================
+
+=================
+[2019-03-27 18:43:21,174][74]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_MZ:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+WB  :  VARCHAR2  :   String   |
+PY  :  VARCHAR2  :   String   |
+    PK: 
+DM
+=================
+
+=================
+[2019-03-27 18:43:21,175][74]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_MZ where 1=1
+
+=================
+
+=================
+[2019-03-27 18:43:21,559][77]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-27 18:43:21,562][77]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-27 18:43:22,064][77]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+

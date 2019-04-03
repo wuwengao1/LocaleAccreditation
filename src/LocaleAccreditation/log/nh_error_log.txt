@@ -1,0 +1,823 @@
+
+
+==========开始==============
+2019-04-03 16:58:22,761 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:22,856 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:23,106 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:23,135 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:23,358 [16] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:23,361 [16] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:23,419 [9] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:23,423 [9] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:23,531 [16] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:23,533 [16] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:24,747 [16] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:24,750 [16] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:24,794 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:24,797 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:25,585 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:25,587 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:25,629 [16] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 16:58:25,632 [16] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:02:23,050 [19] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:02:23,055 [19] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:02:23,135 [7] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:02:23,154 [7] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:02:23,186 [19] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:02:23,189 [19] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:02:23,245 [7] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:02:23,249 [7] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:02:23,282 [19] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:02:23,285 [19] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:05:05,064 [28] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:05:05,070 [28] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:05:39,064 [28] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:05:39,069 [28] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:14:01,226 [7] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:14:01,269 [7] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:14:56,517 [12] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:14:56,521 [12] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:19:33,488 [17] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:44:38,241 [11] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:45:54,881 [17] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:47:16,223 [11] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:47:44,045 [18] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:49:05,233 [24] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:50:09,231 [20] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:55:30,480 [16] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:56:18,753 [6] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:57:00,813 [18] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 17:57:29,944 [18] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 18:03:36,865 [6] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 18:05:45,476 [16] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 18:05:49,540 [9] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-02289: 序列不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 18:06:22,647 [9] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - 出错：
+
+ 
+
+======================
+System.ArgumentOutOfRangeException: 索引超出范围。必须为非负值并小于集合大小。
+参数名: index
+   在 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   在 System.Collections.Generic.List`1.get_Item(Int32 index)
+   在 MisFrameWork3.Classes.DbListener.BeforeInsertLoadOracleSequence.Execute(IDataBaseUtility dbu, Session session, ITableInfo tableInfo, IDictionary record, Condition where) 位置 C:\Users\KK\Desktop\LocaleAccreditation\src\LocaleAccreditation\MisFrameWork3\Classes\DbListener\BeforeInsertLoadOracleSequence.cs:行号 63
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.InsertRecord(Session session, String tableName, IDictionary record)
+
+
+==========开始==============
+2019-04-03 18:08:05,718 [7] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 18:13:08,703 [12] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00942: 表或视图不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 19:06:11,367 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-02289: 序列不存在
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String tableName, Condition condition, String fields, String orderby, String groupby, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-04-03 19:06:45,643 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - 出错：
+
+ 
+
+======================
+System.ArgumentOutOfRangeException: 索引超出范围。必须为非负值并小于集合大小。
+参数名: index
+   在 System.ThrowHelper.ThrowArgumentOutOfRangeException(ExceptionArgument argument, ExceptionResource resource)
+   在 System.Collections.Generic.List`1.get_Item(Int32 index)
+   在 MisFrameWork3.Classes.DbListener.BeforeInsertLoadOracleSequence.Execute(IDataBaseUtility dbu, Session session, ITableInfo tableInfo, IDictionary record, Condition where) 位置 C:\Users\KK\Desktop\LocaleAccreditation\src\LocaleAccreditation\MisFrameWork3\Classes\DbListener\BeforeInsertLoadOracleSequence.cs:行号 63
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.InsertRecord(Session session, String tableName, IDictionary record)

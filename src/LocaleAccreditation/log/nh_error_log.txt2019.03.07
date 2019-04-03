@@ -1,0 +1,45 @@
+
+
+==========开始==============
+2019-03-07 16:59:16,242 [11] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-01861: 文字与格式字符串不匹配
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String query_sql, List`1 parameters, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-03-07 17:04:58,428 [11] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-01861: 文字与格式字符串不匹配
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String query_sql, List`1 parameters, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-03-07 17:08:35,105 [11] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00904: "TO_DATA": 标识符无效
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String query_sql, List`1 parameters, Int32 offset, Int32 maxResultCount)
+ 
+
+======================

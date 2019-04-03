@@ -1,0 +1,2167 @@
+=================
+[2019-03-07 16:54:20,333][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_USERS:  USER_ID  :  VARCHAR2  :   String   |
+USER_NAME  :  VARCHAR2  :   String   |
+USER_PASSWD  :  VARCHAR2  :   String   |
+LOGINED_FLAGS  :  NUMBER  :   Decimal   |
+ROLES_ID  :  VARCHAR2  :   String   |
+ROLES_ID_V_D_FW_S_ROLES__MC  :  VARCHAR2  :   String   |
+VER  :  NUMBER  :   Decimal   |
+DISABLED  :  NUMBER  :   Decimal   |
+CREATE_BY  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+DELETED_MARK  :  NUMBER  :   Decimal   |
+COMPANY_ID  :  VARCHAR2  :   String   |
+COMPANY_ID_D_XZQH__MC  :  VARCHAR2  :   String   |
+TEL1  :  VARCHAR2  :   String   |
+TEL2  :  VARCHAR2  :   String   |
+EMAIL  :  VARCHAR2  :   String   |
+ADDR  :  VARCHAR2  :   String   |
+    PK: 
+USER_ID
+=================
+
+=================
+[2019-03-07 16:54:20,404][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-07 16:54:20,407][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-07 16:54:20,409][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-07 16:54:20,410][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-07 16:54:20,418][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ update FW_S_USERS set LOGINED_FLAGS = :p0,UPDATE_ON = :p1,VER=VER+1 where (DELETED_MARK=0 AND ((USER_ID = :p2)))
+
+p0[Decimal]:-814079680
+p1[DateTime]:2019/3/7 下午 04:54:20
+p2[String]:admin
+=================
+
+=================
+[2019-03-07 16:54:20,424][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS where (DELETED_MARK=0 AND ((USER_ID = :p0)))
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-07 16:54:20,555][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_USERS_M_ROLES:  ID  :  NUMBER  :   Decimal   |
+USER_ID  :  VARCHAR2  :   String   |
+ROLE_ID  :  NUMBER  :   Decimal   |
+DISABLED  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-07 16:54:20,556][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS_M_ROLES where USER_ID = :p0
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-07 16:54:20,681][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_ROLES:  ID  :  NUMBER  :   Decimal   |
+SORT_CODE  :  NUMBER  :   Decimal   |
+ROLE_NAME  :  VARCHAR2  :   String   |
+ROLE_DESCRIPT  :  VARCHAR2  :   String   |
+DISABLED  :  NUMBER  :   Decimal   |
+CREATE_BY  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+DELETED_MARK  :  NUMBER  :   Decimal   |
+VER  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-07 16:54:20,682][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select ID,SORT_CODE,ROLE_NAME,DISABLED from FW_S_ROLES where (DELETED_MARK=0 AND ((ID = :p0)))
+
+p0[Decimal]:1
+=================
+
+=================
+[2019-03-07 16:54:20,860][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_ROLES_OPERATE:  ID  :  NUMBER  :   Decimal   |
+ROLE_ID  :  NUMBER  :   Decimal   |
+OPERATE_ID  :  VARCHAR2  :   String   |
+DISABLED  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-07 16:54:20,863][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select OPERATE_ID from FW_S_ROLES_OPERATE where (DISABLED = :p0 AND (ROLE_ID = :p1)) group by OPERATE_ID
+
+p0[Decimal]:0
+p1[Decimal]:1
+=================
+
+=================
+[2019-03-07 16:54:31,897][11]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_FACILITY:  ID  :  NUMBER  :   Decimal   |
+FACILITY_CODE  :  VARCHAR2  :   String   |
+FACILITY_NAME  :  VARCHAR2  :   String   |
+FAC_TYPE  :  VARCHAR2  :   String   |
+FAC_TYPE_D_FACILITY_TYPE__MC  :  VARCHAR2  :   String   |
+FACILITY_GROUP  :  VARCHAR2  :   String   |
+FACILITY_GROUP_V_D_B_GROUP__MC  :  VARCHAR2  :   String   |
+FACILITY_PLAN  :  VARCHAR2  :   String   |
+FACILITY_PLAN_V_D_B_PLAN__MC  :  VARCHAR2  :   String   |
+FACILITY_ADDRESS  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+CREATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+SSQFJGDM  :  VARCHAR2  :   String   |
+SSQFJGDM_D_XZQH__MC  :  VARCHAR2  :   String   |
+SSSLDWJGDM  :  VARCHAR2  :   String   |
+SSSLDWJGDM_D_XZQH__MC  :  VARCHAR2  :   String   |
+SSSLDWTELPHONE  :  VARCHAR2  :   String   |
+SSSLDWLXR  :  VARCHAR2  :   String   |
+CSJBDXJSDHHM  :  VARCHAR2  :   String   |
+CSQMHLTQTS  :  NUMBER  :   Decimal   |
+CSJZZMDYJGTS  :  NUMBER  :   Decimal   |
+CSIP  :  VARCHAR2  :   String   |
+CSMAC  :  VARCHAR2  :   String   |
+CSVERSION  :  VARCHAR2  :   String   |
+CSFIRSTTIME  :  DATE  :   DateTime   |
+CSLASTTIME  :  DATE  :   DateTime   |
+NUM_QMHL  :  NUMBER  :   Decimal   |
+NUM_DSBL  :  NUMBER  :   Decimal   |
+NUM_JZZMDY  :  NUMBER  :   Decimal   |
+MACHINEMEMO  :  VARCHAR2  :   String   |
+EG_MSG_LZH  :  VARCHAR2  :   String   |
+EG_MSG_SHL  :  VARCHAR2  :   String   |
+YXZT  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-07 16:54:31,899][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 16:54:31,943][11]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_SFZ_ZZSL:  SLXLH  :  VARCHAR2  :   String   |
+SLJQH  :  VARCHAR2  :   String   |
+PERSON_ID  :  VARCHAR2  :   String   |
+PID  :  VARCHAR2  :   String   |
+NAME  :  VARCHAR2  :   String   |
+GENDER  :  VARCHAR2  :   String   |
+NATION  :  VARCHAR2  :   String   |
+DOB  :  DATE  :   DateTime   |
+ADDR_REGION_ID  :  VARCHAR2  :   String   |
+FULLADDR  :  VARCHAR2  :   String   |
+META_ADDR_ID  :  VARCHAR2  :   String   |
+IMAGE_ID  :  VARCHAR2  :   String   |
+ISSUED_UNIT  :  VARCHAR2  :   String   |
+USEFUL_LIFE  :  VARCHAR2  :   String   |
+UL_FROM_DATE  :  DATE  :   DateTime   |
+UL_END_DATE  :  DATE  :   DateTime   |
+APPLIED_REASON  :  VARCHAR2  :   String   |
+ACCEPT_DATE  :  DATE  :   DateTime   |
+ACCEPT_UNIT  :  VARCHAR2  :   String   |
+ACCEPT_ORG_ID  :  VARCHAR2  :   String   |
+ACCEPT_PSN  :  VARCHAR2  :   String   |
+PCS  :  VARCHAR2  :   String   |
+ORG_ID  :  VARCHAR2  :   String   |
+WHEN_REGISTERED  :  DATE  :   DateTime   |
+IMAGE  :  BLOB  :   Binary   |
+ZWCJJG  :  VARCHAR2  :   String   |
+ZWY_ZCJG  :  VARCHAR2  :   String   |
+ZWY_ZW  :  VARCHAR2  :   String   |
+ZWY_TXBH  :  VARCHAR2  :   String   |
+ZWY_TXZLZ  :  VARCHAR2  :   String   |
+ZWY_TZSJ  :  BLOB  :   Binary   |
+ZWY_TXSJ  :  BLOB  :   Binary   |
+ZWE_ZCJG  :  VARCHAR2  :   String   |
+ZWE_ZW  :  VARCHAR2  :   String   |
+ZWE_TXBH  :  VARCHAR2  :   String   |
+ZWE_TXZLZ  :  VARCHAR2  :   String   |
+ZWE_TZSJ  :  BLOB  :   Binary   |
+ZWE_TXSJ  :  BLOB  :   Binary   |
+XTZCH  :  VARCHAR2  :   String   |
+ZWCJQID  :  VARCHAR2  :   String   |
+CJDW_GAJGJGDM  :  VARCHAR2  :   String   |
+CJDW_GAJGMC  :  VARCHAR2  :   String   |
+CJR_BH  :  VARCHAR2  :   String   |
+CJR_XM  :  VARCHAR2  :   String   |
+CJSJ  :  DATE  :   DateTime   |
+ZT  :  VARCHAR2  :   String   |
+RKXT_SLH  :  VARCHAR2  :   String   |
+RKXT_XGSJ  :  DATE  :   DateTime   |
+RKXT_SHSJ  :  DATE  :   DateTime   |
+CWMS  :  VARCHAR2  :   String   |
+TEL  :  VARCHAR2  :   String   |
+XCZP  :  BLOB  :   Binary   |
+RKXT_ZTTBSJ  :  DATE  :   DateTime   |
+TEL_SMS  :  VARCHAR2  :   String   |
+RKXT_ZTTB  :  VARCHAR2  :   String   |
+ZT_D_ACCEPT_STATE__MC  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-07 16:54:31,945][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 16:54:32,378][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 16:54:32,743][16]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_XZQH:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-07 16:54:32,744][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-07 16:54:32,746][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 16:54:32,888][16]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_ACCEPT_STATE:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+WB  :  VARCHAR2  :   String   |
+PY  :  VARCHAR2  :   String   |
+    PK: 
+DM
+=================
+
+=================
+[2019-03-07 16:54:32,889][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_ACCEPT_STATE where 1=1
+
+=================
+
+=================
+[2019-03-07 16:54:32,997][16]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_MZ:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+WB  :  VARCHAR2  :   String   |
+PY  :  VARCHAR2  :   String   |
+    PK: 
+DM
+=================
+
+=================
+[2019-03-07 16:54:32,998][16]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_MZ where 1=1
+
+=================
+
+=================
+[2019-03-07 16:54:33,276][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 16:54:33,278][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 16:54:33,790][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 16:55:33,052][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 16:55:33,054][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((ACCEPT_DATE >= :p0 AND ACCEPT_DATE <= :p1 AND SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+p0[DateTime]:2016/4/1 上午 12:00:00
+p1[DateTime]:2016/5/1 上午 12:00:00
+=================
+
+=================
+[2019-03-07 16:55:33,454][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((ACCEPT_DATE >= :p0 AND ACCEPT_DATE <= :p1 AND SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+p0[DateTime]:2016/4/1 上午 12:00:00
+p1[DateTime]:2016/5/1 上午 12:00:00
+=================
+
+=================
+[2019-03-07 16:58:34,937][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 16:58:34,994][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 16:58:37,030][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 16:59:09,625][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:05:05,507][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:08:39,944][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:10:32,793][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:10:45,244][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:11:00,071][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:14:01,782][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:14:11,634][11]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:14:50,878][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:00,685][41]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:00,755][41]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_STORE_RECORD:  ZZJCFWZ  :  NUMBER  :   Decimal   |
+ZZJCWDZ  :  NUMBER  :   Decimal   |
+GMSFHM  :  VARCHAR2  :   String   |
+XM  :  VARCHAR2  :   String   |
+XBDM  :  VARCHAR2  :   String   |
+MZDM  :  VARCHAR2  :   String   |
+CSRQ  :  VARCHAR2  :   String   |
+DZMC  :  VARCHAR2  :   String   |
+QFJG_GAJGMC  :  VARCHAR2  :   String   |
+YXQQSRQ  :  VARCHAR2  :   String   |
+YXQJZRQ  :  VARCHAR2  :   String   |
+FINGDATAENABLE  :  NUMBER  :   Decimal   |
+ZWY_ZWTZSJ  :  BLOB  :   Binary   |
+ZWE_ZWTZSJ  :  BLOB  :   Binary   |
+SLDW_GAJGJGDM  :  VARCHAR2  :   String   |
+SLDW_GAJGMC  :  VARCHAR2  :   String   |
+ISRECEIVED  :  NUMBER  :   Decimal   |
+LQRQ  :  DATE  :   DateTime   |
+ISRECIVEMORETIMES  :  NUMBER  :   Decimal   |
+LASTRECEIVEDATE  :  DATE  :   DateTime   |
+ISMSGNOTICE  :  NUMBER  :   Decimal   |
+INPUTDATETIME  :  DATE  :   DateTime   |
+ISUSED  :  NUMBER  :   Decimal   |
+ZT  :  NUMBER  :   Decimal   |
+SFPLCK  :  NUMBER  :   Decimal   |
+PLLZRJH  :  VARCHAR2  :   String   |
+PLLZRXM  :  VARCHAR2  :   String   |
+JSQRZT  :  NUMBER  :   Decimal   |
+JSQRSCJG  :  VARCHAR2  :   String   |
+SJZT  :  NUMBER  :   Decimal   |
+SJSCJG  :  VARCHAR2  :   String   |
+S_ZJHM  :  VARCHAR2  :   String   |
+S_ZJZL  :  VARCHAR2  :   String   |
+S_ZZJBH  :  VARCHAR2  :   String   |
+S_TBZT  :  VARCHAR2  :   String   |
+S_TBZTSJ  :  DATE  :   DateTime   |
+S_DHHM  :  VARCHAR2  :   String   |
+S_SLSJ  :  DATE  :   DateTime   |
+S_SMS  :  VARCHAR2  :   String   |
+S_INSTIME  :  DATE  :   DateTime   |
+S_TYPE  :  VARCHAR2  :   String   |
+C_M_NO  :  VARCHAR2  :   String   |
+C_ID  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-07 17:16:00,756][41]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_STORE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by INPUTDATETIME desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:16:00,761][41]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_STORE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:16:00,936][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:01,227][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:01,228][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_STORE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by INPUTDATETIME desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:16:01,234][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_STORE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:16:04,648][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:04,686][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_RECEIVE_RECORD:  ZZJCFWZ  :  NUMBER  :   Decimal   |
+GMSFHM  :  VARCHAR2  :   String   |
+JMSFZLZFSDM  :  NUMBER  :   Decimal   |
+FFDW_GAJGJGDM  :  VARCHAR2  :   String   |
+FFDW_GAJGMC  :  VARCHAR2  :   String   |
+LQRQ  :  DATE  :   DateTime   |
+LQR_GMSFHM  :  VARCHAR2  :   String   |
+LQR_XM  :  VARCHAR2  :   String   |
+LQR_XB  :  VARCHAR2  :   String   |
+LQR_MZ  :  VARCHAR2  :   String   |
+LQR_CSRQ  :  VARCHAR2  :   String   |
+LQR_DZ  :  VARCHAR2  :   String   |
+LQR_QFJG  :  VARCHAR2  :   String   |
+LQR_YXQQSRQ  :  VARCHAR2  :   String   |
+LQR_YXQJZRQ  :  VARCHAR2  :   String   |
+LQR_FINGDATAENABLE  :  NUMBER  :   Decimal   |
+LQR_ZWY_ZWTZSJ  :  BLOB  :   Binary   |
+LQR_ZWE_ZWTZSJ  :  BLOB  :   Binary   |
+LQR_ZWYHY_ZWTZSJ  :  BLOB  :   Binary   |
+LQR_ZWYHY_ZWTP  :  BLOB  :   Binary   |
+LQR_TXSJ  :  BLOB  :   Binary   |
+LQR_ZWYHYZ  :  VARCHAR2  :   String   |
+LQR_ZWYWDM  :  VARCHAR2  :   String   |
+LQR_ZWEHY_ZWTZSJ  :  BLOB  :   Binary   |
+LQR_ZWEHY_ZWTP  :  BLOB  :   Binary   |
+LQR_ZWEHYZ  :  VARCHAR2  :   String   |
+LQR_ZWEWDM  :  VARCHAR2  :   String   |
+YXQQSRQ  :  VARCHAR2  :   String   |
+YXQJZRQ  :  VARCHAR2  :   String   |
+XM  :  VARCHAR2  :   String   |
+LQR_LXDH  :  VARCHAR2  :   String   |
+SCZT  :  NUMBER  :   Decimal   |
+QFJG_GAJGMC  :  VARCHAR2  :   String   |
+SCJG  :  VARCHAR2  :   String   |
+S_ZJHM  :  VARCHAR2  :   String   |
+S_ZJZL  :  VARCHAR2  :   String   |
+S_ZZJBH  :  VARCHAR2  :   String   |
+S_TBZT  :  VARCHAR2  :   String   |
+S_TBZTSJ  :  DATE  :   DateTime   |
+S_SMS  :  VARCHAR2  :   String   |
+S_INSTIME  :  DATE  :   DateTime   |
+S_TYPE  :  VARCHAR2  :   String   |
+C_M_NO  :  VARCHAR2  :   String   |
+C_ID  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-07 17:16:04,687][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select ZZJCFWZ,LQR_GMSFHM,LQR_XM,GMSFHM,S_ZZJBH,LQRQ,LQR_LXDH,LQR_GMSFHM AS LQRHM from B_RECEIVE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by LQRQ desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:16:04,689][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_RECEIVE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:16:04,698][45]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:04,700][45]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select ZZJCFWZ,LQR_GMSFHM,LQR_XM,GMSFHM,S_ZZJBH,LQRQ,LQR_LXDH,LQR_GMSFHM AS LQRHM from B_RECEIVE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by LQRQ desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:16:04,702][45]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_RECEIVE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:16:05,024][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:10,995][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:11,024][43]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=V_B_MAIL_INFO:  SLJQH  :  VARCHAR2  :   String   |
+NAME  :  VARCHAR2  :   String   |
+GENDER  :  VARCHAR2  :   String   |
+ACCEPT_DATE  :  DATE  :   DateTime   |
+ZT_D_ACCEPT_STATE__MC  :  VARCHAR2  :   String   |
+SLXLH  :  VARCHAR2  :   String   |
+EMS_YJDZ  :  VARCHAR2  :   String   |
+EMS_SJR  :  VARCHAR2  :   String   |
+EMS_LXDH  :  VARCHAR2  :   String   |
+EMS_YZBM  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-07 17:16:11,025][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from V_B_MAIL_INFO where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:16:11,027][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from V_B_MAIL_INFO where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:16:11,285][41]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_ACCEPT_STATE where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:11,532][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:11,536][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from V_B_MAIL_INFO where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:16:11,539][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from V_B_MAIL_INFO where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:16:25,338][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:25,387][43]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_YWZF_ZFJG:  DDH  :  VARCHAR2  :   String   |
+ZFJE  :  VARCHAR2  :   String   |
+ZFSJ  :  DATE  :   DateTime   |
+ZFJG  :  VARCHAR2  :   String   |
+ZFFS  :  VARCHAR2  :   String   |
+SSDS  :  VARCHAR2  :   String   |
+FILENAME  :  VARCHAR2  :   String   |
+RKSJ  :  DATE  :   DateTime   |
+DBBJ  :  VARCHAR2  :   String   |
+DBSJ  :  DATE  :   DateTime   |
+ZFBZ  :  VARCHAR2  :   String   |
+SLXLH  :  VARCHAR2  :   String   |
+SLJQH  :  VARCHAR2  :   String   |
+INS_TIME  :  DATE  :   DateTime   |
+UPD_TIME  :  DATE  :   DateTime   |
+JYQR  :  VARCHAR2  :   String   |
+JYQR_BASE  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-07 17:16:25,388][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:16:25,390][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:16:25,403][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:25,405][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:16:25,406][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:16:25,653][41]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:35,476][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:35,477][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:35,614][43]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_PLAN:  ID  :  NUMBER  :   Decimal   |
+PLAN_NAME  :  VARCHAR2  :   String   |
+PLAN_TYPE  :  VARCHAR2  :   String   |
+PLAN_TYPE_D_FACILITY_TYPE__MC  :  VARCHAR2  :   String   |
+BEFORE_CMD  :  VARCHAR2  :   String   |
+AFTER_CMD  :  VARCHAR2  :   String   |
+DESCRIPTION  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_ON  :  DATE  :   DateTime   |
+CREATE_BY  :  VARCHAR2  :   String   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+PLAN_FILE  :  VARCHAR2  :   String   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-07 17:16:35,615][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select ID as DM, PLAN_NAME as MC from B_PLAN where 1=1
+
+=================
+
+=================
+[2019-03-07 17:16:35,653][41]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_FACILITY where ((FAC_TYPE = :p0))) where rownum <= 10
+
+p0[String]:AD
+=================
+
+=================
+[2019-03-07 17:16:35,656][41]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_FACILITY where ((FAC_TYPE = :p0))
+
+p0[String]:AD
+=================
+
+=================
+[2019-03-07 17:16:35,749][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_FACILITY where ((FAC_TYPE = :p0))) where rownum <= 10
+
+p0[String]:AC
+=================
+
+=================
+[2019-03-07 17:16:35,751][43]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_FACILITY where ((FAC_TYPE = :p0))
+
+p0[String]:AC
+=================
+
+=================
+[2019-03-07 17:16:35,816][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_FACILITY where ((FAC_TYPE = :p0))) where rownum <= 10
+
+p0[String]:AC
+=================
+
+=================
+[2019-03-07 17:16:35,819][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_FACILITY where ((FAC_TYPE = :p0))
+
+p0[String]:AC
+=================
+
+=================
+[2019-03-07 17:16:36,090][45]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_FACILITY where ((FAC_TYPE = :p0))) where rownum <= 10
+
+p0[String]:AD
+=================
+
+=================
+[2019-03-07 17:16:36,092][45]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_FACILITY where ((FAC_TYPE = :p0))
+
+p0[String]:AD
+=================
+
+=================
+[2019-03-07 17:36:28,766][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_USERS:  USER_ID  :  VARCHAR2  :   String   |
+USER_NAME  :  VARCHAR2  :   String   |
+USER_PASSWD  :  VARCHAR2  :   String   |
+LOGINED_FLAGS  :  NUMBER  :   Decimal   |
+ROLES_ID  :  VARCHAR2  :   String   |
+ROLES_ID_V_D_FW_S_ROLES__MC  :  VARCHAR2  :   String   |
+VER  :  NUMBER  :   Decimal   |
+DISABLED  :  NUMBER  :   Decimal   |
+CREATE_BY  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+DELETED_MARK  :  NUMBER  :   Decimal   |
+COMPANY_ID  :  VARCHAR2  :   String   |
+COMPANY_ID_D_XZQH__MC  :  VARCHAR2  :   String   |
+TEL1  :  VARCHAR2  :   String   |
+TEL2  :  VARCHAR2  :   String   |
+EMAIL  :  VARCHAR2  :   String   |
+ADDR  :  VARCHAR2  :   String   |
+    PK: 
+USER_ID
+=================
+
+=================
+[2019-03-07 17:36:28,801][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateAutoConvertAllDic
+=================
+
+=================
+[2019-03-07 17:36:28,805][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateLastUpdateTime
+=================
+
+=================
+[2019-03-07 17:36:28,808][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork3.Classes.DbListener.BeforeInsertOrUpdateUserInfo
+=================
+
+=================
+[2019-03-07 17:36:28,809][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ Update 执行了:MisFrameWork.core.db.Listener.BeforeInsertOrUpdateConvertDic
+=================
+
+=================
+[2019-03-07 17:36:28,820][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ update FW_S_USERS set LOGINED_FLAGS = :p0,UPDATE_ON = :p1,VER=VER+1 where (DELETED_MARK=0 AND ((USER_ID = :p2)))
+
+p0[Decimal]:1076461376
+p1[DateTime]:2019/3/7 下午 05:36:28
+p2[String]:admin
+=================
+
+=================
+[2019-03-07 17:36:28,826][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS where (DELETED_MARK=0 AND ((USER_ID = :p0)))
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-07 17:36:28,929][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_USERS_M_ROLES:  ID  :  NUMBER  :   Decimal   |
+USER_ID  :  VARCHAR2  :   String   |
+ROLE_ID  :  NUMBER  :   Decimal   |
+DISABLED  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-07 17:36:28,930][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from FW_S_USERS_M_ROLES where USER_ID = :p0
+
+p0[String]:admin
+=================
+
+=================
+[2019-03-07 17:36:29,053][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_ROLES:  ID  :  NUMBER  :   Decimal   |
+SORT_CODE  :  NUMBER  :   Decimal   |
+ROLE_NAME  :  VARCHAR2  :   String   |
+ROLE_DESCRIPT  :  VARCHAR2  :   String   |
+DISABLED  :  NUMBER  :   Decimal   |
+CREATE_BY  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+DELETED_MARK  :  NUMBER  :   Decimal   |
+VER  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-07 17:36:29,054][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select ID,SORT_CODE,ROLE_NAME,DISABLED from FW_S_ROLES where (DELETED_MARK=0 AND ((ID = :p0)))
+
+p0[Decimal]:1
+=================
+
+=================
+[2019-03-07 17:36:29,164][9]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=FW_S_ROLES_OPERATE:  ID  :  NUMBER  :   Decimal   |
+ROLE_ID  :  NUMBER  :   Decimal   |
+OPERATE_ID  :  VARCHAR2  :   String   |
+DISABLED  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-07 17:36:29,164][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select OPERATE_ID from FW_S_ROLES_OPERATE where (DISABLED = :p0 AND (ROLE_ID = :p1)) group by OPERATE_ID
+
+p0[Decimal]:0
+p1[Decimal]:1
+=================
+
+=================
+[2019-03-07 17:36:34,553][10]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_FACILITY:  ID  :  NUMBER  :   Decimal   |
+FACILITY_CODE  :  VARCHAR2  :   String   |
+FACILITY_NAME  :  VARCHAR2  :   String   |
+FAC_TYPE  :  VARCHAR2  :   String   |
+FAC_TYPE_D_FACILITY_TYPE__MC  :  VARCHAR2  :   String   |
+FACILITY_GROUP  :  VARCHAR2  :   String   |
+FACILITY_GROUP_V_D_B_GROUP__MC  :  VARCHAR2  :   String   |
+FACILITY_PLAN  :  VARCHAR2  :   String   |
+FACILITY_PLAN_V_D_B_PLAN__MC  :  VARCHAR2  :   String   |
+FACILITY_ADDRESS  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+CREATE_BY  :  VARCHAR2  :   String   |
+UPDATE_ON  :  DATE  :   DateTime   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+SSQFJGDM  :  VARCHAR2  :   String   |
+SSQFJGDM_D_XZQH__MC  :  VARCHAR2  :   String   |
+SSSLDWJGDM  :  VARCHAR2  :   String   |
+SSSLDWJGDM_D_XZQH__MC  :  VARCHAR2  :   String   |
+SSSLDWTELPHONE  :  VARCHAR2  :   String   |
+SSSLDWLXR  :  VARCHAR2  :   String   |
+CSJBDXJSDHHM  :  VARCHAR2  :   String   |
+CSQMHLTQTS  :  NUMBER  :   Decimal   |
+CSJZZMDYJGTS  :  NUMBER  :   Decimal   |
+CSIP  :  VARCHAR2  :   String   |
+CSMAC  :  VARCHAR2  :   String   |
+CSVERSION  :  VARCHAR2  :   String   |
+CSFIRSTTIME  :  DATE  :   DateTime   |
+CSLASTTIME  :  DATE  :   DateTime   |
+NUM_QMHL  :  NUMBER  :   Decimal   |
+NUM_DSBL  :  NUMBER  :   Decimal   |
+NUM_JZZMDY  :  NUMBER  :   Decimal   |
+MACHINEMEMO  :  VARCHAR2  :   String   |
+EG_MSG_LZH  :  VARCHAR2  :   String   |
+EG_MSG_SHL  :  VARCHAR2  :   String   |
+YXZT  :  NUMBER  :   Decimal   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-07 17:36:34,555][10]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:36:34,584][10]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_YWZF_ZFJG:  DDH  :  VARCHAR2  :   String   |
+ZFJE  :  VARCHAR2  :   String   |
+ZFSJ  :  DATE  :   DateTime   |
+ZFJG  :  VARCHAR2  :   String   |
+ZFFS  :  VARCHAR2  :   String   |
+SSDS  :  VARCHAR2  :   String   |
+FILENAME  :  VARCHAR2  :   String   |
+RKSJ  :  DATE  :   DateTime   |
+DBBJ  :  VARCHAR2  :   String   |
+DBSJ  :  DATE  :   DateTime   |
+ZFBZ  :  VARCHAR2  :   String   |
+SLXLH  :  VARCHAR2  :   String   |
+SLJQH  :  VARCHAR2  :   String   |
+INS_TIME  :  DATE  :   DateTime   |
+UPD_TIME  :  DATE  :   DateTime   |
+JYQR  :  VARCHAR2  :   String   |
+JYQR_BASE  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-07 17:36:34,585][10]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:36:34,590][10]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:36:34,965][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:36:34,970][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:36:34,974][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:36:35,194][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:36:44,793][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:36:44,796][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_YWZF_ZFJG where ((SLJQH LIKE :p0 AND SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+p0[String]:%MCIMZ4510001%
+=================
+
+=================
+[2019-03-07 17:36:44,802][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_YWZF_ZFJG where ((SLJQH LIKE :p0 AND SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+p0[String]:%MCIMZ4510001%
+=================
+
+=================
+[2019-03-07 17:36:47,571][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:36:47,573][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_YWZF_ZFJG where ((SLJQH LIKE :p0 AND SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+p0[String]:%AC11HB0001%
+=================
+
+=================
+[2019-03-07 17:36:47,575][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_YWZF_ZFJG where ((SLJQH LIKE :p0 AND SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+p0[String]:%AC11HB0001%
+=================
+
+=================
+[2019-03-07 17:36:50,788][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:36:50,791][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_YWZF_ZFJG where ((SLJQH LIKE :p0 AND ZFFS = :p1 AND SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+p0[String]:%AC11HB0001%
+p1[String]:0
+=================
+
+=================
+[2019-03-07 17:36:50,794][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_YWZF_ZFJG where ((SLJQH LIKE :p0 AND ZFFS = :p1 AND SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+p0[String]:%AC11HB0001%
+p1[String]:0
+=================
+
+=================
+[2019-03-07 17:36:53,628][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:36:53,629][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:36:53,631][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:36:58,234][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:36:58,235][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_YWZF_ZFJG where ((SLXLH LIKE :p0 AND SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+p0[String]:%tt%
+=================
+
+=================
+[2019-03-07 17:36:58,240][9]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_YWZF_ZFJG where ((SLXLH LIKE :p0 AND SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+p0[String]:%tt%
+=================
+
+=================
+[2019-03-07 17:37:00,761][10]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:37:00,763][10]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:37:00,765][10]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:40:02,505][19]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:02,544][19]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=V_B_MAIL_INFO:  SLJQH  :  VARCHAR2  :   String   |
+NAME  :  VARCHAR2  :   String   |
+GENDER  :  VARCHAR2  :   String   |
+ACCEPT_DATE  :  DATE  :   DateTime   |
+ZT_D_ACCEPT_STATE__MC  :  VARCHAR2  :   String   |
+SLXLH  :  VARCHAR2  :   String   |
+EMS_YJDZ  :  VARCHAR2  :   String   |
+EMS_SJR  :  VARCHAR2  :   String   |
+EMS_LXDH  :  VARCHAR2  :   String   |
+EMS_YZBM  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-07 17:40:02,545][19]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from V_B_MAIL_INFO where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:02,556][19]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from V_B_MAIL_INFO where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:40:02,914][24]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_ACCEPT_STATE:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+WB  :  VARCHAR2  :   String   |
+PY  :  VARCHAR2  :   String   |
+    PK: 
+DM
+=================
+
+=================
+[2019-03-07 17:40:02,914][24]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_ACCEPT_STATE where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:03,053][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:03,058][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from V_B_MAIL_INFO where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:03,063][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from V_B_MAIL_INFO where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:40:11,666][19]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:11,699][19]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_SFZ_ZZSL:  SLXLH  :  VARCHAR2  :   String   |
+SLJQH  :  VARCHAR2  :   String   |
+PERSON_ID  :  VARCHAR2  :   String   |
+PID  :  VARCHAR2  :   String   |
+NAME  :  VARCHAR2  :   String   |
+GENDER  :  VARCHAR2  :   String   |
+NATION  :  VARCHAR2  :   String   |
+DOB  :  DATE  :   DateTime   |
+ADDR_REGION_ID  :  VARCHAR2  :   String   |
+FULLADDR  :  VARCHAR2  :   String   |
+META_ADDR_ID  :  VARCHAR2  :   String   |
+IMAGE_ID  :  VARCHAR2  :   String   |
+ISSUED_UNIT  :  VARCHAR2  :   String   |
+USEFUL_LIFE  :  VARCHAR2  :   String   |
+UL_FROM_DATE  :  DATE  :   DateTime   |
+UL_END_DATE  :  DATE  :   DateTime   |
+APPLIED_REASON  :  VARCHAR2  :   String   |
+ACCEPT_DATE  :  DATE  :   DateTime   |
+ACCEPT_UNIT  :  VARCHAR2  :   String   |
+ACCEPT_ORG_ID  :  VARCHAR2  :   String   |
+ACCEPT_PSN  :  VARCHAR2  :   String   |
+PCS  :  VARCHAR2  :   String   |
+ORG_ID  :  VARCHAR2  :   String   |
+WHEN_REGISTERED  :  DATE  :   DateTime   |
+IMAGE  :  BLOB  :   Binary   |
+ZWCJJG  :  VARCHAR2  :   String   |
+ZWY_ZCJG  :  VARCHAR2  :   String   |
+ZWY_ZW  :  VARCHAR2  :   String   |
+ZWY_TXBH  :  VARCHAR2  :   String   |
+ZWY_TXZLZ  :  VARCHAR2  :   String   |
+ZWY_TZSJ  :  BLOB  :   Binary   |
+ZWY_TXSJ  :  BLOB  :   Binary   |
+ZWE_ZCJG  :  VARCHAR2  :   String   |
+ZWE_ZW  :  VARCHAR2  :   String   |
+ZWE_TXBH  :  VARCHAR2  :   String   |
+ZWE_TXZLZ  :  VARCHAR2  :   String   |
+ZWE_TZSJ  :  BLOB  :   Binary   |
+ZWE_TXSJ  :  BLOB  :   Binary   |
+XTZCH  :  VARCHAR2  :   String   |
+ZWCJQID  :  VARCHAR2  :   String   |
+CJDW_GAJGJGDM  :  VARCHAR2  :   String   |
+CJDW_GAJGMC  :  VARCHAR2  :   String   |
+CJR_BH  :  VARCHAR2  :   String   |
+CJR_XM  :  VARCHAR2  :   String   |
+CJSJ  :  DATE  :   DateTime   |
+ZT  :  VARCHAR2  :   String   |
+RKXT_SLH  :  VARCHAR2  :   String   |
+RKXT_XGSJ  :  DATE  :   DateTime   |
+RKXT_SHSJ  :  DATE  :   DateTime   |
+CWMS  :  VARCHAR2  :   String   |
+TEL  :  VARCHAR2  :   String   |
+XCZP  :  BLOB  :   Binary   |
+RKXT_ZTTBSJ  :  DATE  :   DateTime   |
+TEL_SMS  :  VARCHAR2  :   String   |
+RKXT_ZTTB  :  VARCHAR2  :   String   |
+ZT_D_ACCEPT_STATE__MC  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-07 17:40:11,700][19]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:12,037][19]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:40:12,211][24]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:12,212][24]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:12,346][24]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:40:12,546][22]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_XZQH:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-07 17:40:12,547][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:12,548][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:12,550][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_ACCEPT_STATE where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:12,659][22]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_MZ:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+WB  :  VARCHAR2  :   String   |
+PY  :  VARCHAR2  :   String   |
+    PK: 
+DM
+=================
+
+=================
+[2019-03-07 17:40:12,660][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_MZ where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:13,909][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:13,921][19]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:14,078][24]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:15,496][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:15,531][25]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_RECEIVE_RECORD:  ZZJCFWZ  :  NUMBER  :   Decimal   |
+GMSFHM  :  VARCHAR2  :   String   |
+JMSFZLZFSDM  :  NUMBER  :   Decimal   |
+FFDW_GAJGJGDM  :  VARCHAR2  :   String   |
+FFDW_GAJGMC  :  VARCHAR2  :   String   |
+LQRQ  :  DATE  :   DateTime   |
+LQR_GMSFHM  :  VARCHAR2  :   String   |
+LQR_XM  :  VARCHAR2  :   String   |
+LQR_XB  :  VARCHAR2  :   String   |
+LQR_MZ  :  VARCHAR2  :   String   |
+LQR_CSRQ  :  VARCHAR2  :   String   |
+LQR_DZ  :  VARCHAR2  :   String   |
+LQR_QFJG  :  VARCHAR2  :   String   |
+LQR_YXQQSRQ  :  VARCHAR2  :   String   |
+LQR_YXQJZRQ  :  VARCHAR2  :   String   |
+LQR_FINGDATAENABLE  :  NUMBER  :   Decimal   |
+LQR_ZWY_ZWTZSJ  :  BLOB  :   Binary   |
+LQR_ZWE_ZWTZSJ  :  BLOB  :   Binary   |
+LQR_ZWYHY_ZWTZSJ  :  BLOB  :   Binary   |
+LQR_ZWYHY_ZWTP  :  BLOB  :   Binary   |
+LQR_TXSJ  :  BLOB  :   Binary   |
+LQR_ZWYHYZ  :  VARCHAR2  :   String   |
+LQR_ZWYWDM  :  VARCHAR2  :   String   |
+LQR_ZWEHY_ZWTZSJ  :  BLOB  :   Binary   |
+LQR_ZWEHY_ZWTP  :  BLOB  :   Binary   |
+LQR_ZWEHYZ  :  VARCHAR2  :   String   |
+LQR_ZWEWDM  :  VARCHAR2  :   String   |
+YXQQSRQ  :  VARCHAR2  :   String   |
+YXQJZRQ  :  VARCHAR2  :   String   |
+XM  :  VARCHAR2  :   String   |
+LQR_LXDH  :  VARCHAR2  :   String   |
+SCZT  :  NUMBER  :   Decimal   |
+QFJG_GAJGMC  :  VARCHAR2  :   String   |
+SCJG  :  VARCHAR2  :   String   |
+S_ZJHM  :  VARCHAR2  :   String   |
+S_ZJZL  :  VARCHAR2  :   String   |
+S_ZZJBH  :  VARCHAR2  :   String   |
+S_TBZT  :  VARCHAR2  :   String   |
+S_TBZTSJ  :  DATE  :   DateTime   |
+S_SMS  :  VARCHAR2  :   String   |
+S_INSTIME  :  DATE  :   DateTime   |
+S_TYPE  :  VARCHAR2  :   String   |
+C_M_NO  :  VARCHAR2  :   String   |
+C_ID  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-07 17:40:15,532][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select ZZJCFWZ,LQR_GMSFHM,LQR_XM,GMSFHM,S_ZZJBH,LQRQ,LQR_LXDH,LQR_GMSFHM AS LQRHM from B_RECEIVE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by LQRQ desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:15,538][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_RECEIVE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:40:15,781][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:16,556][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:16,559][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select ZZJCFWZ,LQR_GMSFHM,LQR_XM,GMSFHM,S_ZZJBH,LQRQ,LQR_LXDH,LQR_GMSFHM AS LQRHM from B_RECEIVE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by LQRQ desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:16,561][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_RECEIVE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:40:16,586][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:16,619][22]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_STORE_RECORD:  ZZJCFWZ  :  NUMBER  :   Decimal   |
+ZZJCWDZ  :  NUMBER  :   Decimal   |
+GMSFHM  :  VARCHAR2  :   String   |
+XM  :  VARCHAR2  :   String   |
+XBDM  :  VARCHAR2  :   String   |
+MZDM  :  VARCHAR2  :   String   |
+CSRQ  :  VARCHAR2  :   String   |
+DZMC  :  VARCHAR2  :   String   |
+QFJG_GAJGMC  :  VARCHAR2  :   String   |
+YXQQSRQ  :  VARCHAR2  :   String   |
+YXQJZRQ  :  VARCHAR2  :   String   |
+FINGDATAENABLE  :  NUMBER  :   Decimal   |
+ZWY_ZWTZSJ  :  BLOB  :   Binary   |
+ZWE_ZWTZSJ  :  BLOB  :   Binary   |
+SLDW_GAJGJGDM  :  VARCHAR2  :   String   |
+SLDW_GAJGMC  :  VARCHAR2  :   String   |
+ISRECEIVED  :  NUMBER  :   Decimal   |
+LQRQ  :  DATE  :   DateTime   |
+ISRECIVEMORETIMES  :  NUMBER  :   Decimal   |
+LASTRECEIVEDATE  :  DATE  :   DateTime   |
+ISMSGNOTICE  :  NUMBER  :   Decimal   |
+INPUTDATETIME  :  DATE  :   DateTime   |
+ISUSED  :  NUMBER  :   Decimal   |
+ZT  :  NUMBER  :   Decimal   |
+SFPLCK  :  NUMBER  :   Decimal   |
+PLLZRJH  :  VARCHAR2  :   String   |
+PLLZRXM  :  VARCHAR2  :   String   |
+JSQRZT  :  NUMBER  :   Decimal   |
+JSQRSCJG  :  VARCHAR2  :   String   |
+SJZT  :  NUMBER  :   Decimal   |
+SJSCJG  :  VARCHAR2  :   String   |
+S_ZJHM  :  VARCHAR2  :   String   |
+S_ZJZL  :  VARCHAR2  :   String   |
+S_ZZJBH  :  VARCHAR2  :   String   |
+S_TBZT  :  VARCHAR2  :   String   |
+S_TBZTSJ  :  DATE  :   DateTime   |
+S_DHHM  :  VARCHAR2  :   String   |
+S_SLSJ  :  DATE  :   DateTime   |
+S_SMS  :  VARCHAR2  :   String   |
+S_INSTIME  :  DATE  :   DateTime   |
+S_TYPE  :  VARCHAR2  :   String   |
+C_M_NO  :  VARCHAR2  :   String   |
+C_ID  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-07 17:40:16,620][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_STORE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by INPUTDATETIME desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:16,624][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_STORE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:40:16,632][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:16,634][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_STORE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by INPUTDATETIME desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:16,638][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_STORE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:40:16,984][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:17,734][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:17,770][22]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_STORE:  CFDZ  :  NUMBER  :   Decimal   |
+ZT  :  VARCHAR2  :   String   |
+ZJZL  :  VARCHAR2  :   String   |
+SFZHM  :  VARCHAR2  :   String   |
+ZJHM  :  VARCHAR2  :   String   |
+S_ZZJBH  :  VARCHAR2  :   String   |
+C_INSTIME  :  DATE  :   DateTime   |
+S_INSTIME  :  DATE  :   DateTime   |
+S_TYPE  :  VARCHAR2  :   String   |
+C_M_NO  :  VARCHAR2  :   String   |
+    PK: 
+
+=================
+
+=================
+[2019-03-07 17:40:17,771][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_STORE where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:17,776][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_STORE where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:40:18,064][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:18,280][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:18,281][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_STORE where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:18,284][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_STORE where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:40:20,318][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:20,320][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:20,438][22]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_PLAN:  ID  :  NUMBER  :   Decimal   |
+PLAN_NAME  :  VARCHAR2  :   String   |
+PLAN_TYPE  :  VARCHAR2  :   String   |
+PLAN_TYPE_D_FACILITY_TYPE__MC  :  VARCHAR2  :   String   |
+BEFORE_CMD  :  VARCHAR2  :   String   |
+AFTER_CMD  :  VARCHAR2  :   String   |
+DESCRIPTION  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_ON  :  DATE  :   DateTime   |
+CREATE_BY  :  VARCHAR2  :   String   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+PLAN_FILE  :  VARCHAR2  :   String   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-07 17:40:20,442][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select ID as DM, PLAN_NAME as MC from B_PLAN where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:20,506][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_FACILITY where ((FAC_TYPE = :p0))) where rownum <= 10
+
+p0[String]:AD
+=================
+
+=================
+[2019-03-07 17:40:20,508][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_FACILITY where ((FAC_TYPE = :p0))
+
+p0[String]:AD
+=================
+
+=================
+[2019-03-07 17:40:20,576][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_FACILITY where ((FAC_TYPE = :p0))) where rownum <= 10
+
+p0[String]:AC
+=================
+
+=================
+[2019-03-07 17:40:20,578][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_FACILITY where ((FAC_TYPE = :p0))
+
+p0[String]:AC
+=================
+
+=================
+[2019-03-07 17:40:20,619][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_FACILITY where ((FAC_TYPE = :p0))) where rownum <= 10
+
+p0[String]:AC
+=================
+
+=================
+[2019-03-07 17:40:20,621][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_FACILITY where ((FAC_TYPE = :p0))
+
+p0[String]:AC
+=================
+
+=================
+[2019-03-07 17:40:20,957][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_FACILITY where ((FAC_TYPE = :p0))) where rownum <= 10
+
+p0[String]:AD
+=================
+
+=================
+[2019-03-07 17:40:20,962][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_FACILITY where ((FAC_TYPE = :p0))
+
+p0[String]:AD
+=================
+
+=================
+[2019-03-07 17:40:22,403][22]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_DOWNLOAD_LOG:  ID  :  NUMBER  :   Decimal   |
+FACILITY_CODE  :  VARCHAR2  :   String   |
+FINISH_TIME  :  DATE  :   DateTime   |
+FILE_NAME  :  VARCHAR2  :   String   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-07 17:40:22,404][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_DOWNLOAD_LOG where (1=1)) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:22,406][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_DOWNLOAD_LOG where (1=1)
+
+=================
+
+=================
+[2019-03-07 17:40:22,482][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:22,808][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_DOWNLOAD_LOG where (1=1)) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:22,813][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_DOWNLOAD_LOG where (1=1)
+
+=================
+
+=================
+[2019-03-07 17:40:23,937][22]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=B_GROUP:  ID  :  NUMBER  :   Decimal   |
+DEVICE_GROUP  :  VARCHAR2  :   String   |
+PLAN_ID  :  VARCHAR2  :   String   |
+PLAN_ID_V_D_B_PLAN__MC  :  VARCHAR2  :   String   |
+DESCRIPTION  :  VARCHAR2  :   String   |
+CREATE_ON  :  DATE  :   DateTime   |
+UPDATE_ON  :  DATE  :   DateTime   |
+CREATE_BY  :  VARCHAR2  :   String   |
+UPDATE_BY  :  VARCHAR2  :   String   |
+    PK: 
+ID
+=================
+
+=================
+[2019-03-07 17:40:23,939][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_GROUP where (1=1)) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:23,941][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_GROUP where (1=1)
+
+=================
+
+=================
+[2019-03-07 17:40:24,157][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select ID as DM, PLAN_NAME as MC from B_PLAN where 1=1
+
+=================
+
+=================
+[2019-03-07 17:40:24,328][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_GROUP where (1=1)) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:24,330][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_GROUP where (1=1)
+
+=================
+
+=================
+[2019-03-07 17:40:25,497][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_PLAN where (1=1)) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:25,499][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_PLAN where (1=1)
+
+=================
+
+=================
+[2019-03-07 17:40:25,537][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_PLAN where (1=1)) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:40:25,538][25]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_PLAN where (1=1)
+
+=================
+
+=================
+[2019-03-07 17:40:25,984][22]:[MisFrameWork.core.db.Support.AbstractTableInfo]
+ OracleTableInfo LoadInformation tableName=D_FACILITY_TYPE:  DM  :  VARCHAR2  :   String   |
+MC  :  VARCHAR2  :   String   |
+WB  :  VARCHAR2  :   String   |
+PY  :  VARCHAR2  :   String   |
+    PK: 
+DM
+=================
+
+=================
+[2019-03-07 17:40:25,985][22]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_FACILITY_TYPE where 1=1
+
+=================
+
+=================
+[2019-03-07 17:48:30,738][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:48:30,740][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:48:31,044][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:48:31,076][27]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+
+=================
+[2019-03-07 17:48:31,078][27]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:48:31,079][27]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_ACCEPT_STATE where 1=1
+
+=================
+
+=================
+[2019-03-07 17:48:31,081][27]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_MZ where 1=1
+
+=================
+
+=================
+[2019-03-07 17:48:31,265][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:48:31,267][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:48:31,345][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:48:32,632][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:48:32,634][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 163
+
+=================
+
+=================
+[2019-03-07 17:48:34,777][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_SFZ_ZZSL where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:50:12,860][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:50:12,862][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from V_B_MAIL_INFO where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:50:12,871][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from V_B_MAIL_INFO where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:50:12,907][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:50:12,911][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from V_B_MAIL_INFO where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by ACCEPT_DATE desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:50:12,912][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from V_B_MAIL_INFO where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:50:13,221][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_ACCEPT_STATE where 1=1
+
+=================
+
+=================
+[2019-03-07 17:50:28,754][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:50:28,756][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:50:28,758][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:50:28,793][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:50:28,795][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:50:28,796][18]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_YWZF_ZFJG where ((SLJQH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:50:29,006][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:50:59,071][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:50:59,112][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:50:59,282][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:51:05,148][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:51:05,150][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select ZZJCFWZ,LQR_GMSFHM,LQR_XM,GMSFHM,S_ZZJBH,LQRQ,LQR_LXDH,LQR_GMSFHM AS LQRHM from B_RECEIVE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by LQRQ desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:51:05,152][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_RECEIVE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:51:05,186][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:51:05,187][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select ZZJCFWZ,LQR_GMSFHM,LQR_XM,GMSFHM,S_ZZJBH,LQRQ,LQR_LXDH,LQR_GMSFHM AS LQRHM from B_RECEIVE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by LQRQ desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:51:05,189][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_RECEIVE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:51:05,476][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:51:09,071][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:51:09,072][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_STORE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by INPUTDATETIME desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:51:09,076][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_STORE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:51:09,114][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:51:09,115][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_STORE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0'))) order by INPUTDATETIME desc) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:51:09,119][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_STORE_RECORD where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:51:09,372][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:51:10,182][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:51:10,184][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_STORE where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:51:10,186][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_STORE where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:51:10,219][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:51:10,222][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select * from B_STORE where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:51:10,224][17]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from B_STORE where ((S_ZZJBH IN ('AC11HB0001','MCIMZ4510001','MCIMZ4510002','AC11HB0002','0')))
+
+=================
+
+=================
+[2019-03-07 17:51:10,499][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select FACILITY_CODE as DM from B_FACILITY where 1=1
+
+=================
+
+=================
+[2019-03-07 17:51:22,679][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:51:22,688][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))
+
+=================
+
+=================
+[2019-03-07 17:51:22,730][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select * from (select USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))) where rownum <= 10
+
+=================
+
+=================
+[2019-03-07 17:51:22,733][14]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select count(*) as cnt from FW_S_USERS where (DELETED_MARK=0 AND ((1=1)))
+
+=================
+
+=================
+[2019-03-07 17:51:23,039][20]:[MisFrameWork.core.db.Support.AbstractDataBaseUtility]
+ select DM,MC from D_XZQH where 1=1
+
+=================
+

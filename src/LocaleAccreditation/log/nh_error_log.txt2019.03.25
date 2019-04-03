@@ -1,0 +1,165 @@
+
+
+==========开始==============
+2019-03-25 15:15:02,043 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-01830: 日期格式图片在转换整个输入字符串之前结束
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String query_sql, List`1 parameters, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-03-25 15:16:43,696 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-01830: 日期格式图片在转换整个输入字符串之前结束
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String query_sql, List`1 parameters, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-03-25 15:16:54,800 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-01830: 日期格式图片在转换整个输入字符串之前结束
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String query_sql, List`1 parameters, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-03-25 15:17:04,692 [30] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-01810: 格式代码出现两次
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String query_sql, List`1 parameters, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-03-25 15:18:52,830 [30] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-01810: 格式代码出现两次
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String query_sql, List`1 parameters, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-03-25 15:19:13,168 [16] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-01861: 文字与格式字符串不匹配
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String query_sql, List`1 parameters, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-03-25 15:20:48,874 [16] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-01861: 文字与格式字符串不匹配
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String query_sql, List`1 parameters, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-03-25 15:21:38,256 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-01810: 格式代码出现两次
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String query_sql, List`1 parameters, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-03-25 15:25:16,044 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-01810: 格式代码出现两次
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String query_sql, List`1 parameters, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-03-25 15:25:46,864 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-01810: 格式代码出现两次
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String query_sql, List`1 parameters, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
+
+
+==========开始==============
+2019-03-25 15:25:53,926 [8] ERROR MisFrameWork.core.db.Support.AbstractDataBaseUtility [(null)]  (null)   - System.Data.OracleClient.OracleException (0x80131938): ORA-00907: 缺失右括号
+
+   在 System.Data.OracleClient.OracleConnection.CheckError(OciErrorHandle errorHandle, Int32 rc)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, Boolean needRowid, OciRowidDescriptor& rowidDescriptor, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.Execute(OciStatementHandle statementHandle, CommandBehavior behavior, ArrayList& resultParameterOrdinals)
+   在 System.Data.OracleClient.OracleCommand.ExecuteReader(CommandBehavior behavior)
+   在 System.Data.OracleClient.OracleCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   在 System.Data.Common.DbCommand.ExecuteReader()
+   在 MisFrameWork.core.db.Support.AbstractDataBaseUtility.Query(Session session, String query_sql, List`1 parameters, Int32 offset, Int32 maxResultCount)
+ 
+
+======================
