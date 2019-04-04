@@ -286,17 +286,21 @@ namespace MisFrameWork3.Classes.Controller
                 Array.Reverse(charArray);
                 string comId2 = new String(charArray);
                 comId2 += "%";
-                Condition cdtId = new Condition("AND", "SSSLDWJGDM", "like", comId2);
-                record = DbUtilityManager.Instance.DefaultDbUtility.Query("B_FACILITY", cdtId, "FACILITY_CODE", null, null, -1, -1);
+                Condition cdtId = new Condition();
+                cdtId.AddSubCondition("AND", "SSDW", "like", comId2);
+                cdtId.AddSubCondition("AND", "DELETED_MARK", "=", "0");
+                record = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtId, "MACHINENO", null, null, -1, -1);
             }
             else
             {
-                record = DbUtilityManager.Instance.DefaultDbUtility.Query("B_FACILITY", null, "FACILITY_CODE", null, null, -1, -1);
+                Condition cdtId = new Condition();
+                cdtId.AddSubCondition("AND", "DELETED_MARK", "=", "0");
+                record = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtId, "MACHINENO", null, null, -1, -1);
             }
             string zzjbh = "(";
             for (int i = 0; i < record.Count; i++)
             {
-                zzjbh += "'" + record[i]["FACILITY_CODE"] + "',";
+                zzjbh += "'" + record[i]["MACHINENO"] + "',";
             }
             zzjbh += "'0')";
             return zzjbh;

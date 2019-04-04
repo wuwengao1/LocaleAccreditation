@@ -13,6 +13,7 @@ using MisFrameWork3.Classes.Controller;
 using MisFrameWork3.Classes.Authorize;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using MisFrameWork3.Classes.Membership;
 
 namespace MisFrameWork3.Areas.FWBase.Controllers
 {
@@ -78,44 +79,63 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
 
         public ActionResult ActionEdit()
         {
+
             UnCaseSenseHashTable data = new UnCaseSenseHashTable();
-            data["ID"] = Request["OBJECT_ID"];
-            data["ROLE_NAME"] = Request["ROLE_NAME"];
-            data["ROLE_DESCRIPT"] = Request["ROLE_DESCRIPT"];
             data["SORT_CODE"] = Request["SORT_CODE"];
-
-            string[] allOperate = new string[0];
-            if (!string.IsNullOrEmpty(Request["OPERATE"]))
-            {
-                allOperate = Request["OPERATE"].Split(',');
-            }
-
-            Session session = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
+            int sortCode = 0;
             try
             {
-                session.BeginTransaction();
-                DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session, "FW_S_ROLES", data, false);
-                DbUtilityManager.Instance.DefaultDbUtility.Execute("delete from FW_S_ROLES_OPERATE where ROLE_ID=" + int.Parse(data["ID"].ToString()));
-                foreach (string op in allOperate)
+                sortCode = int.Parse(Request["SORT_CODE"]);
+            }
+            catch (Exception ee)
+            {
+                return Json(new { success = false, message = ee }, JsonRequestBehavior.AllowGet);
+            }
+            int RoleLevel = Membership.CurrentUser.RoleLevel;
+            if (RoleLevel < sortCode)
+            {
+                data["ID"] = Request["OBJECT_ID"];
+                data["ROLE_NAME"] = Request["ROLE_NAME"];
+                data["ROLE_DESCRIPT"] = Request["ROLE_DESCRIPT"];
+
+                string[] allOperate = new string[0];
+                if (!string.IsNullOrEmpty(Request["OPERATE"]))
                 {
-                    UnCaseSenseHashTable operate = new UnCaseSenseHashTable();
-                    operate["ROLE_ID"] = data["ID"];
-                    operate["OPERATE_ID"] = op;
-                    DbUtilityManager.Instance.DefaultDbUtility.InsertRecord(session, "FW_S_ROLES_OPERATE", operate);
+                    allOperate = Request["OPERATE"].Split(',');
                 }
 
-                session.Commit();
-                session.Close();
+                Session session = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
+                try
+                {
+                    session.BeginTransaction();
+                    DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session, "FW_S_ROLES", data, false);
+                    DbUtilityManager.Instance.DefaultDbUtility.Execute("delete from FW_S_ROLES_OPERATE where ROLE_ID=" + int.Parse(data["ID"].ToString()));
+                    foreach (string op in allOperate)
+                    {
+                        UnCaseSenseHashTable operate = new UnCaseSenseHashTable();
+                        operate["ROLE_ID"] = data["ID"];
+                        operate["OPERATE_ID"] = op;
+                        DbUtilityManager.Instance.DefaultDbUtility.InsertRecord(session, "FW_S_ROLES_OPERATE", operate);
+                    }
+
+                    session.Commit();
+                    session.Close();
+                }
+                catch (Exception e)
+                {
+                    session.Rollback();
+                    session.Close();
+                    var eResult = new { success = false, message = e.ToString() };
+                    return Json(eResult, JsonRequestBehavior.AllowGet); ;
+                }
+                var result = new { success = true, message = "保存成功" };
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
-            catch (Exception e)
+            else
             {
-                session.Rollback();
-                session.Close();
-                var eResult = new { success = false, message = e.ToString() };
-                return Json(eResult, JsonRequestBehavior.AllowGet); ;
+                var result = new { success = false, message = "权限不足无法修改！" };
+                return Json(result, JsonRequestBehavior.AllowGet);
             }
-            var result = new { success = true, message = "保存成功" };
-            return Json(result, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult ActionChangeState()
@@ -160,8 +180,14 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
 
         public ActionResult JsonDataList()
         {
+            int RoleLevel = Membership.CurrentUser.RoleLevel;
+            Condition cdtIds = new Condition();
+            if (RoleLevel != 0)
+            {
+                cdtIds.AddSubCondition("AND", "SORT_CODE", ">", RoleLevel);
+            }
             //#region 初始化基本查询参数 id,limit,offset,search,sort,order
-            return QueryDataFromEasyUIDataGrid("FW_S_ROLES", "CRATE_ON,UPDATE_ON", "ROLE_NAME,ROLE_DESCRIPT",null, "*");
+            return QueryDataFromEasyUIDataGrid("FW_S_ROLES", "CRATE_ON,UPDATE_ON", "ROLE_NAME,ROLE_DESCRIPT", cdtIds, "*");
         }
 
         public ActionResult JsonMenuData()

@@ -1,9 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.Text;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 using MisFrameWork.core;
@@ -11,9 +6,7 @@ using MisFrameWork.core.db;
 using MisFrameWork.core.db.Support;
 using MisFrameWork3.Classes.Controller;
 using MisFrameWork3.Classes.Authorize;
-
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using MisFrameWork3.Classes.Membership;
 
 namespace MisFrameWork3.Areas.FWBase.Controllers
 {
@@ -139,8 +132,34 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
 
         public ActionResult JsonDataList()
         {
+            int RoleLevel = Membership.CurrentUser.RoleLevel;
+            Condition cdtIds = new Condition();
+            if (RoleLevel != 0)
+            {
+                string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
+                char[] c = COMPANY_ID.ToCharArray();
+                string comId = "";
+                bool temp = false;
+                for (int i = c.Length - 1; i >= 0; i--)
+                {
+                    string cc = c[i].ToString();
+                    if (cc != "0" && !temp)
+                    {
+                        temp = true;
+                    }
+                    if (temp)
+                    {
+                        comId += c[i];
+                    }
+                }
+                char[] charArray = comId.ToCharArray();
+                Array.Reverse(charArray);
+                string comId3 = new String(charArray);
+                comId3 += "%";
+                cdtIds.AddSubCondition("AND", "COMPANY_CODE", "like", comId3);
+            }
             //#region 初始化基本查询参数 id,limit,offset,search,sort,order
-            return QueryDataFromEasyUIDataGrid("FW_S_COMAPANIES", "CRATE_ON,UPDATE_ON", "NAME,COMPANY_CODE,FAX,TEL1,TEL2,,ADDR_WORKING,DISABLED", null, "*");
+            return QueryDataFromEasyUIDataGrid("FW_S_COMAPANIES", "CRATE_ON,UPDATE_ON", "NAME,COMPANY_CODE,FAX,TEL1,TEL2,,ADDR_WORKING,DISABLED", cdtIds, "*");
         }
         
     }

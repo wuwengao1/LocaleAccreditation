@@ -95,7 +95,7 @@ namespace MisFrameWork3.Classes.Membership
 
         public string CompanyName
         {
-            get { return (string)userData["COMPANY_ID_D_XZQH__MC"]; }
+            get { return (string)userData["COMPANY_ID_V_D_FW_COMP__MC"]; }
         }
 
         /// <summary>
