@@ -8,7 +8,9 @@ using MisFrameWork.core.db.Support;
 using MisFrameWork3.Classes.Controller;
 using MisFrameWork3.Classes.Membership;
 using MisFrameWork3.Classes.Authorize;
-
+using iTextSharp.text;
+using iTextSharp.text.pdf;
+using System.IO;
 
 namespace MisFrameWork3.Areas.FWBase.Controllers
 {
@@ -280,7 +282,7 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
                 cdtMyCompany.AddSubCondition("AND", "END_DATE", "<=", Convert.ToDateTime(END_DATE));
             }
 
-            return QueryDataFromEasyUIDataGrid("FW_S_USERS", "CRATE_ON,UPDATE_ON", "USER_ID,USER_NAME", cdtMyCompany, "USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_V_D_FW_COMP__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR");
+            return QueryDataFromEasyUIDataGrid("FW_S_USERS", "", "", cdtMyCompany, "USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_V_D_FW_COMP__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR");
         }
 
         public ActionResult JsonRoles(string user_id)
@@ -350,5 +352,203 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
             }
             return this.QueryDataFromEasyUIDataGrid("V_D_FW_COMP", null, "DM,MC", cdtIds, "DM,MC");
         }
+
+        #region 打印数据
+        public FileResult ActionPrint(string name, string oject_id)
+        {
+            //获取数据
+            Condition cdtIds = new Condition();
+
+            if (!Membership.CurrentUser.HaveAuthority("SYS__USER__SELECT_OTHOR_COMPANY"))
+                cdtIds.AddSubCondition("AND", "COMPANY_ID", "=", Membership.CurrentUser.CompanyId);
+
+            string USER_ID = Request["USER_ID"];
+            string USER_NAME = Request["USER_NAME"];
+            string COMPANY_ID = Request["COMPANY_ID"];
+            string CREATE_ON = Request["CREATE_ON"];
+            string START_DATE = Request["START_DATE"];
+            string END_DATE = Request["END_DATE"];
+
+            if (!String.IsNullOrEmpty(USER_ID))
+            {
+                cdtIds.AddSubCondition("AND", "USER_ID", "like", "%" + USER_ID + "%");
+            }
+            if (!String.IsNullOrEmpty(USER_NAME))
+            {
+                cdtIds.AddSubCondition("AND", "USER_NAME", "like", "%" + USER_NAME + "%");
+            }
+            if (!String.IsNullOrEmpty(COMPANY_ID))
+            {
+                cdtIds.AddSubCondition("AND", "COMPANY_ID", "=", COMPANY_ID);
+            }
+            if (!String.IsNullOrEmpty(CREATE_ON))
+            {
+                cdtIds.AddSubCondition("AND", "CREATE_ON", "=", Convert.ToDateTime(CREATE_ON));
+            }
+            if (!String.IsNullOrEmpty(START_DATE))
+            {
+                cdtIds.AddSubCondition("AND", "START_DATE", ">=", Convert.ToDateTime(START_DATE));
+            }
+            if (!String.IsNullOrEmpty(END_DATE))
+            {
+                cdtIds.AddSubCondition("AND", "END_DATE", "<=", Convert.ToDateTime(END_DATE));
+            }
+            List<UnCaseSenseHashTable> records = DbUtilityManager.Instance.DefaultDbUtility.Query("FW_S_USERS", cdtIds, "*", null, null, -1, -1);
+
+            //设置打印图纸大小
+            Document document = new Document(PageSize.A4);
+            //设置页边距
+            document.SetMargins(36, 36, 36, 60);
+            //中文字体
+            string chinese = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Fonts), "SIMSUN.TTC,1");
+            BaseFont baseFont = BaseFont.CreateFont(chinese, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+            //文字大小12，文字样式
+            Font cn = new Font(baseFont, 14, Font.NORMAL);
+
+            //PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(@"D:\temp.pdf", FileMode.Create));
+
+            //这样写：是生成文件到内存中去
+            var memoryStream = new MemoryStream();
+            PdfWriter writer = PdfWriter.GetInstance(document, memoryStream);//生成到内存中
+            //writer.PageEvent = new PdfPageHelper();//页脚
+            document.Open();//打开文件
+
+
+            //Paragraph title = new Paragraph("国家工作人员登记备案表", new Font(baseFont, 23, Font.BOLD, BaseColor.BLACK));
+            Paragraph title = new Paragraph("", new Font(baseFont, 23, Font.BOLD, BaseColor.BLACK));
+            title.Alignment = Element.ALIGN_CENTER; //居中
+            title.SpacingAfter = 20;
+            document.Add(title);
+
+            //数据表格
+            PdfPTable table = new PdfPTable(10);
+            table.SetWidths(new float[] { 2.5F, 8, 8, 12, 12, 7, 6, 6, 6, 6 });
+            table.WidthPercentage = 100;
+            AddBodyContentCell(table, "序号", cn);
+            AddBodyContentCell(table, "登陆账号", cn);
+            AddBodyContentCell(table, "用户名称", cn);
+            AddBodyContentCell(table, "所属单位编号", cn);
+            AddBodyContentCell(table, "所属单位名称", cn);
+            AddBodyContentCell(table, "系统角色", cn);
+            AddBodyContentCell(table, "联系电话", cn);
+            AddBodyContentCell(table, "电子邮箱", cn);
+            AddBodyContentCell(table, "联系地址", cn);
+            AddBodyContentCell(table, "是否启用", cn);
+
+            for (int i = 0; i < records.Count; i++)
+            {
+                UnCaseSenseHashTable record = records[i];
+                AddBodyContentCell(table, Convert.ToString(i + 1), cn);
+                if (!string.IsNullOrEmpty((string)record["USER_ID"]))
+                {
+                    AddBodyContentCell(table, record["USER_ID"].ToString(), cn);
+                }
+                else
+                {
+                    AddBodyContentCell(table, "", cn);
+                }
+
+                if (!string.IsNullOrEmpty((string)record["USER_NAME"]))
+                {
+                    AddBodyContentCell(table, record["USER_NAME"].ToString(), cn);
+                }
+                else
+                {
+                    AddBodyContentCell(table, "", cn);
+                }
+                if (!string.IsNullOrEmpty((string)record["COMPANY_ID"]))
+                {
+                    AddBodyContentCell(table, record["COMPANY_ID"].ToString(), cn);
+                }
+                else
+                {
+                    AddBodyContentCell(table, "", cn);
+                }
+
+                if (!string.IsNullOrEmpty((string)record["COMPANY_ID_V_D_FW_COMP__MC"]))
+                {
+                    AddBodyContentCell(table, record["COMPANY_ID_V_D_FW_COMP__MC"].ToString(), cn);
+                }
+                else
+                {
+                    AddBodyContentCell(table, "", cn);
+                }
+
+                if (!string.IsNullOrEmpty((string)record["ROLES_ID_V_D_FW_S_ROLES__MC"]))
+                {
+                    AddBodyContentCell(table, record["ROLES_ID_V_D_FW_S_ROLES__MC"].ToString(), cn);
+                }
+                else
+                {
+                    AddBodyContentCell(table, "", cn);
+                }
+
+
+                if (!string.IsNullOrEmpty((string)record["TEL1"]))
+                {
+                    AddBodyContentCell(table, record["TEL1"].ToString(), cn);
+                }
+                else
+                {
+                    AddBodyContentCell(table, "", cn);
+                }
+
+                if (!string.IsNullOrEmpty((string)record["EMAIL"]))
+                {
+                    AddBodyContentCell(table, record["EMAIL"].ToString(), cn);
+                }
+                else
+                {
+                    AddBodyContentCell(table, "", cn);
+                }
+
+                if (!string.IsNullOrEmpty((string)record["ADDR"]))
+                {
+                    AddBodyContentCell(table, record["ADDR"].ToString(), cn);
+                }
+                else
+                {
+                    AddBodyContentCell(table, "", cn);
+                }
+
+                if (!string.IsNullOrEmpty(record["DISABLED"].ToString()))
+                {
+                    if (record["DISABLED"].ToString() == "0")
+                        AddBodyContentCell(table, "启用", cn);
+                    else
+                        AddBodyContentCell(table, "禁用", cn);
+                }
+                else
+                {
+                    AddBodyContentCell(table, "未知", cn);
+                }
+
+            }
+            document.Add(table);
+
+            document.Close();
+
+            var bytes = memoryStream.ToArray();
+            //result = Convert.ToBase64String(bytes);
+
+            return File(bytes, "application/pdf");
+        }
+
+        private void AddBodyContentCell(PdfPTable bodyTable, String text, iTextSharp.text.Font font, int rowspan = 2, bool needRightBorder = false)
+        {
+            PdfPCell cell = new PdfPCell();
+            //float defaultBorder = 0.5f;
+            //cell.BorderWidthLeft = defaultBorder;
+            //cell.BorderWidthTop = 0;
+            //cell.BorderWidthRight = needRightBorder ? defaultBorder : 0;
+            //cell.BorderWidthBottom = defaultBorder;
+            cell.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
+            cell.VerticalAlignment = iTextSharp.text.Element.ALIGN_BASELINE;
+            //cell.Rowspan = rowspan;
+            cell.PaddingBottom = 3;
+            cell.Phrase = new Phrase(text, font);
+            bodyTable.AddCell(cell);
+        }
+        #endregion
     }
 }

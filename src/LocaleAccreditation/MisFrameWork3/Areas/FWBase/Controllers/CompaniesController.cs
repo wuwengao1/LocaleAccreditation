@@ -159,7 +159,7 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
                 cdtIds.AddSubCondition("AND", "COMPANY_CODE", "like", comId3);
             }
             //#region 初始化基本查询参数 id,limit,offset,search,sort,order
-            return QueryDataFromEasyUIDataGrid("FW_S_COMAPANIES", "CRATE_ON,UPDATE_ON", "NAME,COMPANY_CODE,FAX,TEL1,TEL2,,ADDR_WORKING,DISABLED", cdtIds, "*");
+            return QueryDataFromEasyUIDataGrid("FW_S_COMAPANIES", "CRATE_ON,UPDATE_ON", "NAME,COMPANY_CODE", cdtIds, "*");
         }
         
     }

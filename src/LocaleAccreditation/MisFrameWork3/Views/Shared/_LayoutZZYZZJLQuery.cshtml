@@ -1,0 +1,140 @@
+﻿
+@{
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    @Styles.Render(new string[]
+    {
+        "~/Content/font-awesome.css",
+        "~/Scripts/jeasyui/themes/"+Request.Cookies["theme"].Value+"/easyui.css",
+        "~/Scripts/jeasyui/themes/icon.css",
+        "~/Scripts/jeasyui/themes/color.css",
+        "~/Scripts/kindeditor/themes/default/default.css",
+        "~/Scripts/kindeditor/plugins/code/prettify.css",
+        "~/Content/Site.css"
+    })
+
+    @Scripts.Render(new string[]
+    {
+        "~/Scripts/jquery-3.3.1.min.js",
+        "~/Scripts/jquery.validate.min.js",
+        "~/Scripts/moment.min.js",
+        "~/Scripts/moment-with-locales.min.js",
+        "~/Scripts/jeasyui/jquery.easyui.min.js",
+        "~/Scripts/jeasyui/datagrid-detailview.js",
+        "~/Scripts/jeasyui/locale/easyui-lang-zh_CN.js",
+        "~/Scripts/kindeditor/kindeditor-all.js",
+        "~/Scripts/kindeditor/lang/zh-CN.js",
+        "~/Scripts/misframework3.js",
+        "~/Scripts/fw_plugins/framework-ui.js",
+        "~/Scripts/fw_plugins/export_datagrid.js"
+    })
+
+</head>
+<body class="easyui-layout">
+    <div data-options="region:'north',title:'',border:false,split:false" style="margin-top:8px;overflow-y:visible;height:110px">
+        <div id="cmpDgToolBar" style="overflow: hidden;overflow-y: visible">
+            <div style="margin-bottom:5px;height:30px;margin-right:44px;">
+                <div id="cmpDgToolBar_Left" style="float:left">
+                    
+                </div>
+                <div id="cmpDgToolBar_Right" style="float:right">
+                    <a href="#" style="float:right;margin-right:-30px;" onclick="btnSearchEvent()" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:false">查询</a>
+                    <a href="#" style="float:right;margin-right:10px;" onclick="btnClearEvent()" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:false">清空</a>
+                </div>
+            </div>
+            <div style="margin-bottom:5px;">
+                <div style="width:33%;display:inline-block">
+                    <div style="width:30%;height: 29px;line-height: 28px;display:inline-block;text-align:right;">所属单位：</div>
+                    <select id="SSDW2" class="easyui-combobox" name="SSDW2" style="width:67%">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div style="width:33%;display:inline-block">
+                    <div style="width:30%;height: 29px;line-height: 28px;display:inline-block;text-align:right;">制证员名称：</div>
+                    <input id="ZZYNAME" name="ZZYNAME" class="easyui-textbox" style="width:67%">
+                </div>
+                <div style="width:33%;display:inline-block">
+                    <div style="width:30%;height: 29px;line-height: 28px;display:inline-block;text-align:right;">受理开始日期：</div>
+                    <input id="ACCEPT_DATE" name="ACCEPT_DATE" class="easyui-datebox" style="width:67%">
+                </div>
+            </div>
+            <div style="margin-bottom:5px;">
+                <div style="width:33%;display:inline-block">
+                    <div style="width:30%;height: 29px;line-height: 28px;display:inline-block;text-align:right;">受理结束日期：</div>
+                    <input id="ACCEPT_DATE2" name="ACCEPT_DATE2" class="easyui-datebox" style="width:67%">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-options="region:'center',title:'',border:false">
+        <table id="cmpDG"></table>
+    </div>
+    <div id="dialogDic"></div>
+    @* 组合查询*@
+    @RenderBody()
+</body>
+</html>
+<script>
+    $(function () {
+        $.ajax({
+            type: "get",
+            url: 'GetSelect',//访问后台去数据库查询select的选项
+            success: function (data) {
+                var data2 = eval('(' + data + ')');
+                var dw = data2.dw;
+                if (dw != null) { //后台传回来的select选项
+                    $("#SSDW2").combobox({
+                        valueField: 'DM',
+                        textField: 'MC',
+                        data: dw
+                    });
+                }
+            },
+            error: function () {
+                J.alert('Error');
+            }
+        })
+    });
+
+    function btnClearEvent() {
+        $("#SSDW2").textbox('setValue', "");
+        $("#ZZYNAME").textbox('setValue', "");
+        $("#ACCEPT_DATE").textbox('setValue', "");
+        $("#ACCEPT_DATE2").textbox('setValue', "");
+    }
+    var params2 = {};
+    function btnSearchEvent() {
+        var params = {};
+        params.SSDW = $("#SSDW2").textbox("getValue");
+        params.ZZY = $("#ZZYNAME").textbox("getValue");
+        params.ACCEPT_DATE = $("#ACCEPT_DATE").textbox("getValue");
+        params.ACCEPT_DATE2 = $("#ACCEPT_DATE2").textbox("getValue");
+        //params.SSDW = $("#SSDW2").textbox("getValue");
+        
+        console.log("查询条件：" + JSON.stringify(params));
+        $('#cmpDG').datagrid("load", params);
+
+        params2.SSDW = $("#SSDW2").textbox("getValue");
+        params2.ZZY = $("#ZZYNAME").textbox("getValue");
+        params2.ACCEPT_DATE = $("#ACCEPT_DATE").textbox("getValue");
+        params2.ACCEPT_DATE2 = $("#ACCEPT_DATE2").textbox("getValue");
+        //params2.SSDW = $("#SSDW2").textbox("getValue");
+    }
+    $(function () {
+        //$('#search').textbox('textbox').keydown(function (e) {
+        //    if (e.which == 13) {
+        //        btnSearchEvent();
+        //        return false;
+        //    }
+        //});
+        $('#cmpDG').datagrid('resize', { height: 430 });
+    })
+</script>
+

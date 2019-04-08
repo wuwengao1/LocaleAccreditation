@@ -32,6 +32,7 @@
         "~/Scripts/kindeditor/kindeditor-all.js",
         "~/Scripts/kindeditor/lang/zh-CN.js",
         "~/Scripts/misframework3.js",
+        "~/Scripts/fw_plugins/framework-ui.js",
         "~/Scripts/fw_plugins/export_datagrid.js"
     })
 
@@ -41,7 +42,7 @@
         <div id="cmpDgToolBar" style="overflow: hidden;overflow-y: visible">
             <div style="margin-bottom:5px;height:30px;margin-right:44px;">
                 <div id="cmpDgToolBar_Left" style="float:left">
-                    @if (ViewBag.HideCommonButtons == null || !ViewBag.HideCommonButtons)
+                    @if (ViewBag.RoleLevel != null && ViewBag.RoleLevel != 14)
                     {
                         <a id="stdBtnAdd" href="#" onclick="btnAddEvent()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:false,disabled:@(ViewBag.DisableBTN_Add!=null && ViewBag.DisableBTN_Add?"true":"false")">增加</a>
                         <a id="stdBtnEdit" href="#" onclick="btnEditEvent()" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:false,disabled:@(ViewBag.DisableBTN_Edit!=null && ViewBag.DisableBTN_Edit?"true":"false")">修改</a>
@@ -118,7 +119,6 @@
     });
 
     function btnClearEvent() {
-
         $("#MACHINENO2").textbox('setValue', "");
         $("#SSDW2").textbox('setValue', "");
     }
@@ -127,14 +127,7 @@
         var params = {};
         params.MACHINENO = $("#MACHINENO2").textbox("getValue");
         params.SSDW = $("#SSDW2").textbox("getValue");
-        @if (ViewBag.DateRangeType != null)
-        {
-        <text>
-        params.date_range_type = $("#date_range_type").combobox("getValue");
-        params.start_date = $("#start_date").datebox("getValue");
-        params.end_date = $("#end_date").datebox("getValue");
-        </text>
-        }
+        
         console.log("查询条件：" + JSON.stringify(params));
         $('#cmpDG').datagrid("load", params);
 
@@ -142,12 +135,6 @@
         params2.SSDW = $("#SSDW2").textbox("getValue");
     }
     $(function () {
-        //$('#search').textbox('textbox').keydown(function (e) {
-        //    if (e.which == 13) {
-        //        btnSearchEvent();
-        //        return false;
-        //    }
-        //});
         $('#cmpDG').datagrid('resize', { height: 430 });
     })
 </script>

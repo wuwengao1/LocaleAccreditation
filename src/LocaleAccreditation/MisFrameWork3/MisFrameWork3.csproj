@@ -58,6 +58,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="itextsharp, Version=5.5.13.0, Culture=neutral, PublicKeyToken=8354ae6d2174ddca, processorArchitecture=MSIL">
+      <HintPath>..\packages\iTextSharp.5.5.13\lib\itextsharp.dll</HintPath>
+    </Reference>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
     </Reference>
@@ -92,6 +95,10 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Oracle.ManagedDataAccess, Version=4.121.2.0, Culture=neutral, PublicKeyToken=89b483f429c47342, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Lib\Oracle.ManagedDataAccess.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -172,6 +179,10 @@
     <Compile Include="Areas\FWBase\FWBaseAreaRegistration.cs" />
     <Compile Include="Areas\Machine\Controllers\MachineController.cs" />
     <Compile Include="Areas\Machine\MachineAreaRegistration.cs" />
+    <Compile Include="Areas\ZZJLCX\Controllers\SBZZJLController.cs" />
+    <Compile Include="Areas\ZZJLCX\Controllers\ZZJLCXController.cs" />
+    <Compile Include="Areas\ZZJLCX\Controllers\ZZYZZJLController.cs" />
+    <Compile Include="Areas\ZZJLCX\ZZJLCXAreaRegistration.cs" />
     <Compile Include="Areas\Zzy\Controllers\ZzyController.cs" />
     <Compile Include="Areas\Zzy\ZzyAreaRegistration.cs" />
     <Compile Include="Classes\Authorize\LoginedAttribute.cs" />
@@ -242,6 +253,10 @@
     <Content Include="Areas\Zzy\Views\Zzy\ViewSSDW.cshtml" />
     <Content Include="Areas\Zzy\Views\Zzy\ViewFormAdd.cshtml" />
     <Content Include="Areas\Zzy\Views\Zzy\ViewFormEdit.cshtml" />
+    <Content Include="Areas\ZZJLCX\Views\web.config" />
+    <Content Include="Areas\ZZJLCX\Views\ZZJLCX\Index.cshtml" />
+    <Content Include="Areas\ZZJLCX\Views\SBZZJL\Index.cshtml" />
+    <Content Include="Areas\ZZJLCX\Views\ZZYZZJL\Index.cshtml" />
     <None Include="Views\Home\ViewHeader.cshtml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -251,6 +266,7 @@
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\fw_plugins\base64.js" />
     <Content Include="Scripts\fw_plugins\export_datagrid.js" />
+    <Content Include="Scripts\fw_plugins\framework-ui.js" />
     <Content Include="Scripts\fw_plugins\md5.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -282,10 +298,12 @@
     <Content Include="Views\Shared\ViewCommonDicUI.cshtml" />
     <Content Include="Views\Shared\_LayoutViewDiclarge.cshtml" />
     <Content Include="Views\Shared\_LayoutClassifyQuery.cshtml" />
-    <Content Include="Views\Shared\_LayoutStdConditionCombinationQuery.cshtml" />
     <Content Include="Views\Shared\_LayoutUserQuery.cshtml" />
     <Content Include="Views\Shared\_LayoutMachineQuery.cshtml" />
     <Content Include="Views\Shared\_LayoutZzyQuery.cshtml" />
+    <Content Include="Views\Shared\_LayoutSBZZJLQuery.cshtml" />
+    <Content Include="Views\Shared\_LayoutZZJLCXQuery.cshtml" />
+    <Content Include="Views\Shared\_LayoutZZYZZJLQuery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -293,6 +311,8 @@
     <Folder Include="Areas\FWBase\Views\FWServices\" />
     <Folder Include="Areas\Machine\Models\" />
     <Folder Include="Areas\Machine\Views\Shared\" />
+    <Folder Include="Areas\ZZJLCX\Models\" />
+    <Folder Include="Areas\ZZJLCX\Views\Shared\" />
     <Folder Include="Areas\Zzy\Models\" />
     <Folder Include="Areas\Zzy\Views\Shared\" />
     <Folder Include="ext_service_sample\" />

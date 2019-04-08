@@ -4,10 +4,9 @@
     Layout = "~/Views/Shared/_LayoutMachineQuery.cshtml";
     //__TIPS__:
     //下面这行可以定义查询项中是否包含日期查询框，如果查询不需要日期的，可以没注释这句。
-    ViewBag.DateRangeType = new string[] { "创建日期", "修改日期" };
     //系统默认是不允许删除记录的，如果要显示查询界面的删除按钮，就开启这句
-    ViewBag.ShowDeleteButton = false;
-    ViewBag.ShowChangeStateButton = true;
+    ////ViewBag.ShowDeleteButton = true;
+    //ViewBag.ShowChangeStateButton = true;
 }
 <div id="winMainForm"></div>
 <script>
@@ -54,7 +53,7 @@
             return;
         }
         $('#winMainForm').dialog({
-            title: '修改信息 【' + selectRow.ID+'】',
+            title: '修改信息 【' + selectRow.MACHINENO+'】',
             width: 670,//窗体边框12,加上内部div的边距20
             height: 400,
             top: 5,
@@ -91,7 +90,51 @@
     }
 
     function btnRemoveEvent() {
+        var selectRow = $('#cmpDG').datagrid("getSelected");
+        if (selectRow == null || selectRow == undefined) {
+            $.messager.alert({
+                icon: 'warning',
+                title: '提示',
+                msg: '请选择一条要 【删除】 的记录'
+            });
+            return;
+        }
 
+        $.messager.confirm({
+            icon: 'question',
+            title: '询问',
+            width: '400px',
+            @* __TIPS__ *: 这里是要根据实际数据结构提示相应的信息 *@
+            msg: '您确定要删除编号为【' + selectRow.MACHINENO + '】的设备？',
+            fn: function (r) {
+                if (r) {
+                    $.ajax({
+                        @* __TIPS__: 这里是提交数据的地址地址，最好使用同名，如果用绝地址就用@Url.Action("函数", "控制器") 的方式 *@
+                    url: "ActionDelete",
+                        data: {
+                        @* __TIPS__: 根据实际数据结构传入主键 *@
+                        "OBJECT_ID": selectRow.ID,
+                    },
+                    success: function(data) {
+                        console.log(data);
+                        if (data.success) {
+                            $('#cmpDG').datagrid("reload");
+                        }
+                        else {
+                            $.messager.alert({
+                                icon: 'error',
+                                title: '提示',
+                                msg: data.message
+                            });
+                        }
+                    },
+                    error: function (data) {
+
+                    }
+                });
+            }
+    }
+        });
     }
 
     function btnDisableEvent() {
@@ -117,7 +160,7 @@
             title: '询问',
             width: '400px',
             @* __TIPS__*: 这里是要根据实际数据结构提示相应的信息 *@
-            msg: '您确定要停用【' + selectRow.ID + '】【' + selectRow.NAME + '】？',
+            msg: '您确定要停用编号为【' + selectRow.MACHINENO + '】的设备？',
             fn: function (r) {
                 if (r) {
                     $.ajax({
@@ -207,25 +250,49 @@
         //toolbar: "#cmpDgToolBar",
         @* __TIPS__*: 以下同表格中显示的每列的配置信息 *@
         frozenColumns: [[
-            { field: 'MACHINENO', title: '机器编号', width: 120, sortable: true },
+            { field: 'MACHINENO', title: '设备编号', width: 120, sortable: true },
             { field: 'SSDW', title: '所属单位代码', width: 120, sortable: true },
             { field: 'SSDW_V_D_FW_COMP__MC', title: '所属单位名称', width: 180 },
-            { field: 'SBFZR_V_D_B_ZZY__MC', title: '设备负责人', width: 180 },
+            { field: 'SBFZR_V_D_FW_S_USERS__MC', title: '设备负责人名称', width: 180 },
+            { field: 'CREATE_ON', title: '设备录入时间', width: 180 },
+            {
+                field: 'DISABLED', title: '状态', width: 70, align: 'center', sortable: true,
+                formatter: function (d) {
+                    if (d == 1)
+                        return '<span class="label label-danger" >停用</span>';
+                    else
+                        return '<span class="label label-success">启用</span>';
+                }
+            },
         ]],
         columns: [[
         ]]
     });
-
     //初始化分页栏按钮,增加导出Excel功能
     var pager = $("#cmpDG").datagrid().datagrid('getPager')
     pager.pagination({
-        buttons: [{
-            text: '导出',
-            iconCls: 'icon-table-export',
-            handler: function () {
-                ef3.datagridToExcel("#cmpDG");
+        buttons: [
+            {
+                text: '导出',
+                iconCls: 'icon-table-export',
+                handler: function () {
+                    ef3.datagridToExcel("#cmpDG");
+                }
+            },
+            {
+                text: '打印',
+                iconCls: 'icon-table-export',
+                handler: function () {
+                    var data = {};
+                    data.title = "打印设备报表" ;
+                    data.MACHINENO = params2.MACHINENO;
+                    data.SSDW = params2.SSDW;
+                    console.log(data);
+                    var url='@Url.Action("ActionPrint", "Machine")';
+                    $.print(url, data);
+                }
             }
-        }]
+        ]
     });
 </script>
 

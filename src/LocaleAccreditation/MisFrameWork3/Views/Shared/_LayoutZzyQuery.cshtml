@@ -32,6 +32,7 @@
         "~/Scripts/kindeditor/kindeditor-all.js",
         "~/Scripts/kindeditor/lang/zh-CN.js",
         "~/Scripts/misframework3.js",
+        "~/Scripts/fw_plugins/framework-ui.js",
         "~/Scripts/fw_plugins/export_datagrid.js"
     })
 
@@ -41,7 +42,7 @@
         <div id="cmpDgToolBar" style="overflow: hidden;overflow-y: visible">
             <div style="margin-bottom:5px;height:30px;margin-right:44px;">
                 <div id="cmpDgToolBar_Left" style="float:left">
-                    @if (ViewBag.HideCommonButtons == null || !ViewBag.HideCommonButtons)
+                    @*@if (ViewBag.RoleLevel != null && ViewBag.RoleLevel != 14)
                     {
                         <a id="stdBtnAdd" href="#" onclick="btnAddEvent()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:false,disabled:@(ViewBag.DisableBTN_Add!=null && ViewBag.DisableBTN_Add?"true":"false")">增加</a>
                         <a id="stdBtnEdit" href="#" onclick="btnEditEvent()" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:false,disabled:@(ViewBag.DisableBTN_Edit!=null && ViewBag.DisableBTN_Edit?"true":"false")">修改</a>
@@ -56,7 +57,7 @@
                             <a href="#" onclick="btnDisableEvent()" class="easyui-linkbutton" data-options="iconCls:'icon-no',plain:false,disabled:@(ViewBag.DisableBTN_Disable != null && ViewBag.DisableBTN_Disable ? "true" : "false")">停用</a>
                             <a href="#" onclick="btnEnableEvent()" class="easyui-linkbutton" data-options="iconCls:'icon-ok',plain:false,disabled:@(ViewBag.DisableBTN_Enable != null && ViewBag.DisableBTN_Enable ? "true" : "false")">启用</a>
                         }
-                    }
+                    }*@
                 </div>
                 <div id="cmpDgToolBar_Right" style="float:right">
                     <a href="#" style="float:right;margin-right:-30px;" onclick="btnSearchEvent()" class="easyui-linkbutton" data-options="iconCls:'icon-search',plain:false">查询</a>
@@ -70,6 +71,10 @@
                         <option value=""></option>
                     </select>
                 </div>*@
+                <div style="width:33%;display:inline-block">
+                    <div style="width:30%;height: 29px;line-height: 28px;display:inline-block;text-align:right;">制证员名称：</div>
+                    <input id="ZZY_NAME2" name="ZZY_NAME2" class="easyui-textbox" style="width:67%">
+                </div>
                 <div style="width:33%;display:inline-block">
                     <div style="width:30%;height: 29px;line-height: 28px;display:inline-block;text-align:right;">所属单位：</div>
                     <select id="SSDW2" class="easyui-combobox" name="SSDW2" style="width:67%">
@@ -121,33 +126,23 @@
 
         //$("#MACHINENO2").textbox('setValue', "");
         $("#SSDW2").textbox('setValue', "");
+        $("#ZZY_NAME2").textbox('setValue', "");
     }
     var params2 = {};
     function btnSearchEvent() {
         var params = {};
         //params.MACHINENO = $("#MACHINENO2").textbox("getValue");
         params.SSDW = $("#SSDW2").textbox("getValue");
-        @if (ViewBag.DateRangeType != null)
-        {
-        <text>
-        params.date_range_type = $("#date_range_type").combobox("getValue");
-        params.start_date = $("#start_date").datebox("getValue");
-        params.end_date = $("#end_date").datebox("getValue");
-        </text>
-        }
+        params.ZZY_NAME = $("#ZZY_NAME2").textbox("getValue");
+        
         console.log("查询条件：" + JSON.stringify(params));
         $('#cmpDG').datagrid("load", params);
 
         //params2.MACHINENO = $("#MACHINENO2").textbox("getValue");
         params2.SSDW = $("#SSDW2").textbox("getValue");
+        params2.ZZY_NAME = $("#ZZY_NAME2").textbox("getValue");
     }
     $(function () {
-        //$('#search').textbox('textbox').keydown(function (e) {
-        //    if (e.which == 13) {
-        //        btnSearchEvent();
-        //        return false;
-        //    }
-        //});
         $('#cmpDG').datagrid('resize', { height: 430 });
     })
 </script>

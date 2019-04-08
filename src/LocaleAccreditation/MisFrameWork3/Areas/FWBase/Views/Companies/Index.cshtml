@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_LayoutStdQuery.cshtml";
     //__TIPS__: 
     //下面这行可以定义查询项中是否包含日期查询框，如果查询不需要日期的，可以没注释这句。
-    ViewBag.DateRangeType = new string[] { "创建日期", "修改日期" };
+    //ViewBag.DateRangeType = new string[] { "创建日期", "修改日期" };
     //系统默认是不允许删除记录的，如果要显示查询界面的删除按钮，就开启这句
     ViewBag.ShowDeleteButton = false;
     ViewBag.ShowChangeStateButton = true;
@@ -209,9 +209,9 @@
         columns: [[
             { field: 'NAME', title: '单位名称', width: 180 },
             { field: 'COMPANY_CODE', title: '单位编号', width: 120 },
-            { field: 'FAX', title: '传真号码1', width: 150 },
             { field: 'TEL1', title: '电话1', width: 150 },
             { field: 'TEL2', title: '电话2', width: 150 },
+            { field: 'FAX', title: '传真号码', width: 150 },
             { field: 'ADDR_WORKING', title: '办公地址', width: 270 },
             {
                 field: 'DISABLED', title: '状态', width: 70, align: 'center', sortable: true,
