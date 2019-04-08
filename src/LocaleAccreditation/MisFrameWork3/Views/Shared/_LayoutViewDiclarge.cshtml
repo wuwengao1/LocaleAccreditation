@@ -21,6 +21,7 @@
             }
         });
         cmpDialogDic_DG_init();
+        
         var d = $('#dialogDic').dialog("options");
         $('#cmpDialogDic_DG').datagrid({
             url: d.dic_json_url,
@@ -45,6 +46,7 @@
                 }
             },
             onDblClickRow: function (index, record) {
+               
                 var d = $('#dialogDic').dialog("options");
                 var dBox = $(d.dic_cmp_name).textbox("options");
                 //dBox.load_dm_from_server = false;
