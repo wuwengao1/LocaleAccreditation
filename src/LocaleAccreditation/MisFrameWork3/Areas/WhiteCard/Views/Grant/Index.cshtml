@@ -1,8 +1,8 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutGrantQuery.cshtml";
-
+    Layout = "~/Views/Shared/_LayoutStdConditionGrantQuery.cshtml";
+    ViewBag.DateRangeType = new string[] { "领卡日期"};
     ViewBag.ShowDeleteButton = true;
     ViewBag.ShowUploadButton = true;
     ViewBag.ShowChangeStateButton = false;
@@ -145,7 +145,7 @@
 
 
     $('#cmpDG').datagrid({
-        url: 'JsonDataIndex',
+        url: 'JsonDataList',
         singleSelect:true,
         pagination: true,
         rownumbers: true,
@@ -157,11 +157,11 @@
         //toolbar: "#cmpDgToolBar",
         @* __TIPS__*: 以下同表格中显示的每列的配置信息 *@
         frozenColumns: [[
-            { field: 'EXTEND', title: '发放人', width: 120 },
-            { field: 'EXTEND_ID_V_D_FW_COMP__MC', title: '发放人单位', width: 180, sortable: true },
-            { field: 'RECEIVE', title: '领卡人', width: 220 },
-            { field: 'RECEIVE_ID_V_D_FW_COMP__MC', title: '领卡人单位', width: 180, sortable: true },
-            { field: 'RECEIVE_NUMBER', title: '领卡数量', width: 120 },
+            { field: 'EXTEND_NAME', title: '发放人', width: 200 },
+            { field: 'EXTEND_ID_V_D_FW_COMP__MC', title: '发放人单位', width: 200, sortable: true },
+            { field: 'RECEIVE_NAME', title: '领卡人', width: 120 },
+            { field: 'RECEIVE_ID_V_D_FW_COMP__MC', title: '领卡人单位', width: 200, sortable: true },
+            { field: 'RECEIVE_NUMBER', title: '领卡数量', width: 100 },
 
         ]],
         columns: [[

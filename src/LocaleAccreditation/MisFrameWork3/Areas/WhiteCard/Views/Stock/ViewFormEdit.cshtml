@@ -5,135 +5,19 @@
         @* __TIPS__ 输入元素尽量统一为两列以内，宽度要与Index 打开的窗体宽度对应*@
         <input type="hidden" id="OBJECT_ID" name="OBJECT_ID" value="" />
         @* 不要使用实际的主键 *@
-        <div style="max-height: 500px">
-            <div style="margin-bottom: 5px;">
-                <input id="PLAN_NAME" name="PLAN_NAME" class="easyui-textbox" data-options="width:'48%',labelWidth:120,label:'方案名称：',labelAlign:'right',required:true">
-
-                <input id="PLAN_TYPE" name="PLAN_TYPE" class="easyui-dicshort" data-options="width:'48%',labelWidth:120,label:'方案类型：',labelAlign:'right',
-                       url: 'JsonDicShort?dic=D_FACILITY_TYPE',
-                       multiple: false,
-                       required:false">
-            </div>
-            <div style="margin-bottom: 5px;">
-                <input id="DESCRIPTION" name="DESCRIPTION" class="easyui-textbox" data-options="width:'96%',labelWidth:120,label:'方案信息：',labelAlign:'right'">
-            </div>
-            <div style="margin-bottom:5px;">
-                <input id="PLAN_FILE" name="PLAN_FILE" class="easyui-uploadfilebox" data-options="width:'96%',labelWidth:120,label:'方案文件：',labelAlign:'right',required:false,
-                   allowFileManager:false, @* 是否允许在上传历史中选择文件 *@
-                   autoCloseUploadDialog:true,@* 上传完成直接关闭选择文件 *@
-                   uploadJson: '@Url.Action("JsonExtractZipFile", "UploadFile",new {id=1})',
-                   afterUploadSuccess:customAfterSuccessGetZipInfo,@* 上传完成后的事件 *@
-                ">
-            </div>
-            <div style="margin-bottom: 5px;">
-                <input id="BEFORE_CMD" name="BEFORE_CMD" class="easyui-textbox" data-options="width:'96%',labelWidth:120,label:'替换前命令：',labelAlign:'right'">
-            </div>
-            <div style="margin-bottom: 5px;">
-                <input id="AFTER_CMD" name="AFTER_CMD" class="easyui-textbox" data-options="width:'96%',labelWidth:120,label:'替换后命令：',labelAlign:'right'">
-            </div>
-            <div style="margin-bottom: 5px;">
-                <input id="CREATE_BY" name="CREATE_BY" class="easyui-textbox" data-options="width:'48%',labelWidth:120,label:'创建人：',labelAlign:'right',disabled:true,required:false,">
-                <input id="CREATE_ON" name="CREATE_ON" class="easyui-datebox" data-options="width:'48%',labelWidth:120,label:'创建时间：',labelAlign:'right',disabled:true,required:false,">
-            </div>
-            <div style="margin-bottom: 5px;">
-                <input id="UPDATE_BY" name="UPDATE_BY" class="easyui-textbox" data-options="width:'48%',labelWidth:120,label:'修改人：',labelAlign:'right',disabled:true,required:false,">
-                <input id="UPDATE_ON" name="UPDATE_ON" class="easyui-datebox" data-options="width:'48%',labelWidth:120,label:'修改时间：',labelAlign:'right',disabled:true,required:false,">
-            </div>
-            <div data-options="region:'center',title:'',border:false">
-                <table id="list"></table>
-            </div>
+        <div style="margin-bottom:5px;">
+            <input id="STOCK_WHOLE" name="STOCK_WHOLE" class="easyui-numberbox" data-options="width:'96%',labelWidth:120,label:'全部库存：',labelAlign:'right',min:0,editable:true,required:true">         
         </div>
+        <div style="margin-bottom:5px;">
+            <input id="STOCK_OVERPLUS" name="STOCK_OVERPLUS" class="easyui-numberbox" data-options="width:'96%',labelWidth:120,label:'剩余库存：',labelAlign:'right',min:0,editable:true,required:true">    
+        </div>
+        <div style="margin-bottom:5px;">
+            <input id="STOCK_SCRAP" name="STOCK_SCRAP" class="easyui-numberbox" data-options="width:'96%',labelWidth:120,label:'报废库存：',labelAlign:'right',min:0,editable:true,required:true">
+        </div>
+
     </form>
 </div>
 <script>
-
-    $(function () {
-        var obj=$('#winMainForm').dialog('options');
-        var queryParams = obj["queryParams"];
-        var planFile = queryParams["palnfile"];
-        if (planFile != null) {
-            $('#list').datagrid({
-                url: "@Url.Action("JsonGetZipInfo", "UploadFile")?zip_file=" + planFile,
-                //pageList: [pageSize * 1, pageSize * 2, pageSize * 3, pageSize * 4, pageSize * 5, pageSize * 6],
-                //pageSize: pageSize,
-                singleSelect: true,
-                //pagination: true,
-                rownumbers: true,
-                remoteSort: true,
-                striped: true,
-                @* __TIPS__ *: 以下同表格中显示的每列的配置信息 *@
-                frozenColumns: [[
-                    { field: 'NAME', title: '名称', width: 300, height: 40, align: 'center' },
-                    { field: 'LENGTH', title: '大小', width: 230, height: 40, align: 'center' },
-                    {
-                        field: 'ID', width: 105, height: 40, align: 'center',
-                        formatter: function (d) {
-                            //<a onclick="replace(' + d +')" class="easyui-linkbutton" style="cursor:pointer;font-weight:bolder;font-size:16px;">替换</a>
-                            return '<a onclick="upload(' + d + ')" class="easyui-linkbutton" style="cursor:pointer;font-weight:bolder;font-size:16px;margin-right:10px">下载</a>';
-                        }
-                    }
-                ]]
-            });
-        }
-    })
-
-    function customAfterSuccessGetZipInfo(url, d2, ctrl) {
-        ctrl.uploadfilebox("setValue", url);
-        $('#list').datagrid({
-            url: "@Url.Action("JsonGetZipInfo", "UploadFile")?zip_file=" + url,
-            singleSelect: true,
-            rownumbers: true,
-            remoteSort: true,
-            striped: true,
-            @* __TIPS__ *: 以下同表格中显示的每列的配置信息 *@
-            frozenColumns: [[
-                { field: 'NAME', title: '名称', width: 300, height: 40, align: 'center' },
-                { field: 'LENGTH', title: '大小', width: 230, height: 40, align: 'center' },
-                {
-                    field: 'MD5', width: 105, height: 40, align: 'center',
-                    formatter: function (d) {
-                        //<a onclick="replace(' + d +')" class="easyui-linkbutton" style="cursor:pointer;font-weight:bolder;font-size:16px;">替换</a>
-                        return '<a onclick="upload(' + d + ')" class="easyui-linkbutton" style="cursor:pointer;font-weight:bolder;font-size:16px;margin-right:10px">下载</a>';
-                        }
-                }
-            ]]
-        });
-    }
-    function upload(id) {
-        $.getJSON("SingleUpload?id=" + id, function (data) {
-            if (!data.success) {
-                $.messager.alert({
-                    icon: 'error',
-                    title: '错误',
-                    msg: "文件下载错误！"
-                });
-            } else {
-                $.messager.alert({
-                    icon: 'info',
-                    title: '提示',
-                    msg: '文件下载完成！'
-                });
-            }
-        });
-    }
-    function replace(id) {
-        $.getJSON("Replace?id=" + id, function (data) {
-            if (!data.success) {
-                $.messager.alert({
-                    icon: 'error',
-                    title: '错误',
-                    msg: "文件下载错误！"
-                });
-            } else {
-                $.messager.alert({
-                    icon: 'info',
-                    title: '提示',
-                    msg: '文件下载完成！'
-                });
-            }
-        });
-    }
-
 
     function btnForm_OK_Click_Event(e) {
         console.log($('#formData').serialize());
@@ -175,19 +59,19 @@
         $("#btnForm_OK").bind('click', btnForm_OK_Click_Event);
         //加载录入内容
         @* __TIPS__:这里修改加载数据的地址,可以使用绝对地址的方式【@Url.Action("JsonDataList", "Roles")】*@
-        $.getJSON("JsonDataList?id=" + $("#OBJECT_ID").val(), function (data) {
-            console.log(data);
-            if (data.rows == undefined) {
-                $.messager.alert({
-                    icon: 'error',
-                    title: '错误',
-                    msg: "没有查到相应记录【" + $("#OBJECT_ID").val() + "】"
-                });
-                return;
-            }
-            $('#formData').form("load", data.rows[0]);
-            $("[type='hidden']").change();//__TIPS__:hidden控件改变后无法触发change事件，所以要单独处理，否则可能会影响某些控件的使用。
-        });
+        //$.getJSON("JsonDataList?id=" + $("#OBJECT_ID").val(), function (data) {
+        //    console.log(data);
+        //    if (data.rows == undefined) {
+        //        $.messager.alert({
+        //            icon: 'error',
+        //            title: '错误',
+        //            msg: "没有查到相应记录【" + $("#OBJECT_ID").val() + "】"
+        //        });
+        //        return;
+        //    }
+            //$('#formData').form("load", data.rows[0]);
+        //    $("[type='hidden']").change();//__TIPS__:hidden控件改变后无法触发change事件，所以要单独处理，否则可能会影响某些控件的使用。
+        //});
     });
 </script>
 

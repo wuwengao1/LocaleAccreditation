@@ -4,8 +4,8 @@
 <div style="padding: 10px">
     <form id="formData" method="post" action="ActionAdd" enctype="multipart/form-data">
         @* __TIPS__ 输入元素尽量统一为两列以内，宽度要与Index 打开的窗体宽度对应*@
-        <div style="margin-bottom:5px;">
-            <input id="EXTEND" name="EXTEND" class="easyui-textbox" data-options="width:'96%',labelWidth:120,iconCls:'icon-man',label:'发卡人：',labelAlign:'right',required:true">
+        @*<div style="margin-bottom:5px;">
+            <input id="EXTEND_NAME" name="EXTEND_NAME" class="easyui-textbox" data-options="width:'96%',labelWidth:120,iconCls:'icon-man',label:'发卡人：',labelAlign:'right',required:true">
         </div>
         <div style="margin-bottom:5px;">
             <input id="EXTEND_ID" name="EXTEND_ID" class="easyui-diclarge" data-options="width:'96%',labelWidth:120,label:'发卡人单位：',labelAlign:'right',required:false,
@@ -14,12 +14,12 @@
                        dic_view_url:'ViewDicLargeUI?dic=V_D_FW_COMP',
                        dic_multiple_value:false
                        ">
+        </div>*@
+        <div style="margin-bottom:5px;">
+            <input id="RECEIVE_NAME" name="RECEIVE_NAME" class="easyui-textbox" data-options="width:'96%',labelWidth:120,iconCls:'icon-man',label:'领卡人：',labelAlign:'right',required:true">
         </div>
         <div style="margin-bottom:5px;">
-            <input id="RECEIVE" name="RECEIVE" class="easyui-textbox" data-options="width:'96%',labelWidth:120,iconCls:'icon-man',label:'领卡人：',labelAlign:'right',required:true">
-        </div>
-        <div style="margin-bottom:5px;">
-            <input id="RECEIVE_ID" name="RECEIVE_ID" class="easyui-diclarge" data-options="width:'96%',labelWidth:120,label:'领卡人单位：',labelAlign:'right',required:false,
+            <input id="RECEIVE_ID" name="RECEIVE_ID" class="easyui-diclarge" data-options="width:'96%',labelWidth:120,label:'领卡人单位：',labelAlign:'right',required:true,
                        title: '单位选择',
                        dic_json_url:'JsonDicLarge?comma_is_or=true&dic=V_D_FW_COMP',
                        dic_view_url:'ViewDicLargeUI?dic=V_D_FW_COMP',

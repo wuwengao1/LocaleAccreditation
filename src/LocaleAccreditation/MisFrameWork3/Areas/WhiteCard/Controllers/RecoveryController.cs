@@ -28,7 +28,7 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
             return View();
         }
 
-        public ActionResult JsonConditionCombinationInfo()
+        public ActionResult JsonConditionRecovery()
         {
             return View();
         }
@@ -40,43 +40,6 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
         #region __TIPS__:框架通用函数( 增 删 改)
         public ActionResult JsonDataList()//业务主界面数据查询函数
         {
-            //接收的基本查询参数有： id,limit,offset,search,sort,order            
-            //__TIPS__*:根据表结构，修改以下函数的参数
-            string RECOVERY = Request["RECOVERY"];
-            string RECOVERY_ID = Request["RECOVERY_ID"];
-            string SUBMIT_NUMBER = Request["SUBMIT_NUMBER"];
-            string SUBMIT = Request["SUBMIT"];
-            string SUBMIT_ID = Request["SUBMIT_ID"];
-
-            Condition cdtIds = new Condition();
-            if (!String.IsNullOrEmpty(RECOVERY))
-            {
-                cdtIds.AddSubCondition("AND", "RECOVERY", "=",RECOVERY);
-            }
-            if (!String.IsNullOrEmpty(RECOVERY_ID))
-            {
-                cdtIds.AddSubCondition("AND", "RECOVERY_ID", "=", RECOVERY_ID);
-            }
-            if (!String.IsNullOrEmpty(SUBMIT_NUMBER))
-            {
-                cdtIds.AddSubCondition("AND", "SUBMIT_NUMBER", "=",SUBMIT_NUMBER);
-            }
-            if (!String.IsNullOrEmpty(SUBMIT))
-            {
-                cdtIds.AddSubCondition("AND", "SUBMIT", "=",SUBMIT);
-            }
-            if (!String.IsNullOrEmpty(SUBMIT_ID))
-            {
-                cdtIds.AddSubCondition("AND", "SUBMIT_ID", "=", SUBMIT_ID);
-            }
-            return QueryDataFromEasyUIDataGrid("B_CARD_RECOVERY", "RECOVERY_TIME,SUBMIT_NUMBER", "SUBMIT_ID", cdtIds, "*");
-        }
-
-
-        public ActionResult JsonDataIndex()//业务主界面数据查询函数
-        {
-            //接收的基本查询参数有： id,limit,offset,search,sort,order            
-            //__TIPS__*:根据表结构，修改以下函数的参数
             int RoleLevel = Membership.CurrentUser.RoleLevel;
             Condition cdtId;
             if (RoleLevel != 0)
@@ -111,8 +74,6 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
                 return QueryDataFromEasyUIDataGrid("B_CARD_RECOVERY", "RECOVERY_TIME,SUBMIT_NUMBER", "SUBMIT_ID", null, "*");
             }
         }
-
-
         public ActionResult ViewFormAdd()
         {
             return View();
@@ -127,6 +88,8 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
         {
             UnCaseSenseHashTable data = new UnCaseSenseHashTable();
             Session session = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
+            string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();//回收单位ID
+            string COMPANY_NAME = Membership.CurrentUser.CompanyName.ToString();//回收单位名称
             try
             {
                 /*
@@ -142,81 +105,172 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
                 */
                 ITableInfo ti = DbUtilityManager.Instance.DefaultDbUtility.CreateTableInfo("B_CARD_RECOVERY");
                 data.LoadFromNameValueCollection(Request.Unvalidated.Form, ti, true);//使用Request.Unvalidated.Form可以POST HTML标签数据。
-                session.BeginTransaction();
-                int r = DbUtilityManager.Instance.DefaultDbUtility.InsertRecord(session, "B_CARD_RECOVERY", data);
-                session.Commit();
-                session.Close();
-
-                //回收单位剩余库存和总库存增加
-                Condition cdtId_add = new Condition("AND", "COMPANY_ID", "=", data["RECOVERY_ID"]);
-                List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", cdtId_add, "*", null, null, -1, -1);
-                if (record.Count == 1)
+                data["RECOVERY_ID"] = COMPANY_ID;
+                data["RECOVERY_NAME"] = COMPANY_NAME;
+                Int64 SUBMIT_ID = Convert.ToInt64(data["SUBMIT_ID"].ToString());
+                Int64 RECOVERY_ID = Convert.ToInt64(COMPANY_ID);
+                if (RECOVERY_ID< SUBMIT_ID)
                 {
-                    int STOCK_WHOLE = Convert.ToInt32(record[0]["STOCK_WHOLE"].ToString());
-                    int SUBMIT_NUMBER = Convert.ToInt32(data["SUBMIT_NUMBER"].ToString());
-                    int STOCK_OVERPLUS = Convert.ToInt32(record[0]["STOCK_OVERPLUS"].ToString());
-                    if (STOCK_OVERPLUS >= 0 && SUBMIT_NUMBER >= 0 && STOCK_WHOLE >= 0)
+                    session.BeginTransaction();
+                    int r = DbUtilityManager.Instance.DefaultDbUtility.InsertRecord(session, "B_CARD_RECOVERY", data);
+
+                    //更新库存
+                    if (data["TYPE_ID"].ToString() == "01")//判断回收类型
                     {
-                        STOCK_OVERPLUS = STOCK_OVERPLUS + SUBMIT_NUMBER;
-                        STOCK_WHOLE = STOCK_WHOLE + SUBMIT_NUMBER;
-                        string number_overplus = Convert.ToString(STOCK_OVERPLUS);
-                        string number_whole = Convert.ToString(STOCK_WHOLE);
-                        record[0]["STOCK_OVERPLUS"] = number_overplus;
-                        record[0]["STOCK_WHOLE"] = number_whole;
-                    }
-                    UnCaseSenseHashTable data_add = new UnCaseSenseHashTable();
-                    data_add["ID"] = record[0]["ID"];
-                    data_add["STOCK_WHOLE"] = record[0]["STOCK_WHOLE"];
-                    data_add["STOCK_OVERPLUS"] = record[0]["STOCK_OVERPLUS"];
-                    data_add["INPUT_TIME"] = record[0]["INPUT_TIME"];
-                    data_add["COMPANY_ID"] = record[0]["COMPANY_ID"];
-                    data_add["COMPANY_ID_V_D_FW_COMP__MC"] = record[0]["COMPANY_ID_V_D_FW_COMP__MC"];
-                    Session session_number = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
-                    session_number.BeginTransaction();
-                    int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_number, "B_CARD_STOCK", data_add, false);
-                    session_number.Commit();
-                    session_number.Close();
-                }
-                //提交单位剩余库存和总库存减少
-                Condition cdtId_minus = new Condition("AND", "COMPANY_ID", "=", data["SUBMIT_ID"]);
-                List<UnCaseSenseHashTable> record_minus = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", cdtId_minus, "*", null, null, -1, -1);
-                if (record_minus.Count == 1)
-                {
+                        //回收单位剩余库存增加，总库存不变
+                        Condition cdtId_add = new Condition("AND", "COMPANY_ID", "=", COMPANY_ID);
+                        List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", cdtId_add, "*", null, null, -1, -1);
+                        if (record.Count == 1)
+                        {
+                            int SUBMIT_NUMBER = Convert.ToInt32(data["SUBMIT_NUMBER"].ToString());   //提交数量
+                            int STOCK_OVERPLUS = Convert.ToInt32(record[0]["STOCK_OVERPLUS"].ToString()); //剩余库存量
+                            if (STOCK_OVERPLUS >= 0 && SUBMIT_NUMBER >= 0)
+                            {
+                                STOCK_OVERPLUS = STOCK_OVERPLUS + SUBMIT_NUMBER;
+                                string number_overplus = Convert.ToString(STOCK_OVERPLUS);
+                                record[0]["STOCK_OVERPLUS"] = number_overplus;
+                            }
+                            UnCaseSenseHashTable data_add = new UnCaseSenseHashTable();
+                            data_add["ID"] = record[0]["ID"];
+                            data_add["STOCK_WHOLE"] = record[0]["STOCK_WHOLE"];
+                            data_add["STOCK_OVERPLUS"] = record[0]["STOCK_OVERPLUS"];
+                            data_add["INPUT_TIME"] = record[0]["INPUT_TIME"];
+                            data_add["COMPANY_ID"] = record[0]["COMPANY_ID"];
+                            data_add["STOCK_SCRAP"] = record[0]["STOCK_SCRAP"];
+                            data_add["COMPANY_ID_V_D_FW_COMP__MC"] = record[0]["COMPANY_ID_V_D_FW_COMP__MC"];
+                            Session session_number = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
+                            session_number.BeginTransaction();
+                            int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_number, "B_CARD_STOCK", data_add, false);
+                            session_number.Commit();
+                            session_number.Close();
+                        }else {
+                            return Json(new { success = false, message = "数据库中无该回收单位！" }, JsonRequestBehavior.AllowGet);
+                        }
+                        //提交单位剩余库存和总库存减少
+                        Condition cdtId_minus = new Condition("AND", "COMPANY_ID", "=", data["SUBMIT_ID"]);
+                        List<UnCaseSenseHashTable> record_minus = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", cdtId_minus, "*", null, null, -1, -1);
+                        if (record_minus.Count == 1)
+                        {
 
-                    int SUBMIT_ID = Convert.ToInt32(data["SUBMIT_ID"].ToString());
-                    int STOCK_OVERPLUS = Convert.ToInt32(record_minus[0]["STOCK_OVERPLUS"].ToString());
-                    int STOCK_WHOLE = Convert.ToInt32(record_minus[0]["STOCK_WHOLE"].ToString());
-                    if (STOCK_OVERPLUS >= 0 && SUBMIT_ID >= 0&& STOCK_WHOLE>=0)
+                            int SUBMIT_NUMBER = Convert.ToInt32(data["SUBMIT_NUMBER"].ToString());
+                            int STOCK_OVERPLUS = Convert.ToInt32(record_minus[0]["STOCK_OVERPLUS"].ToString());
+                            int STOCK_WHOLE = Convert.ToInt32(record_minus[0]["STOCK_WHOLE"].ToString());
+                            if (STOCK_OVERPLUS - SUBMIT_NUMBER >= 0)
+                            {
+                                if (STOCK_OVERPLUS >= 0 && SUBMIT_NUMBER >= 0 && STOCK_WHOLE >= 0 && STOCK_WHOLE - SUBMIT_NUMBER >= 0)
+                                {
+                                    STOCK_OVERPLUS = STOCK_OVERPLUS - SUBMIT_NUMBER;
+                                    STOCK_WHOLE = STOCK_WHOLE - SUBMIT_NUMBER;
+                                    string number_overplus = Convert.ToString(STOCK_OVERPLUS);
+                                    record_minus[0]["STOCK_OVERPLUS"] = number_overplus;
+                                    string number_WHOLE = Convert.ToString(STOCK_WHOLE);
+                                    record_minus[0]["STOCK_WHOLE"] = number_WHOLE;
+                                }
+                                UnCaseSenseHashTable data_minus = new UnCaseSenseHashTable();
+                                data_minus["ID"] = record_minus[0]["ID"];
+                                data_minus["STOCK_WHOLE"] = record_minus[0]["STOCK_WHOLE"];
+                                data_minus["STOCK_OVERPLUS"] = record_minus[0]["STOCK_OVERPLUS"];
+                                data_minus["INPUT_TIME"] = record_minus[0]["INPUT_TIME"];
+                                data_minus["COMPANY_ID"] = record_minus[0]["COMPANY_ID"];
+                                data_minus["STOCK_SCRAP"] = record_minus[0]["STOCK_SCRAP"];
+                                data_minus["COMPANY_ID_V_D_FW_COMP__MC"] = record_minus[0]["COMPANY_ID_V_D_FW_COMP__MC"];
+                                Session session_minus = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
+                                session_minus.BeginTransaction();
+                                int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_minus, "B_CARD_STOCK", data_minus, false);
+                                session_minus.Commit();
+                                session_minus.Close();
+                            }
+                            else {
+                                return Json(new { success = false, message = "剩余库存数量不足！" }, JsonRequestBehavior.AllowGet);
+                            }
+                        }else{
+                            return Json(new { success = false, message = "数据库中无该提交单位！" }, JsonRequestBehavior.AllowGet);
+                        }
+                    }
+                    else
                     {
-                        STOCK_OVERPLUS = STOCK_OVERPLUS - SUBMIT_ID;
-                        STOCK_WHOLE = STOCK_WHOLE - SUBMIT_ID;
-                        string number_overplus = Convert.ToString(STOCK_OVERPLUS);
-                        record_minus[0]["STOCK_OVERPLUS"] = number_overplus;
-                        string number_WHOLE = Convert.ToString(STOCK_WHOLE);
-                        record_minus[0]["STOCK_WHOLE"] = number_WHOLE;
+                        //提交单位的总库存减少，报废库存减少
+                        Condition cdtId_minus = new Condition("AND", "COMPANY_ID", "=", data["SUBMIT_ID"]);
+                        List<UnCaseSenseHashTable> record_minus = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", cdtId_minus, "*", null, null, -1, -1);
+                        if (record_minus.Count == 1)
+                        {
 
-
+                            int SUBMIT_NUMBER = Convert.ToInt32(data["SUBMIT_NUMBER"].ToString());
+                            int STOCK_SCRAP = Convert.ToInt32(record_minus[0]["STOCK_SCRAP"].ToString());
+                            int STOCK_WHOLE = Convert.ToInt32(record_minus[0]["STOCK_WHOLE"].ToString());
+                            if (STOCK_SCRAP - SUBMIT_NUMBER < 0)
+                            {
+                                return Json(new { success = false, message = "提交单位报废卡数量不足！" }, JsonRequestBehavior.AllowGet);
+                            }
+                            else
+                            {
+                                if (STOCK_SCRAP >= 0 && SUBMIT_NUMBER >= 0 && STOCK_WHOLE >= 0 && STOCK_WHOLE - SUBMIT_NUMBER >= 0)
+                                {
+                                    STOCK_SCRAP = STOCK_SCRAP - SUBMIT_NUMBER;
+                                    STOCK_WHOLE = STOCK_WHOLE - SUBMIT_NUMBER;
+                                    string number_overplus = Convert.ToString(STOCK_SCRAP);
+                                    record_minus[0]["STOCK_SCRAP"] = number_overplus;
+                                    string number_WHOLE = Convert.ToString(STOCK_WHOLE);
+                                    record_minus[0]["STOCK_WHOLE"] = number_WHOLE;
+                                }
+                                UnCaseSenseHashTable data_minus = new UnCaseSenseHashTable();
+                                data_minus["ID"] = record_minus[0]["ID"];
+                                data_minus["STOCK_WHOLE"] = record_minus[0]["STOCK_WHOLE"];
+                                data_minus["STOCK_OVERPLUS"] = record_minus[0]["STOCK_OVERPLUS"];
+                                data_minus["INPUT_TIME"] = record_minus[0]["INPUT_TIME"];
+                                data_minus["COMPANY_ID"] = record_minus[0]["COMPANY_ID"];
+                                data_minus["STOCK_SCRAP"] = record_minus[0]["STOCK_SCRAP"];
+                                data_minus["COMPANY_ID_V_D_FW_COMP__MC"] = record_minus[0]["COMPANY_ID_V_D_FW_COMP__MC"];
+                                Session session_minus = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
+                                session_minus.BeginTransaction();
+                                int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_minus, "B_CARD_STOCK", data_minus, false);
+                                session_minus.Commit();
+                                session_minus.Close();
+                            }
+                        }
+                        else {
+                            return Json(new { success = false, message = "数据库中无该提交单位！" }, JsonRequestBehavior.AllowGet);
+                        }
+                        Condition cdtId_add = new Condition("AND", "COMPANY_ID", "=", COMPANY_ID);
+                        List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", cdtId_add, "*", null, null, -1, -1);
+                        if (record.Count == 1)
+                        {
+                            //回收单位报废库存增加
+                            int SUBMIT_NUMBER = Convert.ToInt32(data["SUBMIT_NUMBER"].ToString());   //提交数量
+                            int STOCK_SCRAP = Convert.ToInt32(record[0]["STOCK_SCRAP"].ToString()); //剩余库存量
+                            if (STOCK_SCRAP >= 0 && SUBMIT_NUMBER >= 0)
+                            {
+                                STOCK_SCRAP = STOCK_SCRAP + SUBMIT_NUMBER;
+                                string number_overplus = Convert.ToString(STOCK_SCRAP);
+                                record[0]["STOCK_SCRAP"] = number_overplus;
+                            }
+                            UnCaseSenseHashTable data_add = new UnCaseSenseHashTable();
+                            data_add["ID"] = record[0]["ID"];
+                            data_add["STOCK_WHOLE"] = record[0]["STOCK_WHOLE"];
+                            data_add["STOCK_OVERPLUS"] = record[0]["STOCK_OVERPLUS"];
+                            data_add["INPUT_TIME"] = record[0]["INPUT_TIME"];
+                            data_add["COMPANY_ID"] = record[0]["COMPANY_ID"];
+                            data_add["STOCK_SCRAP"] = record[0]["STOCK_SCRAP"];
+                            data_add["COMPANY_ID_V_D_FW_COMP__MC"] = record[0]["COMPANY_ID_V_D_FW_COMP__MC"];
+                            Session session_number = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
+                            session_number.BeginTransaction();
+                            int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_number, "B_CARD_STOCK", data_add, false);
+                            session_number.Commit();
+                            session_number.Close();
+                        }
+                       
                     }
-                    UnCaseSenseHashTable data_minus = new UnCaseSenseHashTable();
-                    data_minus["ID"] = record_minus[0]["ID"];
-                    data_minus["STOCK_WHOLE"] = record_minus[0]["STOCK_WHOLE"];
-                    data_minus["STOCK_OVERPLUS"] = record_minus[0]["STOCK_OVERPLUS"];
-                    data_minus["INPUT_TIME"] = record_minus[0]["INPUT_TIME"];
-                    data_minus["COMPANY_ID"] = record_minus[0]["COMPANY_ID"];
-                    data_minus["COMPANY_ID_V_D_FW_COMP__MC"] = record_minus[0]["COMPANY_ID_V_D_FW_COMP__MC"];
-                    Session session_minus = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
-                    session_minus.BeginTransaction();
-                    int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_minus, "B_CARD_STOCK", data_minus, false);
-                    session_minus.Commit();
-                    session_minus.Close();
+                    session.Commit();
+                    session.Close();
+                    if (0 == r)
+                    {
+                        return Json(new { success = false, message = "保存信息时出错！" }, JsonRequestBehavior.AllowGet);
+                    }
+
                 }
-
-
-                if (0 == r)
-                {
-                    return Json(new { success = false, message = "保存信息时出错！" }, JsonRequestBehavior.AllowGet);
+                else {
+                    return Json(new { success = false, message ="无该操作权限！" }, JsonRequestBehavior.AllowGet);
                 }
-
             }
             catch (Exception e)
             {
@@ -287,6 +341,7 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
             {
                 id = int.Parse(Request["OBJECT_ID"]);
                 state = int.Parse(Request["state"]);
+                string type = Request["TYPE_ID"];
             }
             catch (Exception ee)
             {
@@ -302,77 +357,139 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
                 session.BeginTransaction();
                 //__TIPS__*:这里修改表名，参考ActionAdd
                 DbUtilityManager.Instance.DefaultDbUtility.Execute("delete from B_CARD_RECOVERY  where ID=" + id.ToString());
-                session.Commit();
-                session.Close();
+                string SUBMIT_ID = record[0]["SUBMIT_ID"].ToString();//提交单位ID
+                string RECOVERY_ID = record[0]["RECOVERY_ID"].ToString();//回收单位ID
+                int submit_number = Convert.ToInt32(record[0]["SUBMIT_NUMBER"].ToString()); //提交数量
                 if (record.Count == 1)
                 {
-                    string SUBMIT_ID = record[0]["SUBMIT_ID"].ToString();//提交单位ID
-                    string RECOVERY_ID = record[0]["RECOVERY_ID"].ToString();//回收单位ID
-                    int submit_number = Convert.ToInt32(record[0]["SUBMIT_NUMBER"].ToString()); //提交数量
-
-                    //提交单位卡数量恢复
-                    Condition recovery_add = new Condition("AND", "COMPANY_ID", "=", SUBMIT_ID);
-                    List<UnCaseSenseHashTable> record_recovery_add = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", recovery_add, "*", null, null, -1, -1);
-                    if (record_recovery_add.Count == 1)
+                    if (record[0]["TYPE_ID"].ToString() == "01")
                     {
-                        int STOCK_WHOLE = Convert.ToInt32(record_recovery_add[0]["STOCK_WHOLE"].ToString());
-                        int STOCK_OVERPLUS = Convert.ToInt32(record[0]["STOCK_OVERPLUS"].ToString());
-                        if (STOCK_OVERPLUS >= 0 && submit_number >= 0 && STOCK_WHOLE >= 0)
+                        //提交单位卡数量恢复
+                        Condition recovery_add = new Condition("AND", "COMPANY_ID", "=", SUBMIT_ID);
+                        List<UnCaseSenseHashTable> record_recovery_add = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", recovery_add, "*", null, null, -1, -1);
+                        if (record_recovery_add.Count == 1)
                         {
-                            STOCK_OVERPLUS = STOCK_OVERPLUS + submit_number;
-                            STOCK_WHOLE = STOCK_WHOLE + submit_number;
-                            string number_overplus = Convert.ToString(STOCK_OVERPLUS);
-                            string number_whole = Convert.ToString(STOCK_WHOLE);
-                            record_recovery_add[0]["STOCK_OVERPLUS"] = number_overplus;
-                            record_recovery_add[0]["STOCK_WHOLE"] = number_whole;
+                            int STOCK_WHOLE = Convert.ToInt32(record_recovery_add[0]["STOCK_WHOLE"].ToString());
+                            int STOCK_OVERPLUS = Convert.ToInt32(record_recovery_add[0]["STOCK_OVERPLUS"].ToString());
+                            if (STOCK_OVERPLUS >= 0 && submit_number >= 0 && STOCK_WHOLE >= 0)
+                            {
+                                STOCK_OVERPLUS = STOCK_OVERPLUS + submit_number;
+                                STOCK_WHOLE = STOCK_WHOLE + submit_number;
+                                string number_overplus = Convert.ToString(STOCK_OVERPLUS);
+                                string number_whole = Convert.ToString(STOCK_WHOLE);
+                                record_recovery_add[0]["STOCK_OVERPLUS"] = number_overplus;
+                                record_recovery_add[0]["STOCK_WHOLE"] = number_whole;
+                            }
+                            UnCaseSenseHashTable data_add = new UnCaseSenseHashTable();
+                            data_add["ID"] = record_recovery_add[0]["ID"];
+                            data_add["STOCK_WHOLE"] = record_recovery_add[0]["STOCK_WHOLE"];
+                            data_add["STOCK_OVERPLUS"] = record_recovery_add[0]["STOCK_OVERPLUS"];
+                            data_add["INPUT_TIME"] = record_recovery_add[0]["INPUT_TIME"];
+                            data_add["COMPANY_ID"] = record_recovery_add[0]["COMPANY_ID"];
+                            data_add["STOCK_SCRAP"] = record_recovery_add[0]["STOCK_SCRAP"];
+                            data_add["COMPANY_ID_V_D_FW_COMP__MC"] = record_recovery_add[0]["COMPANY_ID_V_D_FW_COMP__MC"];
+                            Session session_number = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
+                            session_number.BeginTransaction();
+                            int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_number, "B_CARD_STOCK", data_add, false);
+                            session_number.Commit();
+                            session_number.Close();
                         }
-                        UnCaseSenseHashTable data_add = new UnCaseSenseHashTable();
-                        data_add["ID"] = record_recovery_add[0]["ID"];
-                        data_add["STOCK_WHOLE"] = record_recovery_add[0]["STOCK_WHOLE"];
-                        data_add["STOCK_OVERPLUS"] = record_recovery_add[0]["STOCK_OVERPLUS"];
-                        data_add["INPUT_TIME"] = record_recovery_add[0]["INPUT_TIME"];
-                        data_add["COMPANY_ID"] = record_recovery_add[0]["COMPANY_ID"];
-                        data_add["COMPANY_ID_V_D_FW_COMP__MC"] = record_recovery_add[0]["COMPANY_ID_V_D_FW_COMP__MC"];
-                        Session session_number = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
-                        session_number.BeginTransaction();
-                        int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_number, "B_CARD_STOCK", data_add, false);
-                        session_number.Commit();
-                        session_number.Close();
+
+                        //回收单位库存量减少
+                        Condition cdtId_minus = new Condition("AND", "COMPANY_ID", "=", RECOVERY_ID);
+                        List<UnCaseSenseHashTable> record_minus = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", cdtId_minus, "*", null, null, -1, -1);
+                        if (record_minus.Count == 1)
+                        {
+
+                            int STOCK_OVERPLUS = Convert.ToInt32(record_minus[0]["STOCK_OVERPLUS"].ToString());
+                            if (STOCK_OVERPLUS >= 0 && submit_number >= 0)
+                            {
+                                STOCK_OVERPLUS = STOCK_OVERPLUS - submit_number;
+                                string number_overplus = Convert.ToString(STOCK_OVERPLUS);
+                                record_minus[0]["STOCK_OVERPLUS"] = number_overplus;
+                            }
+                            UnCaseSenseHashTable data_minus = new UnCaseSenseHashTable();
+                            data_minus["ID"] = record_minus[0]["ID"];
+                            data_minus["STOCK_WHOLE"] = record_minus[0]["STOCK_WHOLE"];
+                            data_minus["STOCK_OVERPLUS"] = record_minus[0]["STOCK_OVERPLUS"];
+                            data_minus["INPUT_TIME"] = record_minus[0]["INPUT_TIME"];
+                            data_minus["COMPANY_ID"] = record_minus[0]["COMPANY_ID"];
+                            data_minus["STOCK_SCRAP"] = record_minus[0]["STOCK_SCRAP"];
+                            data_minus["COMPANY_ID_V_D_FW_COMP__MC"] = record_minus[0]["COMPANY_ID_V_D_FW_COMP__MC"];
+                            Session session_minus = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
+                            session_minus.BeginTransaction();
+                            int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_minus, "B_CARD_STOCK", data_minus, false);
+                            session_minus.Commit();
+                            session_minus.Close();
+                        }
+                    }
+                    else
+                    {
+                        //提交单位总库存与报废库存恢复
+                        Condition recovery_add = new Condition("AND", "COMPANY_ID", "=", SUBMIT_ID);
+                        List<UnCaseSenseHashTable> record_recovery_add = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", recovery_add, "*", null, null, -1, -1);
+                        if (record_recovery_add.Count == 1)
+                        {
+                            int STOCK_WHOLE = Convert.ToInt32(record_recovery_add[0]["STOCK_WHOLE"].ToString());
+                            int STOCK_SCRAP = Convert.ToInt32(record_recovery_add[0]["STOCK_SCRAP"].ToString());
+                            if (STOCK_SCRAP >= 0 && submit_number >= 0 && STOCK_WHOLE >= 0)
+                            {
+                                STOCK_SCRAP = STOCK_SCRAP + submit_number;
+                                STOCK_WHOLE = STOCK_WHOLE + submit_number;
+                                string number_overplus = Convert.ToString(STOCK_SCRAP);
+                                string number_whole = Convert.ToString(STOCK_WHOLE);
+                                record_recovery_add[0]["STOCK_SCRAP"] = number_overplus;
+                                record_recovery_add[0]["STOCK_WHOLE"] = number_whole;
+                            }
+                            UnCaseSenseHashTable data_add = new UnCaseSenseHashTable();
+                            data_add["ID"] = record_recovery_add[0]["ID"];
+                            data_add["STOCK_WHOLE"] = record_recovery_add[0]["STOCK_WHOLE"];
+                            data_add["STOCK_OVERPLUS"] = record_recovery_add[0]["STOCK_OVERPLUS"];
+                            data_add["INPUT_TIME"] = record_recovery_add[0]["INPUT_TIME"];
+                            data_add["COMPANY_ID"] = record_recovery_add[0]["COMPANY_ID"];
+                            data_add["STOCK_SCRAP"] = record_recovery_add[0]["STOCK_SCRAP"];
+                            data_add["COMPANY_ID_V_D_FW_COMP__MC"] = record_recovery_add[0]["COMPANY_ID_V_D_FW_COMP__MC"];
+                            Session session_number = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
+                            session_number.BeginTransaction();
+                            int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_number, "B_CARD_STOCK", data_add, false);
+                            session_number.Commit();
+                            session_number.Close();
+                        }
+
+                        //回收单位报废库存量减少
+                        Condition cdtId_minus = new Condition("AND", "COMPANY_ID", "=", RECOVERY_ID);
+                        List<UnCaseSenseHashTable> record_minus = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", cdtId_minus, "*", null, null, -1, -1);
+                        if (record_minus.Count == 1)
+                        {
+
+                            int STOCK_SCRAP = Convert.ToInt32(record_minus[0]["STOCK_SCRAP"].ToString());
+                            if (STOCK_SCRAP >= 0 && submit_number >= 0)
+                            {
+                                STOCK_SCRAP = STOCK_SCRAP - submit_number;
+                                string number_overplus = Convert.ToString(STOCK_SCRAP);
+                                record_minus[0]["STOCK_SCRAP"] = number_overplus;
+                            }
+                            UnCaseSenseHashTable data_minus = new UnCaseSenseHashTable();
+                            data_minus["ID"] = record_minus[0]["ID"];
+                            data_minus["STOCK_WHOLE"] = record_minus[0]["STOCK_WHOLE"];
+                            data_minus["STOCK_OVERPLUS"] = record_minus[0]["STOCK_OVERPLUS"];
+                            data_minus["INPUT_TIME"] = record_minus[0]["INPUT_TIME"];
+                            data_minus["COMPANY_ID"] = record_minus[0]["COMPANY_ID"];
+                            data_minus["STOCK_SCRAP"] = record_minus[0]["STOCK_SCRAP"];
+                            data_minus["COMPANY_ID_V_D_FW_COMP__MC"] = record_minus[0]["COMPANY_ID_V_D_FW_COMP__MC"];
+                            Session session_minus = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
+                            session_minus.BeginTransaction();
+                            int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_minus, "B_CARD_STOCK", data_minus, false);
+                            session_minus.Commit();
+                            session_minus.Close();
+                        }
+
                     }
 
-                    //回收单位库存量减少
-                    Condition cdtId_minus = new Condition("AND", "COMPANY_ID", "=", RECOVERY_ID);
-                    List<UnCaseSenseHashTable> record_minus = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", cdtId_minus, "*", null, null, -1, -1);
-                    if (record_minus.Count == 1)
-                    {
-
-                        int STOCK_OVERPLUS = Convert.ToInt32(record_minus[0]["STOCK_OVERPLUS"].ToString());
-                        int STOCK_WHOLE = Convert.ToInt32(record_minus[0]["STOCK_WHOLE"].ToString());
-                        if (STOCK_OVERPLUS >= 0 && STOCK_WHOLE >= 0 && submit_number >= 0)
-                        {
-                            STOCK_OVERPLUS = STOCK_OVERPLUS - submit_number;
-                            STOCK_WHOLE = STOCK_WHOLE - submit_number;
-                            string number_overplus = Convert.ToString(STOCK_OVERPLUS);
-                            record_minus[0]["STOCK_OVERPLUS"] = number_overplus;
-                            string number_whole = Convert.ToString(STOCK_WHOLE);
-                            record_minus[0]["STOCK_WHOLE"] = number_whole;
-
-                        }
-                        UnCaseSenseHashTable data_minus = new UnCaseSenseHashTable();
-                        data_minus["ID"] = record_minus[0]["ID"];
-                        data_minus["STOCK_WHOLE"] = record_minus[0]["STOCK_WHOLE"];
-                        data_minus["STOCK_OVERPLUS"] = record_minus[0]["STOCK_OVERPLUS"];
-                        data_minus["INPUT_TIME"] = record_minus[0]["INPUT_TIME"];
-                        data_minus["COMPANY_ID"] = record_minus[0]["COMPANY_ID"];
-                        data_minus["COMPANY_ID_V_D_FW_COMP__MC"] = record_minus[0]["COMPANY_ID_V_D_FW_COMP__MC"];
-                        Session session_minus = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
-                        session_minus.BeginTransaction();
-                        int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_minus, "B_CARD_STOCK", data_minus, false);
-                        session_minus.Commit();
-                        session_minus.Close();
-                    }
                 }
-            }
+                session.Commit();
+                session.Close();
+            }  
             catch (Exception e)
             {
                 session.Rollback();
@@ -440,8 +557,8 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
              * __TIPS__:有些特殊的字典可能需要显示更多的东西所以这里可以根据Request的值返回不同的视图
              *          以下演示根据字典内容，返回不同的视图。
              * */
-            if ("V_D_FW_COMP".Equals(Request["dic"])) {
-                return View("ViewRecovery");
+            if ("D_CARDTYPE".Equals(Request["dic"])) {
+                return View("ViewCardType");
             }
             else
             {

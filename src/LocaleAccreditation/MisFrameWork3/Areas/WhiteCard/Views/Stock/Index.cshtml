@@ -1,15 +1,13 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutStockQuery.cshtml";
-
+    Layout = "~/Views/Shared/_LayoutStdConditionStockQuery.cshtml";
+    ViewBag.DateRangeType = new string[] { "录入日期" };
     ViewBag.ShowDeleteButton = true;
     ViewBag.ShowUploadButton = true;
     ViewBag.ShowChangeStateButton = false;
 
     //以下这些语句设置按钮的状态，也可以Controller里根据权限进行配置
-    ViewBag.DisableBTN_Add = false;
-    ViewBag.DisableBTN_Edit = true;
     ViewBag.DisableBTN_Delete = true;
     ViewBag.DisableBTN_Upload = false;
     ViewBag.DisableBTN_Disable = false;
@@ -50,19 +48,19 @@
     }
 
     function btnEditEvent() {
-        var selectRow = $('#cmpDG').datagrid("getSelected");
-        var plan_id = selectRow.PLAN_FILE;
-        if (selectRow == null || selectRow == undefined) {
-            $.messager.alert({
-                icon: 'warning',
-                title: '提示',
-                msg: '请选择一条要 【编辑】 的记录'
-            });
-            return;
-        }
+        //var selectRow = $('#cmpDG').datagrid("getSelected");
+        //var plan_id = selectRow.PLAN_FILE;
+        //if (selectRow == null || selectRow == undefined) {
+        //    $.messager.alert({
+        //        icon: 'warning',
+        //        title: '提示',
+        //        msg: '请选择一条要 【编辑】 的记录'
+        //    });
+        //    return;
+        //}
         $('#winMainForm').dialog({
 
-            title: '修改信息 【' + selectRow.ID+'】',
+            title: '修改库存',
             width: 720,//窗体边框12,加上内部div的边距20
             height: 500,
             top: 5,
@@ -71,11 +69,6 @@
             @* __TIPS__: 这里是点击【修改】按钮时，窗体内容的加载的地址，要与控制器同名，取框架默认值的话就不需要修改，如果用绝地址就用@Url.Action("函数", "控制器") 的方式 *@
             href: "ViewFormEdit",
             modal: true,
-            queryParams: { palnfile: plan_id},
-            onLoad: function () {
-                //加载录入项
-                $("#OBJECT_ID").val(selectRow.ID);
-            },
             buttons: [
                 {
                     id: 'btnForm_OK',
@@ -145,7 +138,7 @@
 
 
     $('#cmpDG').datagrid({
-        url: 'JsonDataIndex',
+        url: 'JsonDataList',
         singleSelect:true,
         pagination: true,
         rownumbers: true,
@@ -157,12 +150,13 @@
         //toolbar: "#cmpDgToolBar",
         @* __TIPS__*: 以下同表格中显示的每列的配置信息 *@
         frozenColumns: [[
-            { field: 'COMPANY_ID', title: '单位编号', width: 220 },
-            { field: 'COMPANY_ID_V_D_FW_COMP__MC', title: '单位名称', width: 300, sortable: true },
-            { field: 'STOCK_OVERPLUS', title: '剩余库存', width: 220 },
-            { field: 'STOCK_WHOLE', title: '全部库存', width: 180, sortable: true },
+            { field: 'COMPANY_ID', title: '单位编号', width: 230 },
+            { field: 'COMPANY_ID_V_D_FW_COMP__MC', title: '单位名称', width: 250, sortable: true },
+            { field: 'STOCK_SCRAP', title: '报废库存', width: 150, sortable: true },
+            { field: 'STOCK_OVERPLUS', title: '剩余库存', width: 150 },
+            { field: 'STOCK_WHOLE', title: '全部库存', width: 150, sortable: true },      
             {
-                field: 'INPUT_TIME', title: '录入时间', width: 220, sortable: true,
+                field: 'INPUT_TIME', title: '录入时间', width: 150, sortable: true,
                 formatter: function (d) {
                     return moment(d).format("YYYY-MM-DD");
                 }

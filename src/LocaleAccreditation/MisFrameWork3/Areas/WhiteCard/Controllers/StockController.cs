@@ -25,10 +25,20 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
     {
         public ActionResult Index()
         {
+            ViewBag.DisableBTN_Add = true;
+            ViewBag.DisableBTN_Edit = true;
+            
+            Boolean Temp = false;
+            string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
+            string COMPANY_NAME = Membership.CurrentUser.CompanyName.ToString();
+            if (COMPANY_ID == "450000000000") {
+                ViewBag.DisableBTN_Add = Temp;
+                ViewBag.DisableBTN_Edit = Temp;    
+            }
             return View();
         }
 
-        public ActionResult JsonConditionCombinationInfo()
+        public ActionResult JsonConditionStock()
         {
             return View();
         }
@@ -39,43 +49,6 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
         }
         #region __TIPS__:框架通用函数( 增 删 改)
         public ActionResult JsonDataList()//业务主界面数据查询函数
-        {
-            //接收的基本查询参数有： id,limit,offset,search,sort,order            
-            //__TIPS__*:根据表结构，修改以下函数的参数
-            string STOCK_WHOLE = Request["STOCK_WHOLE"];
-            string COMPANY_ID = Request["COMPANY_ID"];
-            string STOCK_OVERPLUS = Request["STOCK_OVERPLUS"];
-            string COMPANY_ID_1 = Request["COMPANY_ID_1"];
-            string INPUT_TIME = Request["INPUT_TIME"];
-
-            Condition cdtIds = new Condition();
-            if (!String.IsNullOrEmpty(STOCK_WHOLE))
-            {
-                cdtIds.AddSubCondition("AND", "STOCK_WHOLE", "=", STOCK_WHOLE );
-            }
-            if (!String.IsNullOrEmpty(COMPANY_ID))
-            {
-                cdtIds.AddSubCondition("AND", "COMPANY_ID", "=", COMPANY_ID);
-            }
-            if (!String.IsNullOrEmpty(STOCK_OVERPLUS))
-            {
-                cdtIds.AddSubCondition("AND", "STOCK_OVERPLUS", "=", STOCK_OVERPLUS);
-            }
-            if (!String.IsNullOrEmpty(COMPANY_ID_1))
-            {
-                cdtIds.AddSubCondition("AND", "COMPANY_ID_1", "=", COMPANY_ID_1);
-            }
-            if (!String.IsNullOrEmpty(INPUT_TIME))
-            {
-                cdtIds.AddSubCondition("AND", "INPUT_TIME", "=", Convert.ToDateTime(INPUT_TIME));
-            }
-            return QueryDataFromEasyUIDataGrid("B_CARD_STOCK", "INPUT_TIME,STOCK_WHOLE", "COMPANY_ID", cdtIds, "*");
-        }
-
-
-
-
-        public ActionResult JsonDataIndex()//业务主界面数据查询函数
         {
             //接收的基本查询参数有： id,limit,offset,search,sort,order            
             //__TIPS__*:根据表结构，修改以下函数的参数
@@ -113,6 +86,7 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
             {
                 return QueryDataFromEasyUIDataGrid("B_CARD_STOCK", "INPUT_TIME,STOCK_WHOLE", "COMPANY_ID", null, "*");
             }
+
         }
 
         public ActionResult ViewFormAdd()
@@ -146,6 +120,7 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
                 data.LoadFromNameValueCollection(Request.Unvalidated.Form, ti, true);//使用Request.Unvalidated.Form可以POST HTML标签数据。
                 data["STOCK_WHOLE"] = "0";
                 data["STOCK_OVERPLUS"] = "0";
+                data["STOCK_SCRAP"] = "0";
                 session.BeginTransaction();
                 int r = DbUtilityManager.Instance.DefaultDbUtility.InsertRecord(session, "B_CARD_STOCK", data);
                 session.Commit();
@@ -174,31 +149,17 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
             try
             {
                 //__TIPS__*:这里修改表名，参考ActionAdd 
-                ITableInfo ti = DbUtilityManager.Instance.DefaultDbUtility.CreateTableInfo("B_PLAN");
-                data.LoadFromNameValueCollection(Request.Unvalidated.Form, ti, true);//使用Request.Unvalidated.Form可以POST HTML标签数据。
-                data["ID"] = Request["OBJECT_ID"];//这ID字段是加载不进来的。  
-                string sqlType = WebConfigurationManager.ConnectionStrings["server_type"].ConnectionString;
-                if (sqlType == "sqlite")
-                {
-                    string id = Request["OBJECT_ID"].ToString();
-                    String dirPath = Server.MapPath("/plans/file") + "/" + id;
-                    //删除旧的文件
-                    DirectoryInfo dir = new DirectoryInfo(dirPath);
-                    if (dir.Exists)
-                    {
-                        DirectoryInfo[] childs = dir.GetDirectories();
-                        foreach (DirectoryInfo child in childs)
-                        {
-                            child.Delete(true);
-                        }
-                        dir.Delete(true);
-                    }
-                    string fileName = Request["PLAN_FILE"];
-                    string path = System.Web.HttpContext.Current.Server.MapPath("~/" + fileName);
-                    ZipFile.ExtractToDirectory(path, dirPath);
-                }
+                string COMPANY_ID = "450000000000";
+                Condition cdtId_add = new Condition("AND", "COMPANY_ID", "=", COMPANY_ID);
+                List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", cdtId_add, "*", null, null, -1, -1);
+                data.LoadFromNameValueCollection(Request.Unvalidated.Form, "STOCK_WHOLE|STOCK_OVERPLUS|STOCK_SCRAP", true);
+                string nowtime = DateTime.Now.ToString("yyyy-MM-dd");     
+                data["ID"] = record[0]["ID"];
+                data["COMPANY_ID"] = record[0]["COMPANY_ID"];
+                data["COMPANY_ID_V_D_FW_COMP__MC"] = record[0]["COMPANY_ID_V_D_FW_COMP__MC"];
+                data["INPUT_TIME"] = nowtime; 
                 session.BeginTransaction();
-                int r = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session, "B_PLAN", data, false);
+                int r = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session, "B_CARD_STOCK", data, false);
                 session.Commit();
                 session.Close();
                 if (0 == r)

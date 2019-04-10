@@ -28,7 +28,7 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
             return View();
         }
 
-        public ActionResult JsonConditionCombinationInfo()
+        public ActionResult JsonConditionGrant()
         {
             return View();
         }
@@ -40,43 +40,6 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
         #region __TIPS__:框架通用函数( 增 删 改)
         public ActionResult JsonDataList()//业务主界面数据查询函数
         {
-            //接收的基本查询参数有： id,limit,offset,search,sort,order            
-            //__TIPS__*:根据表结构，修改以下函数的参数
-            string EXTEND = Request["EXTEND"];
-            string EXTEND_ID = Request["EXTEND_ID"];
-            string RECEIVE_NUMBER = Request["RECEIVE_NUMBER"];
-            string RECEIVE = Request["RECEIVE"];
-            string RECEIVE_ID = Request["RECEIVE_ID"];
-
-            Condition cdtIds = new Condition();
-            if (!String.IsNullOrEmpty(EXTEND))
-            {
-                cdtIds.AddSubCondition("AND", "EXTEND", "=",  EXTEND);
-            }
-            if (!String.IsNullOrEmpty(EXTEND_ID))
-            {
-                cdtIds.AddSubCondition("AND", "EXTEND_ID", "=", EXTEND_ID);
-            }
-            if (!String.IsNullOrEmpty(RECEIVE_NUMBER))
-            {
-                cdtIds.AddSubCondition("AND", "RECEIVE_NUMBER", "=",RECEIVE_NUMBER);
-            }
-            if (!String.IsNullOrEmpty(RECEIVE))
-            {
-                cdtIds.AddSubCondition("AND", "RECEIVE", "=",RECEIVE);
-            }
-            if (!String.IsNullOrEmpty(RECEIVE_ID))
-            {
-                cdtIds.AddSubCondition("AND", "RECEIVE_ID", "=",RECEIVE_ID);
-            }
-            return QueryDataFromEasyUIDataGrid("B_CARD_GRANT", "RECEIVE_TIME,EXTEND", "EXTEND_ID", cdtIds, "*");
-        }
-
-
-        public ActionResult JsonDataIndex()//业务主界面数据查询函数
-        {
-            //接收的基本查询参数有： id,limit,offset,search,sort,order            
-            //__TIPS__*:根据表结构，修改以下函数的参数
             int RoleLevel = Membership.CurrentUser.RoleLevel;
             Condition cdtId;
             if (RoleLevel != 0)
@@ -107,7 +70,8 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
                 return QueryDataFromEasyUIDataGrid("B_CARD_GRANT", "RECEIVE_TIME,EXTEND", "EXTEND_ID", cdtId, "*");
 
             }
-            else {
+            else
+            {
                 return QueryDataFromEasyUIDataGrid("B_CARD_GRANT", "RECEIVE_TIME,EXTEND", "EXTEND_ID", null, "*");
             }
         }
@@ -125,6 +89,8 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
         {
             UnCaseSenseHashTable data = new UnCaseSenseHashTable();
             Session session = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
+            string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
+            string COMPANY_NAME = Membership.CurrentUser.CompanyName.ToString();
             try
             {
                 /*
@@ -140,79 +106,91 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
                 */
                 ITableInfo ti = DbUtilityManager.Instance.DefaultDbUtility.CreateTableInfo("B_CARD_GRANT");
                 data.LoadFromNameValueCollection(Request.Unvalidated.Form, ti, true);//使用Request.Unvalidated.Form可以POST HTML标签数据。
-                session.BeginTransaction();
-                int r = DbUtilityManager.Instance.DefaultDbUtility.InsertRecord(session,"B_CARD_GRANT",data);
-                session.Commit();
-                session.Close();
-                //领卡人剩余库存和总库存增加
-                Condition cdtId_add = new Condition("AND", "COMPANY_ID", "=", data["RECEIVE_ID"]);
-                List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", cdtId_add, "*", null, null, -1, -1);
-                if (record.Count == 1)
+                data["EXTEND_ID"] = COMPANY_ID;
+                data["EXTEND_NAME"] = COMPANY_NAME;
+                Int64 RECEIVE_ID = Convert.ToInt64(data["RECEIVE_ID"].ToString());
+                Int64 EXTEND_ID = Convert.ToInt64(COMPANY_ID);
+                if (EXTEND_ID < RECEIVE_ID)
                 {
-                    int STOCK_WHOLE = Convert.ToInt32(record[0]["STOCK_WHOLE"].ToString());
-                    int RECEIVE_NUMBER = Convert.ToInt32(data["RECEIVE_NUMBER"].ToString());
-                    int STOCK_OVERPLUS = Convert.ToInt32(record[0]["STOCK_OVERPLUS"].ToString());
-                    if (STOCK_OVERPLUS >= 0 && RECEIVE_NUMBER >= 0 && STOCK_WHOLE >= 0)
+                    session.BeginTransaction();
+                    int r = DbUtilityManager.Instance.DefaultDbUtility.InsertRecord(session, "B_CARD_GRANT", data);
+                    session.Commit();
+                    session.Close();
+                    //领卡人剩余库存和总库存增加
+                    Condition cdtId_add = new Condition("AND", "COMPANY_ID", "=", data["RECEIVE_ID"]);
+                    List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", cdtId_add, "*", null, null, -1, -1);
+                    if (record.Count == 1)
                     {
-                        STOCK_OVERPLUS = STOCK_OVERPLUS + RECEIVE_NUMBER;
-                        STOCK_WHOLE = STOCK_WHOLE + RECEIVE_NUMBER;
-                        string number_overplus = Convert.ToString(STOCK_OVERPLUS);
-                        string number_whole = Convert.ToString(STOCK_WHOLE);
-                        record[0]["STOCK_OVERPLUS"] = number_overplus;
-                        record[0]["STOCK_WHOLE"] = number_whole;
-                    }
-                    UnCaseSenseHashTable data_add = new UnCaseSenseHashTable();
-                    data_add["ID"] = record[0]["ID"];
-                    data_add["STOCK_WHOLE"] = record[0]["STOCK_WHOLE"];
-                    data_add["STOCK_OVERPLUS"] = record[0]["STOCK_OVERPLUS"];
-                    data_add["INPUT_TIME"] = record[0]["INPUT_TIME"];
-                    data_add["COMPANY_ID"] = record[0]["COMPANY_ID"];
-                    data_add["COMPANY_ID_V_D_FW_COMP__MC"] = record[0]["COMPANY_ID_V_D_FW_COMP__MC"];
-                    Session session_number = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
-                    session_number.BeginTransaction();
-                    int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_number, "B_CARD_STOCK", data_add, false);
-                    session_number.Commit();
-                    session_number.Close();
-                }
-                else {
-                    return Json(new { success = false, message = "数据库中无该单位！" }, JsonRequestBehavior.AllowGet);
-                }
-                //发卡人剩余库存减少
-                Condition cdtId_minus = new Condition("AND", "COMPANY_ID", "=", data["EXTEND_ID"]);
-                List<UnCaseSenseHashTable> record_minus = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", cdtId_minus, "*", null, null, -1, -1);
-                if (record_minus.Count == 1)
-                {
-
-                    int RECEIVE_NUMBER = Convert.ToInt32(data["RECEIVE_NUMBER"].ToString());
-                    int STOCK_OVERPLUS = Convert.ToInt32(record_minus[0]["STOCK_OVERPLUS"].ToString());
-                    if (STOCK_OVERPLUS >= 0 && RECEIVE_NUMBER >= 0)
-                    {
-                        STOCK_OVERPLUS = STOCK_OVERPLUS - RECEIVE_NUMBER;
-                        if (STOCK_OVERPLUS<0) {
-                            return Json(new { success = false, message = "剩余库存量不足！" }, JsonRequestBehavior.AllowGet);
+                        int STOCK_WHOLE = Convert.ToInt32(record[0]["STOCK_WHOLE"].ToString());
+                        int RECEIVE_NUMBER = Convert.ToInt32(data["RECEIVE_NUMBER"].ToString());
+                        int STOCK_OVERPLUS = Convert.ToInt32(record[0]["STOCK_OVERPLUS"].ToString());
+                        if (STOCK_OVERPLUS >= 0 && RECEIVE_NUMBER >= 0 && STOCK_WHOLE >= 0)
+                        {
+                            STOCK_OVERPLUS = STOCK_OVERPLUS + RECEIVE_NUMBER;
+                            STOCK_WHOLE = STOCK_WHOLE + RECEIVE_NUMBER;
+                            string number_overplus = Convert.ToString(STOCK_OVERPLUS);
+                            string number_whole = Convert.ToString(STOCK_WHOLE);
+                            record[0]["STOCK_OVERPLUS"] = number_overplus;
+                            record[0]["STOCK_WHOLE"] = number_whole;
                         }
-                        string number_overplus = Convert.ToString(STOCK_OVERPLUS);
-                        record_minus[0]["STOCK_OVERPLUS"] = number_overplus;
-
+                        UnCaseSenseHashTable data_add = new UnCaseSenseHashTable();
+                        data_add["ID"] = record[0]["ID"];
+                        data_add["STOCK_WHOLE"] = record[0]["STOCK_WHOLE"];
+                        data_add["STOCK_OVERPLUS"] = record[0]["STOCK_OVERPLUS"];
+                        data_add["INPUT_TIME"] = record[0]["INPUT_TIME"];
+                        data_add["COMPANY_ID"] = record[0]["COMPANY_ID"];
+                        data_add["COMPANY_ID_V_D_FW_COMP__MC"] = record[0]["COMPANY_ID_V_D_FW_COMP__MC"];
+                        Session session_number = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
+                        session_number.BeginTransaction();
+                        int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_number, "B_CARD_STOCK", data_add, false);
+                        session_number.Commit();
+                        session_number.Close();
                     }
-                    UnCaseSenseHashTable data_minus = new UnCaseSenseHashTable();
-                    data_minus["ID"] = record_minus[0]["ID"];
-                    data_minus["STOCK_WHOLE"] = record_minus[0]["STOCK_WHOLE"];
-                    data_minus["STOCK_OVERPLUS"] = record_minus[0]["STOCK_OVERPLUS"];
-                    data_minus["INPUT_TIME"] = record_minus[0]["INPUT_TIME"];
-                    data_minus["COMPANY_ID"] = record_minus[0]["COMPANY_ID"];
-                    data_minus["COMPANY_ID_V_D_FW_COMP__MC"] = record_minus[0]["COMPANY_ID_V_D_FW_COMP__MC"];
-                    Session session_minus = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
-                    session_minus.BeginTransaction();
-                    int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_minus, "B_CARD_STOCK", data_minus, false);
-                    session_minus.Commit();
-                    session_minus.Close();
-                }
-                    if (0 == r)
-                {
-                    return Json(new { success = false, message = "保存信息时出错！" }, JsonRequestBehavior.AllowGet);
-                }
+                    else
+                    {
+                        return Json(new { success = false, message = "数据库中无该单位！" }, JsonRequestBehavior.AllowGet);
+                    }
+                    //发卡人剩余库存减少
+                    Condition cdtId_minus = new Condition("AND", "COMPANY_ID", "=", data["EXTEND_ID"]);
+                    List<UnCaseSenseHashTable> record_minus = DbUtilityManager.Instance.DefaultDbUtility.Query("B_CARD_STOCK", cdtId_minus, "*", null, null, -1, -1);
+                    if (record_minus.Count == 1)
+                    {
 
+                        int RECEIVE_NUMBER = Convert.ToInt32(data["RECEIVE_NUMBER"].ToString());
+                        int STOCK_OVERPLUS = Convert.ToInt32(record_minus[0]["STOCK_OVERPLUS"].ToString());
+                        if (STOCK_OVERPLUS >= 0 && RECEIVE_NUMBER >= 0)
+                        {
+                            STOCK_OVERPLUS = STOCK_OVERPLUS - RECEIVE_NUMBER;
+                            if (STOCK_OVERPLUS < 0)
+                            {
+                                return Json(new { success = false, message = "剩余库存量不足！" }, JsonRequestBehavior.AllowGet);
+                            }
+                            string number_overplus = Convert.ToString(STOCK_OVERPLUS);
+                            record_minus[0]["STOCK_OVERPLUS"] = number_overplus;
+
+                        }
+                        UnCaseSenseHashTable data_minus = new UnCaseSenseHashTable();
+                        data_minus["ID"] = record_minus[0]["ID"];
+                        data_minus["STOCK_WHOLE"] = record_minus[0]["STOCK_WHOLE"];
+                        data_minus["STOCK_OVERPLUS"] = record_minus[0]["STOCK_OVERPLUS"];
+                        data_minus["INPUT_TIME"] = record_minus[0]["INPUT_TIME"];
+                        data_minus["COMPANY_ID"] = record_minus[0]["COMPANY_ID"];
+                        data_minus["COMPANY_ID_V_D_FW_COMP__MC"] = record_minus[0]["COMPANY_ID_V_D_FW_COMP__MC"];
+                        Session session_minus = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
+                        session_minus.BeginTransaction();
+                        int s = DbUtilityManager.Instance.DefaultDbUtility.UpdateRecord(session_minus, "B_CARD_STOCK", data_minus, false);
+                        session_minus.Commit();
+                        session_minus.Close();
+                    }
+                    if (0 == r)
+                    {
+                        return Json(new { success = false, message = "保存信息时出错！" }, JsonRequestBehavior.AllowGet);
+                    }
+                }
+                else
+                {
+                    return Json(new { success = false, message = "无该操作权限！" }, JsonRequestBehavior.AllowGet);
+                }
             }
             catch (Exception e)
             {

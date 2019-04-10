@@ -1,8 +1,8 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutRecoveryQuery.cshtml";
-
+    Layout = "~/Views/Shared/_LayoutStdConditionRecoveryQuery.cshtml";
+    ViewBag.DateRangeType = new string[] { "提交日期" };
     ViewBag.ShowDeleteButton = true;
     ViewBag.ShowUploadButton = true;
     ViewBag.ShowChangeStateButton = false;
@@ -110,7 +110,7 @@
             title: '询问',
             width: '400px',
             @* __TIPS__*: 这里是要根据实际数据结构提示相应的信息 *@
-            msg: '您确定要删除方案【' + selectRow.PLAN_NAME + '】？',
+            msg: '您确定要删除该回收记录吗？',
             fn: function (r) {
                 if (r) {
                     $.ajax({
@@ -145,7 +145,7 @@
 
 
     $('#cmpDG').datagrid({
-        url: 'JsonDataIndex',
+        url: 'JsonDataList',
         singleSelect:true,
         pagination: true,
         rownumbers: true,
@@ -157,11 +157,12 @@
         //toolbar: "#cmpDgToolBar",
         @* __TIPS__*: 以下同表格中显示的每列的配置信息 *@
         frozenColumns: [[
-            { field: 'RECOVERY', title: '回收人员', width: 120 },
+            { field: 'RECOVERY_NAME', title: '回收人员', width: 180 },
             { field: 'RECOVERY_ID_V_D_FW_COMP__MC', title: '回收人员单位', width: 180, sortable: true },
-            { field: 'SUBMIT', title: '提交人员', width: 220 },
+            { field: 'SUBMIT_NAME', title: '提交人员', width: 100 },
             { field: 'SUBMIT_ID_V_D_FW_COMP__MC', title: '提交人员单位', width: 180, sortable: true },
-            { field: 'SUBMIT_NUMBER', title: '回收数量', width: 120 },
+            { field: 'SUBMIT_NUMBER', title: '回收数量', width: 100 },
+            { field: 'TYPE_ID_D_CARDTYPE__MC', title: '回收类型', width: 100 },
 
         ]],
         columns: [[
