@@ -32,19 +32,12 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
         {
             return View();
         }
-        public ActionResult GetSelect()
-        {
-            List<UnCaseSenseHashTable> planType = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", null, "DM,MC", null, null, -1, -1);
-            return JsonDateObject(new {planType = planType });
-        }
         #region __TIPS__:框架通用函数( 增 删 改)
         public ActionResult JsonDataList()//业务主界面数据查询函数
         {
-            int RoleLevel = Membership.CurrentUser.RoleLevel;
             Condition cdtId;
-            if (RoleLevel != 0)
+            if (!Membership.CurrentUser.HaveAuthority("SYS.USER.QUERY_ALL_USER"))
             {
-
                 string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
                 char[] c = COMPANY_ID.ToCharArray();
                 string comId = "";

@@ -25,15 +25,15 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.DisableBTN_Add = true;
-            ViewBag.DisableBTN_Edit = true;
-            
-            Boolean Temp = false;
-            string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
-            string COMPANY_NAME = Membership.CurrentUser.CompanyName.ToString();
-            if (COMPANY_ID == "450000000000") {
-                ViewBag.DisableBTN_Add = Temp;
-                ViewBag.DisableBTN_Edit = Temp;    
+            if (Membership.CurrentUser.HaveAuthority("SYS.USER.QUERY_ALL_USER"))
+            {
+                ViewBag.DisableBTN_Add = false;
+                ViewBag.DisableBTN_Edit = false;
+            }
+            else
+            {
+                ViewBag.DisableBTN_Add = true;
+                ViewBag.DisableBTN_Edit = true;
             }
             return View();
         }
@@ -50,13 +50,9 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
         #region __TIPS__:框架通用函数( 增 删 改)
         public ActionResult JsonDataList()//业务主界面数据查询函数
         {
-            //接收的基本查询参数有： id,limit,offset,search,sort,order            
-            //__TIPS__*:根据表结构，修改以下函数的参数
-            int RoleLevel = Membership.CurrentUser.RoleLevel;
             Condition cdtId;
-            if (RoleLevel != 0)
+            if (!Membership.CurrentUser.HaveAuthority("SYS.USER.QUERY_ALL_USER"))
             {
-
                 string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
                 char[] c = COMPANY_ID.ToCharArray();
                 string comId = "";
@@ -80,7 +76,6 @@ namespace MisFrameWork3.Areas.WhiteCard.Controllers
 
                 cdtId = new Condition("AND", "COMPANY_ID", "like", comId3);
                 return QueryDataFromEasyUIDataGrid("B_CARD_STOCK", "INPUT_TIME,STOCK_WHOLE", "COMPANY_ID", cdtId, "*");
-
             }
             else
             {
