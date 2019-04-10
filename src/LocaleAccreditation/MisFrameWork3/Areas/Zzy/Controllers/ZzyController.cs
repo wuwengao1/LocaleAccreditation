@@ -28,6 +28,7 @@ namespace MisFrameWork3.Areas.Zzy.Controllers
         {
             Condition cdtIds = new Condition();
             cdtIds.AddSubCondition("AND", "ROLES_ID_V_D_FW_S_ROLES__MC", "=", "制证员");
+
             int RoleLevel = Membership.CurrentUser.RoleLevel;
             if (!Membership.CurrentUser.HaveAuthority("ZZY.ZZYMGR.QUERY_ALL_ZZY"))
             {
@@ -53,53 +54,11 @@ namespace MisFrameWork3.Areas.Zzy.Controllers
                 comId3 += "%";
                 cdtIds.AddSubCondition("AND", "COMPANY_ID", "like", comId3);
             }
-            return QueryDataFromEasyUIDataGrid("FW_S_USERS", "CRATE_ON", "USER_NAME,COMPANY_ID,COMPANY_ID_V_D_FW_COMP__MC", cdtIds, "*");
-        }
-        public ActionResult ViewFormAdd()
-        {
-            return View();
+            return QueryDataFromEasyUIDataGrid("FW_S_USERS", "CRATE_ON", "USER_ID,USER_NAME,COMPANY_ID,COMPANY_ID_V_D_FW_COMP__MC", cdtIds, "*");
         }
         public ActionResult ViewFormEdit()
         {
             return View();
-        }
-        public ActionResult ActionAdd()
-        {
-            UnCaseSenseHashTable data = new UnCaseSenseHashTable();
-            Session session = DbUtilityManager.Instance.DefaultDbUtility.CreateAndOpenSession();
-            try
-            {
-                /*
-                __TIPS__*: 区取表相关的字段信息的方式有两种：
-                    1、加载窗体提交的数据可以使用LoadFromNameValueCollection 结合正则表达式过滤掉没有用的数据
-                        比如：data.LoadFromNameValueCollection(Request.Form, "NAME|TYPE|COMPANY_CODE",true);
-                        这样只加载NAME、TYPE、COMPANY_CODE 这几项，其它项不处理
-                    2、获取表信息，然后加只加载与表字段同名的内容，这个方法最常用，比如这样：
-                        ITableInfo ti = DbUtilityManager.Instance.DefaultDbUtility.CreateTableInfo("FW_S_COMAPANIES");
-                        data.LoadFromNameValueCollection(Request.Form, ti, true);
-                    通过以上方式，data 里可以保留业务所需的数据。
-                    因止，下面的内容只需要修改表名即可完成数据库操作。
-                */
-                ITableInfo ti = DbUtilityManager.Instance.DefaultDbUtility.CreateTableInfo("B_ZZY");
-                data.LoadFromNameValueCollection(Request.Unvalidated.Form, ti, true);//使用Request.Unvalidated.Form可以POST HTML标签数据。
-                session.BeginTransaction();
-                int r = DbUtilityManager.Instance.DefaultDbUtility.InsertRecord(session, "B_ZZY", data);
-                session.Commit();
-                session.Close();
-                if (0 == r)
-                {
-                    return Json(new { success = false, message = "保存信息时出错！" }, JsonRequestBehavior.AllowGet);
-                }
-
-            }
-            catch (Exception e)
-            {
-                session.Rollback();
-                session.Close();
-                return Json(new { success = false, message = e.Message }, JsonRequestBehavior.AllowGet);
-            }
-            var result = new { success = true, message = "保存成功" };
-            return Json(result, JsonRequestBehavior.AllowGet);
         }
         public ActionResult ActionEdit()
         {
@@ -129,7 +88,6 @@ namespace MisFrameWork3.Areas.Zzy.Controllers
             var result = new { success = true, message = "保存成功" };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult ActionDelete()
         {
             UnCaseSenseHashTable data = new UnCaseSenseHashTable();
@@ -165,7 +123,6 @@ namespace MisFrameWork3.Areas.Zzy.Controllers
             var result = new { success = true, message = "删除成功" };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult ActionChangeState()
         {
             UnCaseSenseHashTable data = new UnCaseSenseHashTable();
@@ -199,47 +156,7 @@ namespace MisFrameWork3.Areas.Zzy.Controllers
             }
             return Json(new { success = true, message = "操作成功" }, JsonRequestBehavior.AllowGet);
         }
-
-        public ActionResult GetSelect()
-        {
-            int RoleLevel = Membership.CurrentUser.RoleLevel;
-            Condition cdtId;
-            if (!Membership.CurrentUser.HaveAuthority("SYS.USER.SELECT_OTHOR_COMPANY"))
-            {
-                string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
-                char[] c = COMPANY_ID.ToCharArray();
-                string comId = "";
-                bool temp = false;
-                for (int i = c.Length - 1; i >= 0; i--)
-                {
-                    string cc = c[i].ToString();
-                    if (cc != "0" && !temp)
-                    {
-                        temp = true;
-                    }
-                    if (temp)
-                    {
-                        comId += c[i];
-                    }
-                }
-                char[] charArray = comId.ToCharArray();
-                Array.Reverse(charArray);
-                string comId3 = new String(charArray);
-                comId3 += "%";
-                cdtId = new Condition("AND", "DM", "like", comId3);
-
-                Condition cdtId2 = new Condition("AND", "SSDW", "like", comId3);
-                List<UnCaseSenseHashTable> sb = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtId2, "MACHINENO as DM", null, null, -1, -1);
-                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", cdtId, "DM,MC", null, null, -1, -1);
-                return JsonDateObject(new { sb = sb, dw = dw });
-            }
-            else
-            {
-                List<UnCaseSenseHashTable> sb = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", null, "MACHINENO as DM", null, null, -1, -1);
-                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", null, "DM,MC", null, null, -1, -1);
-                return JsonDateObject(new { sb = sb, dw = dw });
-            }
-        }
+        
         #endregion
 
         #region __TIPS__:框架通用函数 ( 字典控件相关 )
@@ -314,20 +231,38 @@ namespace MisFrameWork3.Areas.Zzy.Controllers
         public FileResult ActionPrint(string name, string oject_id)
         {
             //获取数据
-            string SSDW = Request["SSDW"];
-            string ZZY_NAME = Request["ZZY_NAME"];
             Condition cdtIds = new Condition();
-            if (!String.IsNullOrEmpty(SSDW))
-            {
-                cdtIds.AddSubCondition("AND", "COMPANY_ID", "like", "%" + SSDW + "%");
-            }
-            if (!String.IsNullOrEmpty(ZZY_NAME))
-            {
-                cdtIds.AddSubCondition("AND", "USER_NAME", "=", ZZY_NAME);
-            }
             cdtIds.AddSubCondition("AND", "ROLES_ID_V_D_FW_S_ROLES__MC", "=", "制证员");
-            int RoleLevel = Membership.CurrentUser.RoleLevel;
-            if (RoleLevel != 0)
+            string search = Request["Search"];
+            string date_range_type = Request["date_range_type"];
+            string start_date = Request["start_date"];
+            string end_date = Request["end_date"];
+
+            Condition cdtIds2 = new Condition();
+            if (!string.IsNullOrEmpty(search))
+            {
+                cdtIds2.AddSubCondition("OR", "USER_ID", "like", "%" + search + "%");
+                cdtIds2.AddSubCondition("OR", "USER_NAME", "like", "%" + search + "%");
+                cdtIds2.AddSubCondition("OR", "COMPANY_ID", "like", "%" + search + "%");
+                cdtIds2.AddSubCondition("OR", "COMPANY_ID_V_D_FW_COMP__MC", "like", "%" + search + "%");
+            }
+            if ( !string.IsNullOrEmpty(date_range_type) && date_range_type != "0" && (!string.IsNullOrEmpty(start_date) || !string.IsNullOrEmpty(end_date)))
+            {
+                if (!string.IsNullOrEmpty(start_date))
+                {
+                    cdtIds.AddSubCondition("AND", "CREATE_ON", ">=", DateTime.Parse(start_date));
+                }
+                if (!string.IsNullOrEmpty(end_date))
+                {
+                    DateTime dtEndDate = DateTime.Parse(end_date);
+                    dtEndDate = dtEndDate.AddDays(1);//加多一天
+                    cdtIds.AddSubCondition("AND", "CREATE_ON", "<=", dtEndDate);
+                }
+            }
+
+            cdtIds2.Relate = "AND";
+            cdtIds.AddSubCondition(cdtIds2);
+            if (!Membership.CurrentUser.HaveAuthority("ZZY.ZZYMGR.QUERY_ALL_ZZY"))
             {
                 string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
                 char[] c = COMPANY_ID.ToCharArray();
@@ -349,9 +284,10 @@ namespace MisFrameWork3.Areas.Zzy.Controllers
                 Array.Reverse(charArray);
                 string comId3 = new String(charArray);
                 comId3 += "%";
-                cdtIds.AddSubCondition("AND", "SSDW", "like", comId3);
+                cdtIds.AddSubCondition("AND", "COMPANY_ID", "like", comId3);
+                cdtIds.AddSubCondition("AND", "DELETED_MARK", "=", "0");
             }
-            List<UnCaseSenseHashTable> records = DbUtilityManager.Instance.DefaultDbUtility.Query("FW_S_USERS", cdtIds, "USER_NAME,COMPANY_ID,COMPANY_ID_V_D_FW_COMP__MC,CREATE_ON,DISABLED", null, null, -1, -1);
+            List<UnCaseSenseHashTable> records = DbUtilityManager.Instance.DefaultDbUtility.Query("FW_S_USERS", cdtIds, "USER_ID,USER_NAME,COMPANY_ID,COMPANY_ID_V_D_FW_COMP__MC,CREATE_ON,DISABLED", null, null, -1, -1);
 
             //设置打印图纸大小
             Document document = new Document(PageSize.A4);
@@ -379,10 +315,11 @@ namespace MisFrameWork3.Areas.Zzy.Controllers
             document.Add(title);
 
             //数据表格
-            PdfPTable table = new PdfPTable(6);
-            table.SetWidths(new float[] { 2.5F, 8, 8, 12, 7, 6 });
+            PdfPTable table = new PdfPTable(7);
+            table.SetWidths(new float[] { 2.5F,8, 8, 8, 12, 7, 6 });
             table.WidthPercentage = 100;
             AddBodyContentCell(table, "序号", cn);
+            AddBodyContentCell(table, "制证员账户", cn);
             AddBodyContentCell(table, "制证员名称", cn);
             AddBodyContentCell(table, "所属单位编号", cn);
             AddBodyContentCell(table, "所属单位名称", cn);
@@ -393,6 +330,15 @@ namespace MisFrameWork3.Areas.Zzy.Controllers
             {
                 UnCaseSenseHashTable record = records[i];
                 AddBodyContentCell(table, Convert.ToString(i + 1), cn);
+                if (!string.IsNullOrEmpty((string)record["USER_ID"]))
+                {
+                    AddBodyContentCell(table, record["USER_ID"].ToString(), cn);
+                }
+                else
+                {
+                    AddBodyContentCell(table, "", cn);
+                }
+
                 if (!string.IsNullOrEmpty((string)record["USER_NAME"]))
                 {
                     AddBodyContentCell(table, record["USER_NAME"].ToString(), cn);

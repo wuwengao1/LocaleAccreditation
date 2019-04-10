@@ -153,7 +153,7 @@ namespace MisFrameWork3.Controllers
         {
             string uid = Membership.CurrentUser.UserId;
             Condition cdtId = new Condition("AND","USER_ID","=",uid);
-            List<UnCaseSenseHashTable> rows = DbUtilityManager.Instance.DefaultDbUtility.Query("FW_S_USERS", cdtId, "USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_D_XZQH__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR", null, null, -1, -1);
+            List<UnCaseSenseHashTable> rows = DbUtilityManager.Instance.DefaultDbUtility.Query("FW_S_USERS", cdtId, "USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_V_D_FW_COMP__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR", null, null, -1, -1);
             int total = DbUtilityManager.Instance.DefaultDbUtility.RecordCount("FW_S_USERS", cdtId);
             return Json(new { total = total, rows = rows }, JsonRequestBehavior.AllowGet);        
         }

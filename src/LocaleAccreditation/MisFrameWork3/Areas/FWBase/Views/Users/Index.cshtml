@@ -259,9 +259,11 @@
                 iconCls: 'icon-table-export',
                 handler: function () {
                     var data = {};
-                    data.title = "打印设备报表" ;
-                    data.MACHINENO = params2.MACHINENO;
-                    data.SSDW = params2.SSDW;
+                    data.title = "打印用户报表";
+                    data.Search = $("#search").textbox("getValue");
+                    data.date_range_type = $("#date_range_type").combobox("getValue");
+                    data.start_date = $("#start_date").datebox("getValue");
+                    data.end_date = $("#end_date").datebox("getValue");
                     console.log(data);
                     var url='@Url.Action("ActionPrint", "Users")';
                     $.print(url, data);

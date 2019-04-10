@@ -20,9 +20,7 @@ namespace MisFrameWork3.Areas.Machine.Controllers
         //private 
         public ActionResult Index()
         {
-
-            int RoleLevel = Membership.CurrentUser.RoleLevel;
-            if (Membership.CurrentUser.HaveAuthority("MACHINE.MACHINEMGR.CHANGE_MACHINE") || RoleLevel == 0)
+            if (Membership.CurrentUser.HaveAuthority("MACHINE.MACHINEMGR.CHANGE_MACHINE"))
             {
                 ViewBag.HideCommonButtons = true;
             }
@@ -67,9 +65,8 @@ namespace MisFrameWork3.Areas.Machine.Controllers
                 cdtIds.AddSubCondition("AND", "SSDW", "like", comId3);
                 cdtIds.AddSubCondition("AND", "DELETED_MARK", "=", "0");
             }
-            return QueryDataFromEasyUIDataGrid("B_MACHINE", "CREATE_ON", "MACHINENO,SSDW,SSDW_V_D_FW_COMP__MC,SBFZR_V_D_FW_S_USERS__MC,PHONE,ADDRESS", cdtIds, "*");
+            return QueryDataFromEasyUIDataGrid("B_MACHINE", "CREATE_ON", "MACHINENO,SSDW,SSDW_V_D_FW_COMP__MC,SBFZR,SBFZR_V_D_FW_S_USERS__MC,PHONE,ADDRESS", cdtIds, "*");
         }
-        
         public ActionResult ViewFormAdd()
         {
             return View();
@@ -180,7 +177,6 @@ namespace MisFrameWork3.Areas.Machine.Controllers
             var result = new { success = true, message = "保存成功" };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult ActionDelete()
         {
             UnCaseSenseHashTable data = new UnCaseSenseHashTable();
@@ -214,7 +210,6 @@ namespace MisFrameWork3.Areas.Machine.Controllers
             var result = new { success = true, message = "删除成功" };
             return Json(result, JsonRequestBehavior.AllowGet);
         }
-
         public ActionResult ActionChangeState()
         {
             UnCaseSenseHashTable data = new UnCaseSenseHashTable();
@@ -356,22 +351,42 @@ namespace MisFrameWork3.Areas.Machine.Controllers
 
 
         #region 打印数据
-        public FileResult ActionPrint(string name, string oject_id)
+        public FileResult ActionPrint()
         {
             //获取数据
-            string MACHINENO = Request["MACHINENO"];
-            string SSDW = Request["SSDW"];
             Condition cdtIds = new Condition();
-            if (!String.IsNullOrEmpty(MACHINENO))
+            string search = Request["Search"];
+            string date_range_type = Request["date_range_type"];
+            string start_date = Request["start_date"];
+            string end_date = Request["end_date"];
+            Condition cdtIds2 = new Condition();
+            if (!string.IsNullOrEmpty(search))
             {
-                cdtIds.AddSubCondition("AND", "MACHINENO", "like", "%" + MACHINENO + "%");
+                cdtIds2.AddSubCondition("OR", "MACHINENO", "like", "%" + search + "%");
+                cdtIds2.AddSubCondition("OR", "SSDW", "like", "%" + search + "%");
+                cdtIds2.AddSubCondition("OR", "SSDW_V_D_FW_COMP__MC", "like", "%" + search + "%");
+                cdtIds2.AddSubCondition("OR", "SBFZR", "like", "%" + search + "%");
+                cdtIds2.AddSubCondition("OR", "SBFZR_V_D_FW_S_USERS__MC", "like", "%" + search + "%");
+                cdtIds2.AddSubCondition("OR", "PHONE", "like", "%" + search + "%");
+                cdtIds2.AddSubCondition("OR", "ADDRESS", "like", "%" + search + "%");
             }
-            if (!String.IsNullOrEmpty(SSDW))
+            if ( !string.IsNullOrEmpty(date_range_type) && date_range_type != "0" && (!string.IsNullOrEmpty(start_date) || !string.IsNullOrEmpty(end_date)))
             {
-                cdtIds.AddSubCondition("AND", "SSDW", "=", SSDW);
+                if (!string.IsNullOrEmpty(start_date))
+                {
+                    cdtIds.AddSubCondition("AND", "CREATE_ON", ">=", DateTime.Parse(start_date));
+                }
+                if (!string.IsNullOrEmpty(end_date))
+                {
+                    DateTime dtEndDate = DateTime.Parse(end_date);
+                    dtEndDate = dtEndDate.AddDays(1);//加多一天
+                    cdtIds.AddSubCondition("AND", "CREATE_ON", "<=", dtEndDate);
+                }
             }
-            int RoleLevel = Membership.CurrentUser.RoleLevel;
-            if (RoleLevel != 0)
+
+            cdtIds2.Relate = "AND";
+            cdtIds.AddSubCondition(cdtIds2);
+            if (!Membership.CurrentUser.HaveAuthority("MACHINE.MACHINEMGR.CHANGE_MACHINE"))
             {
                 string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
                 char[] c = COMPANY_ID.ToCharArray();
@@ -424,15 +439,19 @@ namespace MisFrameWork3.Areas.Machine.Controllers
             document.Add(title);
 
             //数据表格
-            PdfPTable table = new PdfPTable(6);
-            table.SetWidths(new float[] { 2.5F, 8, 8, 12, 7, 6 });
+            PdfPTable table = new PdfPTable(10);
+            table.SetWidths(new float[] { 2.5F, 8, 8, 12, 7, 6 , 6, 6, 6, 6});
             table.WidthPercentage = 100;
             AddBodyContentCell(table, "序号", cn);
             AddBodyContentCell(table, "设备编号", cn);
             AddBodyContentCell(table, "所属单位编号", cn);
             AddBodyContentCell(table, "所属单位名称", cn);
+            AddBodyContentCell(table, "录入时间", cn);
+            AddBodyContentCell(table, "状态", cn);
+            AddBodyContentCell(table, "负责人账户", cn);
             AddBodyContentCell(table, "负责人名称", cn);
-            AddBodyContentCell(table, "是否启用", cn);
+            AddBodyContentCell(table, "负责人联系电话", cn);
+            AddBodyContentCell(table, "负责人联系地址", cn);
 
             for (int i = 0; i < records.Count; i++)
             {
@@ -464,9 +483,11 @@ namespace MisFrameWork3.Areas.Machine.Controllers
                     AddBodyContentCell(table, "", cn);
                 }
 
-                if (!string.IsNullOrEmpty((string)record["SBFZR_V_D_FW_S_USERS__MC"]))
+                if (!string.IsNullOrEmpty(record["CREATE_ON"].ToString()))
                 {
-                    AddBodyContentCell(table, record["SBFZR_V_D_FW_S_USERS__MC"].ToString(), cn);
+                    string s = record["CREATE_ON"].ToString();
+                    string date = s.Substring(0, 8);
+                    AddBodyContentCell(table, date, cn);
                 }
                 else
                 {
@@ -484,7 +505,43 @@ namespace MisFrameWork3.Areas.Machine.Controllers
                 {
                     AddBodyContentCell(table, "未知", cn);
                 }
-                
+
+                if (!string.IsNullOrEmpty((string)record["SBFZR"]))
+                {
+                    AddBodyContentCell(table, record["SBFZR"].ToString(), cn);
+                }
+                else
+                {
+                    AddBodyContentCell(table, "", cn);
+                }
+
+                if (!string.IsNullOrEmpty((string)record["SBFZR_V_D_FW_S_USERS__MC"]))
+                {
+                    AddBodyContentCell(table, record["SBFZR_V_D_FW_S_USERS__MC"].ToString(), cn);
+                }
+                else
+                {
+                    AddBodyContentCell(table, "", cn);
+                }
+
+                if (!string.IsNullOrEmpty((string)record["PHONE"]))
+                {
+                    AddBodyContentCell(table, record["PHONE"].ToString(), cn);
+                }
+                else
+                {
+                    AddBodyContentCell(table, "", cn);
+                }
+
+                if (!string.IsNullOrEmpty((string)record["ADDRESS"]))
+                {
+                    AddBodyContentCell(table, record["ADDRESS"].ToString(), cn);
+                }
+                else
+                {
+                    AddBodyContentCell(table, "", cn);
+                }
+
             }
             document.Add(table);
             

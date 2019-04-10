@@ -260,15 +260,7 @@
         frozenColumns: [[
             { field: 'MACHINENO', title: '设备编号', width: 120, sortable: true },
             { field: 'SSDW', title: '所属单位代码', width: 120, sortable: true },
-            { field: 'SSDW_V_D_FW_COMP__MC', title: '所属单位名称', width: 180 },
-            { field: 'SBFZR', title: '设备负责人账户', width: 135 },
-            { field: 'SBFZR_V_D_FW_S_USERS__MC', title: '设备负责人名称', width: 150 },
-            
-        ]],
-        columns: [[
-            { field: 'PHONE', title: '负责人联系电话', width: 120 },
-            { field: 'ADDRESS', title: '负责人联系地址', width: 200 },
-            {
+            { field: 'SSDW_V_D_FW_COMP__MC', title: '所属单位名称', width: 180 }, {
                 field: 'CREATE_ON', title: '录入时间', width: 140,
                 formatter: function (d) {
                     return moment(d).format("YYYY-MM-DD HH:mm");
@@ -283,6 +275,14 @@
                         return '<span class="label label-success">启用</span>';
                 }
             },
+            
+        ]],
+        columns: [[
+            { field: 'SBFZR', title: '设备负责人账户', width: 135 },
+            { field: 'SBFZR_V_D_FW_S_USERS__MC', title: '设备负责人名称', width: 150 },
+            { field: 'PHONE', title: '负责人联系电话', width: 120 },
+            { field: 'ADDRESS', title: '负责人联系地址', width: 200 },
+            
         ]]
     });
     //初始化分页栏按钮,增加导出Excel功能
@@ -301,7 +301,11 @@
                 iconCls: 'icon-table-export',
                 handler: function () {
                     var data = {};
-                    data.title = "打印设备报表" ;
+                    data.title = "打印设备报表";
+                    data.Search = $("#search").textbox("getValue");
+                    data.date_range_type = $("#date_range_type").combobox("getValue");
+                    data.start_date = $("#start_date").datebox("getValue");
+                    data.end_date = $("#end_date").datebox("getValue");
                     console.log(data);
                     var url='@Url.Action("ActionPrint", "Machine")';
                     $.print(url, data);

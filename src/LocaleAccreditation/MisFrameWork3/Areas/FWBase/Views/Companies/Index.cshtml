@@ -244,13 +244,30 @@
     //初始化分页栏按钮,增加导出Excel功能
     var pager = $("#cmpDG").datagrid().datagrid('getPager')
     pager.pagination({
-        buttons: [{
-            text: '导出',
-            iconCls: 'icon-table-export',
-            handler: function () {
-                ef3.datagridToExcel("#cmpDG");
+        buttons: [
+            {
+                text: '导出',
+                iconCls: 'icon-table-export',
+                handler: function () {
+                    ef3.datagridToExcel("#cmpDG");
+                }
+            },
+            {
+                text: '打印',
+                iconCls: 'icon-table-export',
+                handler: function () {
+                    var data = {};
+                    data.title = "打印单位报表";
+                    data.Search = $("#search").textbox("getValue");
+                    data.date_range_type = $("#date_range_type").combobox("getValue");
+                    data.start_date = $("#start_date").datebox("getValue");
+                    data.end_date = $("#end_date").datebox("getValue");
+                    console.log(data);
+                    var url='@Url.Action("ActionPrint", "Companies")';
+                    $.print(url, data);
+                }
             }
-        }]
-    });  
+        ]
+    });
 </script>
 

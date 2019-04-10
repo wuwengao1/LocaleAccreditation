@@ -89,14 +89,19 @@ $.downloadIamge = function (selector, name) {
 };
 
 $.print = function (url, data, method) {
+    var data2 = data;
     if (url && data) {
         var title = (data.title == null || data.title == undefined) ? '' : data.title;
         data = typeof data == 'string' ? data : jQuery.param(data);
         var inputs = '';
-        $.each(data.split('&'), function () {
-            var pair = this.split('=');
-            inputs += '<input type="hidden" name="' + pair[0] + '" value="' + pair[1] + '" />';
-        });
+        //$.each(data.split('&'), function () {
+        //    var pair = this.split('=');
+        //    //inputs += '<input type="hidden" name="' + Search + '" value="' + data2.Search + '" />';
+        //});
+        inputs += '<input type="hidden" name="Search" value="' + data2.Search + '" />';
+        inputs += '<input type="hidden" name="date_range_type" value="' + data2.date_range_type + '" />';
+        inputs += '<input type="hidden" name="start_date" value="' + data2.start_date + '" />';
+        inputs += '<input type="hidden" name="end_date" value="' + data2.end_date + '" />';
         var html = '<div class="easyui-window"><iframe width="100%" height="100%"  frameborder="0" seamless marginheight="0" style="overflow:hidden;display:block"></iframe></div>';
         var win = window.top.$(html).appendTo(window.top.document.body);
         win.dialog({

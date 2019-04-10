@@ -313,40 +313,60 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
         {
             //获取数据
             Condition cdtIds = new Condition();
+            string search = Request["Search"];
+            string date_range_type = Request["date_range_type"];
+            string start_date = Request["start_date"];
+            string end_date = Request["end_date"];
+            Condition cdtIds2 = new Condition();
+            if (!string.IsNullOrEmpty(search))
+            {
+                cdtIds2.AddSubCondition("OR", "USER_ID", "like", "%" + search + "%");
+                cdtIds2.AddSubCondition("OR", "USER_NAME", "like", "%" + search + "%");
+                cdtIds2.AddSubCondition("OR", "ROLES_ID", "like", "%" + search + "%");
+                cdtIds2.AddSubCondition("OR", "ROLES_ID_V_D_FW_S_ROLES__MC", "like", "%" + search + "%");
+                cdtIds2.AddSubCondition("OR", "COMPANY_ID", "like", "%" + search + "%");
+                cdtIds2.AddSubCondition("OR", "COMPANY_ID_V_D_FW_COMP__MC", "like", "%" + search + "%");
+            }
+            if (!string.IsNullOrEmpty(date_range_type) && date_range_type != "0" && (!string.IsNullOrEmpty(start_date) || !string.IsNullOrEmpty(end_date)))
+            {
+                if (!string.IsNullOrEmpty(start_date))
+                {
+                    cdtIds.AddSubCondition("AND", "CREATE_ON", ">=", DateTime.Parse(start_date));
+                }
+                if (!string.IsNullOrEmpty(end_date))
+                {
+                    DateTime dtEndDate = DateTime.Parse(end_date);
+                    dtEndDate = dtEndDate.AddDays(1);//加多一天
+                    cdtIds.AddSubCondition("AND", "CREATE_ON", "<=", dtEndDate);
+                }
+            }
 
-            if (!Membership.CurrentUser.HaveAuthority("SYS__USER__SELECT_OTHOR_COMPANY"))
-                cdtIds.AddSubCondition("AND", "COMPANY_ID", "=", Membership.CurrentUser.CompanyId);
-
-            string USER_ID = Request["USER_ID"];
-            string USER_NAME = Request["USER_NAME"];
-            string COMPANY_ID = Request["COMPANY_ID"];
-            string CREATE_ON = Request["CREATE_ON"];
-            string START_DATE = Request["START_DATE"];
-            string END_DATE = Request["END_DATE"];
-
-            if (!String.IsNullOrEmpty(USER_ID))
+            cdtIds2.Relate = "AND";
+            cdtIds.AddSubCondition(cdtIds2);
+            if (!Membership.CurrentUser.HaveAuthority("SYS.USER.QUERY_ALL_USER"))
             {
-                cdtIds.AddSubCondition("AND", "USER_ID", "like", "%" + USER_ID + "%");
-            }
-            if (!String.IsNullOrEmpty(USER_NAME))
-            {
-                cdtIds.AddSubCondition("AND", "USER_NAME", "like", "%" + USER_NAME + "%");
-            }
-            if (!String.IsNullOrEmpty(COMPANY_ID))
-            {
-                cdtIds.AddSubCondition("AND", "COMPANY_ID", "=", COMPANY_ID);
-            }
-            if (!String.IsNullOrEmpty(CREATE_ON))
-            {
-                cdtIds.AddSubCondition("AND", "CREATE_ON", "=", Convert.ToDateTime(CREATE_ON));
-            }
-            if (!String.IsNullOrEmpty(START_DATE))
-            {
-                cdtIds.AddSubCondition("AND", "START_DATE", ">=", Convert.ToDateTime(START_DATE));
-            }
-            if (!String.IsNullOrEmpty(END_DATE))
-            {
-                cdtIds.AddSubCondition("AND", "END_DATE", "<=", Convert.ToDateTime(END_DATE));
+                string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
+                char[] c = COMPANY_ID.ToCharArray();
+                string comId = "";
+                bool temp = false;
+                for (int i = c.Length - 1; i >= 0; i--)
+                {
+                    string cc = c[i].ToString();
+                    if (cc != "0" && !temp)
+                    {
+                        temp = true;
+                    }
+                    if (temp)
+                    {
+                        comId += c[i];
+                    }
+                }
+                char[] charArray = comId.ToCharArray();
+                Array.Reverse(charArray);
+                string comId3 = new String(charArray);
+                comId3 += "%";
+                cdtIds.AddSubCondition("AND", "COMPANY_ID", "like", comId3);
+                cdtIds.AddSubCondition("AND", "DELETED_MARK", "=", "0");
             }
             List<UnCaseSenseHashTable> records = DbUtilityManager.Instance.DefaultDbUtility.Query("FW_S_USERS", cdtIds, "*", null, null, -1, -1);
 
@@ -466,17 +486,25 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
                     AddBodyContentCell(table, "", cn);
                 }
 
-                if (!string.IsNullOrEmpty(record["DISABLED"].ToString()))
+                if (record["DISABLED"] != null)
                 {
-                    if (record["DISABLED"].ToString() == "0")
-                        AddBodyContentCell(table, "启用", cn);
+                    if (!string.IsNullOrEmpty(record["DISABLED"].ToString()))
+                    {
+                        if (record["DISABLED"].ToString() == "0")
+                            AddBodyContentCell(table, "启用", cn);
+                        else
+                            AddBodyContentCell(table, "禁用", cn);
+                    }
                     else
-                        AddBodyContentCell(table, "禁用", cn);
+                    {
+                        AddBodyContentCell(table, "未知", cn);
+                    }
                 }
                 else
                 {
-                    AddBodyContentCell(table, "未知", cn);
+                    AddBodyContentCell(table, "", cn);
                 }
+                
 
             }
             document.Add(table);

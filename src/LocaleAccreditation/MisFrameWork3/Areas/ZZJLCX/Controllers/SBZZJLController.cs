@@ -307,68 +307,44 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
             List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query(query_sql, -1, -1);
             return JsonDateObject(record);
         }
-
-        public ActionResult GetSelect()
-        {
-            int RoleLevel = Membership.CurrentUser.RoleLevel;
-            Condition cdtId;
-            if (RoleLevel != 0 && RoleLevel != 9)
-            {
-                string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
-                char[] c = COMPANY_ID.ToCharArray();
-                string comId = "";
-                bool temp = false;
-                for (int i = c.Length - 1; i >= 0; i--)
-                {
-                    string cc = c[i].ToString();
-                    if (cc != "0" && !temp)
-                    {
-                        temp = true;
-                    }
-                    if (temp)
-                    {
-                        comId += c[i];
-                    }
-                }
-                char[] charArray = comId.ToCharArray();
-                Array.Reverse(charArray);
-                string comId3 = new String(charArray);
-                comId3 += "%";
-                cdtId = new Condition("AND", "DM", "like", comId3);
-
-                Condition cdtId2 = new Condition();
-                cdtId2.AddSubCondition("AND", "SSDW", "like", comId3);
-                cdtId2.AddSubCondition("AND", "DELETED_MARK", "=", "0");
-                List<UnCaseSenseHashTable> sb = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtId2, "MACHINENO as DM", null, null, -1, -1);
-                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", cdtId, "DM,MC", null, null, -1, -1);
-                return JsonDateObject(new { sb = sb, dw = dw });
-            }
-            else
-            {
-                List<UnCaseSenseHashTable> sb = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", null, "MACHINENO as DM", null, null, -1, -1);
-                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", null, "DM,MC", null, null, -1, -1);
-                return JsonDateObject(new { sb = sb, dw = dw });
-            }
-        }
         #endregion
 
         #region 打印数据
         public FileResult ActionPrint(string name, string oject_id)
         {
             //获取数据
-            string MACHINENO = Request["MACHINENO"];
-            string SSDW = Request["SSDW"];
             Condition cdtIds = new Condition();
-            if (!String.IsNullOrEmpty(MACHINENO))
+            string search = Request["Search"];
+            string date_range_type = Request["date_range_type"];
+            string start_date = Request["start_date"];
+            string end_date = Request["end_date"];
+            Condition cdtIds2 = new Condition();
+            string query_sql;
+            if (!string.IsNullOrEmpty(search))
             {
-                cdtIds.AddSubCondition("AND", "MACHINENO", "like", "%" + MACHINENO + "%");
+                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where 1=1 and ( ZZSBID like  '%" + search + "%' OR ZZXXZZDW like  '%" + search + "%' OR ZZXXZZDWMC like  '%" + search + "%') ";
             }
-            if (!String.IsNullOrEmpty(SSDW))
+            else
             {
-                cdtIds.AddSubCondition("AND", "SSDW", "=", SSDW);
+                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where 1=1 ";
             }
-            int RoleLevel = Membership.CurrentUser.RoleLevel;
-            if (RoleLevel != 0)
+
+            if (!string.IsNullOrEmpty(date_range_type) && date_range_type != "0" && (!string.IsNullOrEmpty(start_date) || !string.IsNullOrEmpty(end_date)))
+            {
+                if (!String.IsNullOrEmpty(start_date))
+                {
+                    query_sql += " AND ZZXXZZRQ >=  TO_DATE('" + start_date + "', 'YYYY-MM-DD HH24:MI:SS') ";
+                }
+                if (!String.IsNullOrEmpty(end_date))
+                {
+                    DateTime dtEndDate = DateTime.Parse(end_date);
+                    dtEndDate = dtEndDate.AddDays(1);//加多一天
+
+                    query_sql += " AND ZZXXZZRQ <=  TO_DATE('" + dtEndDate.ToString() + "', 'YYYY-MM-DD HH24:MI:SS') ";
+                }
+            }
+
+            if (!Membership.CurrentUser.HaveAuthority("SYS.USER.QUERY_ALL_USER"))
             {
                 string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
                 char[] c = COMPANY_ID.ToCharArray();
@@ -390,10 +366,10 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
                 Array.Reverse(charArray);
                 string comId3 = new String(charArray);
                 comId3 += "%";
-                cdtIds.AddSubCondition("AND", "SSDW", "like", comId3);
-                cdtIds.AddSubCondition("AND", "DELETED_MARK", "=", "0");
+                query_sql += " ZZXXZZDW like '" + comId3;
             }
-            List<UnCaseSenseHashTable> records = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtIds, "*", null, null, -1, -1);
+            query_sql += " group by ZZSBID";
+            List<UnCaseSenseHashTable> records = DbUtilityManager.Instance.DefaultDbUtility.Query(query_sql, -1, -1);
 
             //设置打印图纸大小
             Document document = new Document(PageSize.A4);
@@ -421,67 +397,41 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
             document.Add(title);
 
             //数据表格
-            PdfPTable table = new PdfPTable(6);
-            table.SetWidths(new float[] { 2.5F, 8, 8, 12, 7, 6 });
+            PdfPTable table = new PdfPTable(3);
+            table.SetWidths(new float[] { 2.5F, 8, 8});
             table.WidthPercentage = 100;
             AddBodyContentCell(table, "序号", cn);
             AddBodyContentCell(table, "设备编号", cn);
-            AddBodyContentCell(table, "所属单位编号", cn);
-            AddBodyContentCell(table, "所属单位名称", cn);
-            AddBodyContentCell(table, "负责人名称", cn);
-            AddBodyContentCell(table, "是否启用", cn);
+            AddBodyContentCell(table, "数量", cn);
 
             for (int i = 0; i < records.Count; i++)
             {
                 UnCaseSenseHashTable record = records[i];
                 AddBodyContentCell(table, Convert.ToString(i + 1), cn);
-                if (!string.IsNullOrEmpty((string)record["MACHINENO"]))
+                if (!string.IsNullOrEmpty((string)record["ZZSBID"]))
                 {
-                    AddBodyContentCell(table, record["MACHINENO"].ToString(), cn);
+                    AddBodyContentCell(table, record["ZZSBID"].ToString(), cn);
                 }
                 else
                 {
                     AddBodyContentCell(table, "", cn);
                 }
-
-                if (!string.IsNullOrEmpty((string)record["SSDW"]))
+                
+                if (record["COUNT"] != null)
                 {
-                    AddBodyContentCell(table, record["SSDW"].ToString(), cn);
-                }
-                else
-                {
-                    AddBodyContentCell(table, "", cn);
-                }
-                if (!string.IsNullOrEmpty((string)record["SSDW_V_D_FW_COMP__MC"]))
-                {
-                    AddBodyContentCell(table, record["SSDW_V_D_FW_COMP__MC"].ToString(), cn);
-                }
-                else
-                {
-                    AddBodyContentCell(table, "", cn);
-                }
-
-                if (!string.IsNullOrEmpty((string)record["SBFZR_V_D_FW_S_USERS__MC"]))
-                {
-                    AddBodyContentCell(table, record["SBFZR_V_D_FW_S_USERS__MC"].ToString(), cn);
-                }
-                else
-                {
-                    AddBodyContentCell(table, "", cn);
-                }
-
-                if (!string.IsNullOrEmpty(record["DISABLED"].ToString()))
-                {
-                    if (record["DISABLED"].ToString() == "0")
-                        AddBodyContentCell(table, "启用", cn);
+                    if (!string.IsNullOrEmpty(record["COUNT"].ToString()))
+                    {
+                        AddBodyContentCell(table, record["COUNT"].ToString(), cn);
+                    }
                     else
-                        AddBodyContentCell(table, "禁用", cn);
+                    {
+                        AddBodyContentCell(table, "", cn);
+                    }
                 }
                 else
                 {
-                    AddBodyContentCell(table, "未知", cn);
+                    AddBodyContentCell(table, "", cn);
                 }
-
             }
             document.Add(table);
 

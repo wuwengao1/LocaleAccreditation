@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_LayoutStdConditionCombinationQuery.cshtml";
     //__TIPS__*: 
     //下面这行可以定义查询项中是否包含日期查询框，如果查询不需要日期的，可以没注释这句。
-    ViewBag.DateRangeType = new string[] { "创建日期", "修改日期" };
+    ViewBag.DateRangeType = new string[] { "创建日期" };
     //系统默认是不允许删除记录的，如果要显示查询界面的删除按钮，就开启这句
     ViewBag.ShowDeleteButton = false;
     ViewBag.ShowChangeStateButton = true;
@@ -244,13 +244,30 @@
     //初始化分页栏按钮,增加导出Excel功能
     var pager = $("#cmpDG").datagrid().datagrid('getPager')
     pager.pagination({
-        buttons: [{
-            text: '导出',
-            iconCls: 'icon-table-export',
-            handler: function () {
-                ef3.datagridToExcel("#cmpDG");
+        buttons: [
+            {
+                text: '导出',
+                iconCls: 'icon-table-export',
+                handler: function () {
+                    ef3.datagridToExcel("#cmpDG");
+                }
+            },
+            {
+                text: '打印',
+                iconCls: 'icon-table-export',
+                handler: function () {
+                    var data = {};
+                    data.title = "打印角色权限报表";
+                    data.Search = $("#search").textbox("getValue");
+                    data.date_range_type = $("#date_range_type").combobox("getValue");
+                    data.start_date = $("#start_date").datebox("getValue");
+                    data.end_date = $("#end_date").datebox("getValue");
+                    console.log(data);
+                    var url='@Url.Action("ActionPrint", "Roles")';
+                    $.print(url, data);
+                }
             }
-        }]
-    });  
+        ]
+    });
 </script>
 
