@@ -1,12 +1,20 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutMachineQuery.cshtml";
-    //__TIPS__:
+    Layout = "~/Views/Shared/_LayoutStdConditionCombinationQuery.cshtml";
+    //__TIPS__*: 
     //下面这行可以定义查询项中是否包含日期查询框，如果查询不需要日期的，可以没注释这句。
+    ViewBag.DateRangeType = new string[] { "录入时间" };
     //系统默认是不允许删除记录的，如果要显示查询界面的删除按钮，就开启这句
-    ////ViewBag.ShowDeleteButton = true;
-    //ViewBag.ShowChangeStateButton = true;
+    ViewBag.ShowDeleteButton = true;
+    ViewBag.ShowChangeStateButton = true;
+
+    //以下这些语句设置按钮的状态，也可以Controller里根据权限进行配置
+    ViewBag.DisableBTN_Add = false;
+    ViewBag.DisableBTN_Edit = false;
+    ViewBag.DisableBTN_Delete = false;
+    ViewBag.DisableBTN_Disable = false;
+    ViewBag.DisableBTN_Enable = false;
 }
 <div id="winMainForm"></div>
 <script>
@@ -253,8 +261,19 @@
             { field: 'MACHINENO', title: '设备编号', width: 120, sortable: true },
             { field: 'SSDW', title: '所属单位代码', width: 120, sortable: true },
             { field: 'SSDW_V_D_FW_COMP__MC', title: '所属单位名称', width: 180 },
-            { field: 'SBFZR_V_D_FW_S_USERS__MC', title: '设备负责人名称', width: 180 },
-            { field: 'CREATE_ON', title: '设备录入时间', width: 180 },
+            { field: 'SBFZR', title: '设备负责人账户', width: 135 },
+            { field: 'SBFZR_V_D_FW_S_USERS__MC', title: '设备负责人名称', width: 150 },
+            
+        ]],
+        columns: [[
+            { field: 'PHONE', title: '负责人联系电话', width: 120 },
+            { field: 'ADDRESS', title: '负责人联系地址', width: 200 },
+            {
+                field: 'CREATE_ON', title: '录入时间', width: 140,
+                formatter: function (d) {
+                    return moment(d).format("YYYY-MM-DD HH:mm");
+                }
+            },
             {
                 field: 'DISABLED', title: '状态', width: 70, align: 'center', sortable: true,
                 formatter: function (d) {
@@ -264,8 +283,6 @@
                         return '<span class="label label-success">启用</span>';
                 }
             },
-        ]],
-        columns: [[
         ]]
     });
     //初始化分页栏按钮,增加导出Excel功能
@@ -285,8 +302,6 @@
                 handler: function () {
                     var data = {};
                     data.title = "打印设备报表" ;
-                    data.MACHINENO = params2.MACHINENO;
-                    data.SSDW = params2.SSDW;
                     console.log(data);
                     var url='@Url.Action("ActionPrint", "Machine")';
                     $.print(url, data);

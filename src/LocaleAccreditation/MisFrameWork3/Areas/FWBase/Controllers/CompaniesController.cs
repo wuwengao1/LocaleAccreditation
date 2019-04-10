@@ -18,6 +18,10 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
         {
             return View();
         }
+        public ActionResult JsonConditionCombinationInfo()
+        {
+            return View();
+        }
 
         public ActionResult ViewFormAdd()
         {
@@ -134,7 +138,7 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
         {
             int RoleLevel = Membership.CurrentUser.RoleLevel;
             Condition cdtIds = new Condition();
-            if (RoleLevel != 0)
+            if (RoleLevel != 0 && RoleLevel != 9)
             {
                 string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
                 char[] c = COMPANY_ID.ToCharArray();
@@ -159,7 +163,7 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
                 cdtIds.AddSubCondition("AND", "COMPANY_CODE", "like", comId3);
             }
             //#region 初始化基本查询参数 id,limit,offset,search,sort,order
-            return QueryDataFromEasyUIDataGrid("FW_S_COMAPANIES", "CRATE_ON,UPDATE_ON", "NAME,COMPANY_CODE", cdtIds, "*");
+            return QueryDataFromEasyUIDataGrid("FW_S_COMAPANIES", "CREATE_ON", "NAME,COMPANY_CODE,FAX,TEL1,ADDR_WORKING", cdtIds, "*");
         }
         
     }

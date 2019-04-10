@@ -1,12 +1,21 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutZZJLCXQuery.cshtml";
-    //__TIPS__:
+    Layout = "~/Views/Shared/_LayoutStdConditionCombinationQuery.cshtml";
+    //__TIPS__*: 
     //下面这行可以定义查询项中是否包含日期查询框，如果查询不需要日期的，可以没注释这句。
+    ViewBag.DateRangeType = new string[] { "制证时间" };
     //系统默认是不允许删除记录的，如果要显示查询界面的删除按钮，就开启这句
-    ////ViewBag.ShowDeleteButton = true;
-    //ViewBag.ShowChangeStateButton = true;
+    ViewBag.ShowDeleteButton = false;
+    ViewBag.ShowChangeStateButton = false;
+    ViewBag.HideCommonButtons = false;
+
+    //以下这些语句设置按钮的状态，也可以Controller里根据权限进行配置
+    ViewBag.DisableBTN_Add = false;
+    ViewBag.DisableBTN_Edit = false;
+    ViewBag.DisableBTN_Delete = true;
+    ViewBag.DisableBTN_Disable = false;
+    ViewBag.DisableBTN_Enable = false;
 }
 <div id="winMainForm"></div>
 <script>
@@ -252,13 +261,17 @@
         //toolbar: "#cmpDgToolBar",
         @* __TIPS__*: 以下同表格中显示的每列的配置信息 *@
         frozenColumns: [[
-            { field: 'GMSFHM', title: '卡号', width: 200, sortable: true },
+            { field: 'SLBH', title: '受理编号', width: 185, sortable: true },
+            { field: 'ZZZXPH', title: '制证芯片号', width: 280, sortable: true },
+            { field: 'GMSFHM', title: '身份号码', width: 170, sortable: true },
+        ]],
+        columns: [[
             { field: 'ZZSBID', title: '制证设备编号', width: 130, sortable: true },
             { field: 'ZZXXZZDW', title: '制证单位代码', width: 140, sortable: true },
-            { field: 'ZZXXZZDWMC', title: '制证单位名称', width: 180, align: 'center'},
-            { field: 'ZZXXZZRQ', title: '制证时间', width: 180, align: 'center', sortable: true},
+            { field: 'ZZXXZZDWMC', title: '制证单位名称', width: 180, align: 'center' },
+            { field: 'ZZXXZZRQ', title: '制证时间', width: 160, align: 'center', sortable: true },
             {
-                field: 'ZZXXZZSFCG', title: '制证是否成功', width: 90, align: 'center', sortable: true,
+                field: 'ZZXXZZSFCG', title: '状态', width: 60, align: 'center', sortable: true,
                 formatter: function (d) {
                     if (d == 1)
                         return '<span class="label label-success">成功</span>';
@@ -266,8 +279,6 @@
                         return '<span class="label label-danger" >失败</span>';
                 }
             },
-        ]],
-        columns: [[
         ]]
     });
 

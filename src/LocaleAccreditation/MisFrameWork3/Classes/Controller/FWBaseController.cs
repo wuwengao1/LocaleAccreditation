@@ -15,8 +15,7 @@ using Newtonsoft.Json.Converters;
 namespace MisFrameWork3.Classes.Controller
 {
     public class FWBaseController : System.Web.Mvc.Controller
-    {        
-
+    {
         protected ActionResult JsonDateObject(object data)
         {
             var timeConverter = new IsoDateTimeConverter { DateTimeFormat = "yyyy-MM-dd HH:mm:ss" };
@@ -110,7 +109,8 @@ namespace MisFrameWork3.Classes.Controller
                         dataRangeTypeIndex = 0;
                     }
                     string[] arrDataRangeFields = dataRangeFields.Split(',');
-                    if ((arrDataRangeFields.Length <= dataRangeTypeIndex)&& dataRangeTypeIndex!=0)
+                    //(arrDataRangeFields.Length <= dataRangeTypeIndex)&&
+                    if ( dataRangeTypeIndex!=0)
                     {
                         fieldName = arrDataRangeFields[dataRangeTypeIndex-1];
                         if (!String.IsNullOrEmpty(Request["start_date"]))
@@ -153,7 +153,7 @@ namespace MisFrameWork3.Classes.Controller
             return JsonDateObject(new { total = total, rows = rows });
         }
 
-        private void ReplaceCdtCombinationOpreate(Condition rootCdt)//处理客户端传来的条件操作符
+        protected void ReplaceCdtCombinationOpreate(Condition rootCdt)//处理客户端传来的条件操作符
         {
             if (!String.IsNullOrEmpty(rootCdt.Op))
             {
@@ -258,13 +258,13 @@ namespace MisFrameWork3.Classes.Controller
                 cdtMain.AddSubCondition(extCDT);
             return DbUtilityManager.Instance.DefaultDbUtility.Query(dicName, cdtMain, "*", "DM");            
         }
-
+        
         //获取当前用户可查机器编号
         protected string GetMachineNo()
         {
             int RoleLevel = Membership.Membership.CurrentUser.RoleLevel;
             List<UnCaseSenseHashTable> record;
-            if (RoleLevel != 0)
+            if (!Membership.Membership.CurrentUser.HaveAuthority("SYS.USER.SELECT_OTHOR_COMPANY"))
             {
                 string COMPANY_ID = Membership.Membership.CurrentUser.CompanyId.ToString();
                 char[] c = COMPANY_ID.ToCharArray();

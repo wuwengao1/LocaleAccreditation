@@ -1,12 +1,21 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutUserQuery.cshtml";
-    //__TIPS__: 
+    Layout = "~/Views/Shared/_LayoutStdConditionCombinationQuery.cshtml";
+    //__TIPS__*: 
     //下面这行可以定义查询项中是否包含日期查询框，如果查询不需要日期的，可以没注释这句。
+    ViewBag.DateRangeType = new string[] { "录入时间" };
     //系统默认是不允许删除记录的，如果要显示查询界面的删除按钮，就开启这句
     ViewBag.ShowDeleteButton = false;
     ViewBag.ShowChangeStateButton = true;
+    ViewBag.HideCommonButtons = true;
+
+    //以下这些语句设置按钮的状态，也可以Controller里根据权限进行配置
+    ViewBag.DisableBTN_Add = false;
+    ViewBag.DisableBTN_Edit = false;
+    ViewBag.DisableBTN_Delete = false;
+    ViewBag.DisableBTN_Disable = false;
+    ViewBag.DisableBTN_Enable = false;
 }
 <div id="winMainForm"></div>
 <script>
@@ -204,11 +213,14 @@
         },
         //toolbar: "#cmpDgToolBar",
         @* __TIPS__*: 以下同表格中显示的每列的配置信息 *@
-        columns: [[
+        frozenColumns: [[
             { field: 'USER_ID', title: '登陆账号', width: 140 },
             { field: 'USER_NAME', title: '用户名称', width: 180 },
             { field: 'COMPANY_ID', title: '所属单位编号', width: 190 },
-            { field: 'COMPANY_ID_V_D_FW_COMP__MC', title: '所属单位', width: 190 },
+            { field: 'COMPANY_ID_V_D_FW_COMP__MC', title: '所属单位名称', width: 190 },
+            
+        ]],
+        columns: [[
             { field: 'ROLES_ID_V_D_FW_S_ROLES__MC', title: '系统角色', width: 100 },
             {
                 field: 'DISABLED', title: '状态', width: 70, align: 'center', sortable: true,
@@ -217,6 +229,12 @@
                         return '<span class="label label-danger" >停用</span>';
                     else
                         return '<span class="label label-success">启用</span>';
+                }
+            },
+            {
+                field: 'CREATE_ON', title: '录入时间', width: 140,
+                formatter: function (d) {
+                    return moment(d).format("YYYY-MM-DD HH:mm");
                 }
             },
             { field: 'TEL1', title: '联系电话1', width: 110 },

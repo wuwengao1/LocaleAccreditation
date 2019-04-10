@@ -11,7 +11,7 @@ using System.Web.Mvc;
 
 namespace MisFrameWork3.Areas.ZZJLCX.Controllers
 {
-    public class ZZYZZJLController : FWBaseController
+    public class DWZZJLController : FWBaseController
     {
         // GET: ZZJLCX/SBZZJL
         public ActionResult Index()
@@ -22,11 +22,14 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
         {
             return View();
         }
-        public ActionResult GetSelect()
+
+
+        #region __TIPS__:单位制证数量统计
+        public ActionResult AcceptStat()
         {
             int RoleLevel = Membership.CurrentUser.RoleLevel;
-            Condition cdtId;
-            if (RoleLevel != 0 && RoleLevel != 9)
+            string comId2 = "";
+            if (!Membership.CurrentUser.HaveAuthority("ZZJL.ZZJLCX.QUERY_ALL_ZZJL"))
             {
                 string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
                 char[] c = COMPANY_ID.ToCharArray();
@@ -46,22 +49,40 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
                 }
                 char[] charArray = comId.ToCharArray();
                 Array.Reverse(charArray);
-                string comId3 = new String(charArray);
-                comId3 += "%";
-                cdtId = new Condition("AND", "DM", "like", comId3);
-                
-                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", cdtId, "DM,MC", null, null, -1, -1);
-                return JsonDateObject(new { dw = dw });
+                comId2 = new String(charArray);
+                comId2 += "%";
+            }
+            string search = Request["search"];
+            string query_sql;
+            if (string.IsNullOrEmpty(comId2))
+            {
+
+                if (string.IsNullOrEmpty(search))
+                {
+                    query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP  group by ZZXXZZDW,ZZXXZZDWMC ";
+                }
+                else
+                {
+                    query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where ZZXXZZDW like  '%" + search + "%' and ( ZZXXZZDWMC like  '%" + search + "%')  group by ZZXXZZDW,ZZXXZZDWMC ";
+                }
             }
             else
             {
-                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", null, "DM,MC", null, null, -1, -1);
-                return JsonDateObject(new { dw = dw });
+                if (string.IsNullOrEmpty(search))
+                {
+                    query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where ZZXXZZDW like '" + comId2 + "' group by ZZXXZZDW,ZZXXZZDWMC ";
+                }
+                else
+                {
+                    query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where ZZXXZZDW like '" + comId2 + "' and ( ZZXXZZDW like  '%" + search + "%' OR ZZXXZZDWMC like  '%" + search + "%')  group by ZZXXZZDW,ZZXXZZDWMC ";
+                }
             }
+
+            List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query(query_sql, -1, -1);
+            return JsonDateObject(record);
         }
 
-        #region __TIPS__:设备制证数量统计
-        public ActionResult AcceptStat()
+        public ActionResult AcceptStat2()
         {
 
             string SSDW = Request["SSDW"];
@@ -95,7 +116,7 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
                 Condition cdtId3 = new Condition();
                 cdtId3.AddSubCondition("AND", "COMPANY_ID", "like", comId2);
                 cdtId3.AddSubCondition("AND", "ROLES_ID_V_D_FW_S_ROLES__MC", "=", "制证员");
-                List<UnCaseSenseHashTable> re= DbUtilityManager.Instance.DefaultDbUtility.Query("FW_S_USERS", cdtId3, "USER_ID", null, null, -1, -1);
+                List<UnCaseSenseHashTable> re = DbUtilityManager.Instance.DefaultDbUtility.Query("FW_S_USERS", cdtId3, "USER_ID", null, null, -1, -1);
                 if (re.Count != 0)
                 {
 
@@ -132,9 +153,10 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
             if (!string.IsNullOrEmpty(ZZY))
             {
                 Condition cdtId = new Condition();
-                cdtId.AddSubCondition("AND", "SBFZR", "=",  ZZY);
+                cdtId.AddSubCondition("AND", "SBFZR", "=", ZZY);
                 List<UnCaseSenseHashTable> rec = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtId, "MACHINENO", null, null, -1, -1);
-                if(rec.Count != 0){
+                if (rec.Count != 0)
+                {
                     sbbh = rec[0]["MACHINENO"].ToString();
                 }
             }
@@ -219,7 +241,7 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
                 query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + " and ZZXXZZRQ >= TO_DATE('" + ACCEPT_DATE + "', 'YYYY-MM-DD HH24:MI:SS') and ZZXXZZRQ <= TO_DATE('" + ACCEPT_DATE2 + "', 'YYYY-MM-DD HH24:MI:SS') group by ZZSBID ";
             }
 
-            else if(!string.IsNullOrEmpty(zzys) && !string.IsNullOrEmpty(ACCEPT_DATE) && !string.IsNullOrEmpty(ACCEPT_DATE2) && string.IsNullOrEmpty(sbbh))
+            else if (!string.IsNullOrEmpty(zzys) && !string.IsNullOrEmpty(ACCEPT_DATE) && !string.IsNullOrEmpty(ACCEPT_DATE2) && string.IsNullOrEmpty(sbbh))
             {
                 ACCEPT_DATE = ACCEPT_DATE + " 00:00:00";
                 ACCEPT_DATE2 = ACCEPT_DATE2 + " 23:59:59";
@@ -257,11 +279,195 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
 
             hash["rows"] = rows;
             return JsonDateObject(hash);
-            if (record.Count != 0)
+        }
+
+
+        public ActionResult AcceptStat3()
+        {
+            int RoleLevel = Membership.CurrentUser.RoleLevel;
+
+            if (Membership.CurrentUser.HaveAuthority("ZZJL.ZZJLCX.QUERY_ALL_ZZJL"))
             {
-                
+                string sql = "";
+                if (Request["cdt_combination"] != null)
+                {
+                    sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP ";
+                    string jsoncdtCombination = System.Text.ASCIIEncoding.UTF8.GetString(Convert.FromBase64String(Request["cdt_combination"]));
+                    Condition cdtCombination = Condition.LoadFromJson(jsoncdtCombination);
+                    cdtCombination.Relate = "AND";
+                    ReplaceCdtCombinationOpreate(cdtCombination);
+                    int count = cdtCombination.SubConditions.Count;
+                    if (count != 0)
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            Condition c = cdtCombination.SubConditions[i];
+                            if (c.Src == "ZZXXZZRQ")
+                            {
+                                sql += " " + c.Relate + " " + c.Src + " " + c.Op + "  TO_DATE('" + c.Tag + "', 'YYYY-MM-DD HH24:MI:SS') ";
+                            }
+                            else
+                            {
+                                sql += " " + c.Relate + " " + c.Src + " " + c.Op + " '" + c.Tag + "'";
+                            }
+                        }
+                    }
+                    sql += "  group by ZZXXZZDW,ZZXXZZDWMC";
+                }
+                if (!string.IsNullOrEmpty(sql))
+                {
+                    List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query(sql, -1, -1);
+                    return JsonDateObject(record);
+                }
+                else
+                {
+                    string query_sql;
+                    string search = Request["search"];
+
+                    if (string.IsNullOrEmpty(search))
+                    {
+                        query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP ";
+                    }
+                    else
+                    {
+                        query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where ZZXXZZDW like  '%" + search + "%' and ( ZZXXZZDWMC like  '%" + search + "%') ";
+                    }
+                    if (Request["date_range_type"] != null && (Request["start_date"] != null || Request["end_date"] != null))
+                    {
+                        string fieldName = null;
+                        int dataRangeTypeIndex = 0;
+                        try
+                        {
+                            dataRangeTypeIndex = int.Parse(Request["date_range_type"]);
+                        }
+                        catch (Exception e)
+                        {
+                            dataRangeTypeIndex = 0;
+                        }
+                        string[] arrDataRangeFields = new string[] { "制证时间" };
+                        if (dataRangeTypeIndex != 0)
+                        {
+                            fieldName = arrDataRangeFields[dataRangeTypeIndex - 1];
+                            if (!String.IsNullOrEmpty(Request["start_date"]))
+                            {
+                                query_sql += " AND ZZXXZZRQ >=  TO_DATE('" + Request["start_date"].ToString() + "', 'YYYY-MM-DD HH24:MI:SS') ";
+                            }
+                            if (!String.IsNullOrEmpty(Request["end_date"]))
+                            {
+                                DateTime dtEndDate = DateTime.Parse(Request["end_date"]);
+                                dtEndDate = dtEndDate.AddDays(1);//加多一天
+
+                                query_sql += " AND ZZXXZZRQ <=  TO_DATE('" + dtEndDate.ToString() + "', 'YYYY-MM-DD HH24:MI:SS') ";
+                            }
+                        }
+                    }
+                    query_sql += " group by ZZXXZZDW,ZZXXZZDWMC";
+                    List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query(query_sql, -1, -1);
+                    return JsonDateObject(record);
+                }
             }
-            return JsonDateObject(record);
+            else
+            {
+                string comId2 = "";
+                string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
+                char[] c = COMPANY_ID.ToCharArray();
+                string comId = "";
+                bool temp = false;
+                for (int i = c.Length - 1; i >= 0; i--)
+                {
+                    string cc = c[i].ToString();
+                    if (cc != "0" && !temp)
+                    {
+                        temp = true;
+                    }
+                    if (temp)
+                    {
+                        comId += c[i];
+                    }
+                }
+                char[] charArray = comId.ToCharArray();
+                Array.Reverse(charArray);
+                comId2 = new String(charArray);
+                comId2 += "%";
+
+                string sql = "";
+                if (Request["cdt_combination"] != null)
+                {
+                    sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where ZZXXZZDW like '" + comId2;
+                    string jsoncdtCombination = System.Text.ASCIIEncoding.UTF8.GetString(Convert.FromBase64String(Request["cdt_combination"]));
+                    Condition cdtCombination = Condition.LoadFromJson(jsoncdtCombination);
+                    cdtCombination.Relate = "AND";
+                    ReplaceCdtCombinationOpreate(cdtCombination);
+                    int count = cdtCombination.SubConditions.Count;
+                    if (count != 0)
+                    {
+                        for (int i = 0; i < count; i++)
+                        {
+                            Condition cc = cdtCombination.SubConditions[i];
+                            if (cc.Src == "ZZXXZZRQ")
+                            {
+                                sql += " " + cc.Relate + " " + cc.Src + " " + cc.Op + "  TO_DATE('" + cc.Tag + "', 'YYYY-MM-DD HH24:MI:SS') ";
+                            }
+                            else
+                            {
+                                sql += " " + cc.Relate + " " + cc.Src + " " + cc.Op + " '" + cc.Tag + "'";
+                            }
+                        }
+                    }
+                    sql += "  group by ZZXXZZDW,ZZXXZZDWMC";
+                }
+                if (!string.IsNullOrEmpty(sql))
+                {
+                    List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query(sql, -1, -1);
+                    return JsonDateObject(record);
+                }
+                else
+                {
+                    string query_sql;
+                    string search = Request["search"];
+
+                    if (string.IsNullOrEmpty(search))
+                    {
+                        query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where ZZXXZZDW like '" + comId2;
+                    }
+                    else
+                    {
+                        query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where ZZXXZZDW like '" + comId2 + " and (ZZXXZZDW like  '%" + search + "%' or ZZXXZZDWMC like  '%" + search + "%') ";
+                    }
+                    if (Request["date_range_type"] != null && (Request["start_date"] != null || Request["end_date"] != null))
+                    {
+                        string fieldName = null;
+                        int dataRangeTypeIndex = 0;
+                        try
+                        {
+                            dataRangeTypeIndex = int.Parse(Request["date_range_type"]);
+                        }
+                        catch (Exception e)
+                        {
+                            dataRangeTypeIndex = 0;
+                        }
+                        string[] arrDataRangeFields = new string[] { "制证时间" };
+                        if (dataRangeTypeIndex != 0)
+                        {
+                            fieldName = arrDataRangeFields[dataRangeTypeIndex - 1];
+                            if (!String.IsNullOrEmpty(Request["start_date"]))
+                            {
+                                query_sql += " AND ZZXXZZRQ >=  TO_DATE('" + Request["start_date"].ToString() + "', 'YYYY-MM-DD HH24:MI:SS') ";
+                            }
+                            if (!String.IsNullOrEmpty(Request["end_date"]))
+                            {
+                                DateTime dtEndDate = DateTime.Parse(Request["end_date"]);
+                                dtEndDate = dtEndDate.AddDays(1);//加多一天
+
+                                query_sql += " AND ZZXXZZRQ <=  TO_DATE('" + dtEndDate.ToString() + "', 'YYYY-MM-DD HH24:MI:SS') ";
+                            }
+                        }
+                    }
+                    query_sql += " group by ZZXXZZDW,ZZXXZZDWMC";
+                    List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query(query_sql, -1, -1);
+                    return JsonDateObject(record);
+                }
+            }
         }
         #endregion
     }

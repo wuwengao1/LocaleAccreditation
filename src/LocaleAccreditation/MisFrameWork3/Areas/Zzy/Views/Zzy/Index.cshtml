@@ -1,12 +1,21 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutZzyQuery.cshtml";
-    //__TIPS__:
+    Layout = "~/Views/Shared/_LayoutStdConditionCombinationQuery.cshtml";
+    //__TIPS__*: 
     //下面这行可以定义查询项中是否包含日期查询框，如果查询不需要日期的，可以没注释这句。
+    ViewBag.DateRangeType = new string[] { "录入时间" };
     //系统默认是不允许删除记录的，如果要显示查询界面的删除按钮，就开启这句
     ViewBag.ShowDeleteButton = false;
-    ViewBag.ShowChangeStateButton = true;
+    ViewBag.ShowChangeStateButton = false;
+    ViewBag.HideCommonButtons = false;
+
+    //以下这些语句设置按钮的状态，也可以Controller里根据权限进行配置
+    ViewBag.DisableBTN_Add = false;
+    ViewBag.DisableBTN_Edit = false;
+    ViewBag.DisableBTN_Delete = true;
+    ViewBag.DisableBTN_Disable = false;
+    ViewBag.DisableBTN_Enable = false;
 }
 <div id="winMainForm"></div>
 <script>
@@ -206,7 +215,7 @@
         //toolbar: "#cmpDgToolBar",
         @* __TIPS__*: 以下同表格中显示的每列的配置信息 *@
         frozenColumns: [[
-            { field: 'USER_NAME', title: '制证员名称', width: 120 },
+            { field: 'USER_NAME', title: '制证员名称', width: 200 },
             { field: 'COMPANY_ID', title: '所属单位代码', width: 120, sortable: true },
             { field: 'COMPANY_ID_V_D_FW_COMP__MC', title: '所属单位名称', width: 180 },
             { field: 'CREATE_ON', title: '录入时间', width: 180 },

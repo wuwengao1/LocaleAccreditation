@@ -23,51 +23,121 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
         {
             return View();
         }
-        public ActionResult GetSelect()
+        public ActionResult JsonConditionCombinationInfo()
         {
-            int RoleLevel = Membership.CurrentUser.RoleLevel;
-            Condition cdtId;
-            if (RoleLevel != 0)
-            {
-                string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
-                char[] c = COMPANY_ID.ToCharArray();
-                string comId = "";
-                bool temp = false;
-                for (int i = c.Length - 1; i >= 0; i--)
-                {
-                    string cc = c[i].ToString();
-                    if (cc != "0" && !temp)
-                    {
-                        temp = true;
-                    }
-                    if (temp)
-                    {
-                        comId += c[i];
-                    }
-                }
-                char[] charArray = comId.ToCharArray();
-                Array.Reverse(charArray);
-                string comId3 = new String(charArray);
-                comId3 += "%";
-                cdtId = new Condition("AND", "DM", "like", comId3);
-
-                Condition cdtId2 = new Condition();
-                cdtId2.AddSubCondition("AND", "SSDW", "like", comId3);
-                cdtId2.AddSubCondition("AND", "DELETED_MARK", "=", "0");
-                List<UnCaseSenseHashTable> sb = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtId2, "MACHINENO as DM", null, null, -1, -1);
-                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", cdtId, "DM,MC", null, null, -1, -1);
-                return JsonDateObject(new { sb = sb, dw = dw });
-            }
-            else
-            {
-                List<UnCaseSenseHashTable> sb = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", null, "MACHINENO as DM", null, null, -1, -1);
-                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", null, "DM,MC", null, null, -1, -1);
-                return JsonDateObject(new { sb = sb, dw = dw });
-            }
+            return View();
         }
 
         #region __TIPS__:设备制证数量统计
         public ActionResult AcceptStat()
+        {
+            string sql = "";
+            if (Request["cdt_combination"] != null)
+            {
+                if (!Membership.CurrentUser.HaveAuthority("ZZJL.ZZJLCX.QUERY_ALL_ZZJL"))
+                {
+                    sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in  " + GetMachineNo();
+                }
+                else
+                {
+                    sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where 1=1 ";
+                }
+                string jsoncdtCombination = System.Text.ASCIIEncoding.UTF8.GetString(Convert.FromBase64String(Request["cdt_combination"]));
+                Condition cdtCombination = Condition.LoadFromJson(jsoncdtCombination);
+                cdtCombination.Relate = "AND";
+                ReplaceCdtCombinationOpreate(cdtCombination);
+                int count = cdtCombination.SubConditions.Count;
+                if (count != 0)
+                {
+                    for (int i = 0; i < count; i++)
+                    {
+                        Condition c = cdtCombination.SubConditions[i];
+                        if (c.Src == "ZZXXZZRQ")
+                        {
+                            sql += " " + c.Relate + " " + c.Src + " " + c.Op + "  TO_DATE('" + c.Tag + "', 'YYYY-MM-DD HH24:MI:SS') ";
+                        }
+                        else
+                        {
+                            sql += " " + c.Relate + " " + c.Src + " " + c.Op + " '" + c.Tag + "'";
+                        }
+                    }
+                }
+                sql += " group by ZZSBID ";
+            }
+            if (!string.IsNullOrEmpty(sql))
+            {
+                List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query(sql, -1, -1);
+                return JsonDateObject(record);
+            }
+            else
+            {
+                string query_sql;
+                string search = Request["search"];
+                if (string.IsNullOrEmpty(search))
+                {
+                    if (!Membership.CurrentUser.HaveAuthority("ZZJL.ZZJLCX.QUERY_ALL_ZZJL"))
+                    {
+                        query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in  " + GetMachineNo();
+                    }
+                    else
+                    {
+                        query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where 1=1 ";
+                    }
+                }
+                else
+                {
+                    if (!Membership.CurrentUser.HaveAuthority("ZZJL.ZZJLCX.QUERY_ALL_ZZJL"))
+                    {
+                        query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in  " + GetMachineNo() + " and ( ZZSBID like  '%" + search + "%' OR ZZXXZZDW like  '%" + search + "%' OR ZZXXZZDWMC like  '%" + search + "%') ";
+
+                    }
+                    else
+                    {
+                        query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where 1=1 and ( ZZSBID like  '%" + search + "%' OR ZZXXZZDW like  '%" + search + "%' OR ZZXXZZDWMC like  '%" + search + "%') ";
+                    }
+                }
+                if (Request["date_range_type"] != null && (Request["start_date"] != null || Request["end_date"] != null))
+                {
+                    string fieldName = null;
+                    int dataRangeTypeIndex = 0;
+                    try
+                    {
+                        dataRangeTypeIndex = int.Parse(Request["date_range_type"]);
+                    }
+                    catch (Exception e)
+                    {
+                        dataRangeTypeIndex = 0;
+                    }
+                    string[] arrDataRangeFields = new string[] { "制证时间" };
+                    if (dataRangeTypeIndex != 0)
+                    {
+                        fieldName = arrDataRangeFields[dataRangeTypeIndex - 1];
+                        if (!String.IsNullOrEmpty(Request["start_date"]))
+                        {
+                            query_sql += " AND ZZXXZZRQ >=  TO_DATE('" + Request["start_date"].ToString() + "', 'YYYY-MM-DD HH24:MI:SS') ";
+                        }
+                        if (!String.IsNullOrEmpty(Request["end_date"]))
+                        {
+                            DateTime dtEndDate = DateTime.Parse(Request["end_date"]);
+                            dtEndDate = dtEndDate.AddDays(1);//加多一天
+
+                            query_sql += " AND ZZXXZZRQ <=  TO_DATE('" + dtEndDate.ToString() + "', 'YYYY-MM-DD HH24:MI:SS') ";
+                        }
+                    }
+                }
+                query_sql += " group by ZZSBID ";
+                List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query(query_sql, -1, -1);
+                return JsonDateObject(record);
+            }
+        }
+        public ActionResult JsonDicShort()
+        {
+            //__TIPS__:这里可以先过滤一下业务允许使用什么字典
+            List<UnCaseSenseHashTable> records = GetDicData(Request["dic"], null);
+            return Json(records, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult AcceptStat2()
         {
 
             string ZZSBID = Request["MACHINENO"];
@@ -205,34 +275,80 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
                 ACCEPT_DATE2 = ACCEPT_DATE2 + " 23:59:59";
                 query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + zzys + " and ZZSBID = '" + ZZSBID + "' and ZZXXZZRQ >= TO_DATE('" + ACCEPT_DATE + "', 'YYYY-MM-DD HH24:MI:SS') and ZZXXZZRQ <= TO_DATE('" + ACCEPT_DATE2 + "', 'YYYY-MM-DD HH24:MI:SS') group by ZZSBID ";
             }
-            try
-            {
-                using (OracleConnection conn = new OracleConnection("data source=192.168.0.3/orcl;User Id=jzz_gx;Password=gx_dba;"))
-                //using (OracleConnection conn = new OracleConnection("data source=127.0.0.1/WWGORCL;User Id=locale;Password=123;"))
-                {
-                    conn.Open();
-                    using (OracleCommand cmd = conn.CreateCommand())
-                    {
-                        cmd.Connection = conn;
-                        cmd.CommandText = query_sql;
-                        OracleDataReader reader = cmd.ExecuteReader();
-                        while (reader.Read())
-                        {
-                            reader.GetString(0);
-                        }
-                        OracleDataAdapter ada = new OracleDataAdapter(cmd);
-                        DataSet ds = new DataSet();
-                        ada.Fill(ds);
-                        var s = ds.Tables[0];
-                    }
-                }
-            }
-            catch(Exception ee)
-            {
-                return Json(new { success = false, message = ee.Message }, JsonRequestBehavior.AllowGet);
-            }
+            //try
+            //{
+                
+            //    OracleConnection conn = new OracleConnection("data source=192.168.0.3/orcl;User Id=jzz_gx;Password=gx_dba;");
+            //    conn.Open();
+            //    string sql = "select * from C_JZZ_TMP ";
+            //    OracleCommand cmd = new OracleCommand(sql, conn);
+            //    cmd.CommandType = CommandType.Text;
+            //    DataSet ds = new DataSet();
+            //    OracleDataAdapter da = new OracleDataAdapter();
+            //    da.SelectCommand = cmd;
+            //    da.Fill(ds);
+                
+            //    DataTable dt = new DataTable();
+            //    if (ds != null && ds.Tables.Count > 0)
+            //        dt = ds.Tables[0];
+            //    int count = dt.Rows.Count;
+            //    for (int i = 0; i < count; i++)
+            //    {
+            //        string item = dt.Rows[i][0].ToString();
+            //    }
+            //    conn.Close();
+                    
+                
+            //}
+            //catch(Exception ee)
+            //{
+            //    return Json(new { success = false, message = ee.Message }, JsonRequestBehavior.AllowGet);
+            //}
             List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query(query_sql, -1, -1);
             return JsonDateObject(record);
+        }
+
+        public ActionResult GetSelect()
+        {
+            int RoleLevel = Membership.CurrentUser.RoleLevel;
+            Condition cdtId;
+            if (RoleLevel != 0 && RoleLevel != 9)
+            {
+                string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
+                char[] c = COMPANY_ID.ToCharArray();
+                string comId = "";
+                bool temp = false;
+                for (int i = c.Length - 1; i >= 0; i--)
+                {
+                    string cc = c[i].ToString();
+                    if (cc != "0" && !temp)
+                    {
+                        temp = true;
+                    }
+                    if (temp)
+                    {
+                        comId += c[i];
+                    }
+                }
+                char[] charArray = comId.ToCharArray();
+                Array.Reverse(charArray);
+                string comId3 = new String(charArray);
+                comId3 += "%";
+                cdtId = new Condition("AND", "DM", "like", comId3);
+
+                Condition cdtId2 = new Condition();
+                cdtId2.AddSubCondition("AND", "SSDW", "like", comId3);
+                cdtId2.AddSubCondition("AND", "DELETED_MARK", "=", "0");
+                List<UnCaseSenseHashTable> sb = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtId2, "MACHINENO as DM", null, null, -1, -1);
+                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", cdtId, "DM,MC", null, null, -1, -1);
+                return JsonDateObject(new { sb = sb, dw = dw });
+            }
+            else
+            {
+                List<UnCaseSenseHashTable> sb = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", null, "MACHINENO as DM", null, null, -1, -1);
+                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", null, "DM,MC", null, null, -1, -1);
+                return JsonDateObject(new { sb = sb, dw = dw });
+            }
         }
         #endregion
 

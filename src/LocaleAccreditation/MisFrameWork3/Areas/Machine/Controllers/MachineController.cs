@@ -17,100 +17,32 @@ namespace MisFrameWork3.Areas.Machine.Controllers
 {
     public class MachineController : FWBaseController
     {
+        //private 
         public ActionResult Index()
         {
+
             int RoleLevel = Membership.CurrentUser.RoleLevel;
-            ViewBag.RoleLevel = RoleLevel;
-            if (RoleLevel != 0)
+            if (Membership.CurrentUser.HaveAuthority("MACHINE.MACHINEMGR.CHANGE_MACHINE") || RoleLevel == 0)
             {
-                ViewBag.ShowChangeStateButton = false;
-                ViewBag.ShowDeleteButton = false;
-                ViewBag.DisableBTN_Add = true;
+                ViewBag.HideCommonButtons = true;
             }
             else
             {
-                ViewBag.ShowChangeStateButton = true;
-                ViewBag.ShowDeleteButton = true;
-                ViewBag.DisableBTN_Add = false;
+                ViewBag.HideCommonButtons = false;
             }
             return View();
         }
-
-        public ActionResult ViewFormAdd()
+        public ActionResult JsonConditionCombinationInfo()
         {
             return View();
         }
-        public ActionResult ViewFormEdit()
-        {
-            int RoleLevel = Membership.CurrentUser.RoleLevel;
-            ViewBag.RoleLevel = RoleLevel;
-            return View();
-        }
-        public ActionResult GetSelect()
-        {
-            int RoleLevel = Membership.CurrentUser.RoleLevel;
-            Condition cdtId;
-            if (RoleLevel != 0)
-            {
-                string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
-                char[] c = COMPANY_ID.ToCharArray();
-                string comId = "";
-                bool temp = false;
-                for (int i = c.Length - 1; i >= 0; i--)
-                {
-                    string cc = c[i].ToString();
-                    if (cc != "0" && !temp)
-                    {
-                        temp = true;
-                    }
-                    if (temp)
-                    {
-                        comId += c[i];
-                    }
-                }
-                char[] charArray = comId.ToCharArray();
-                Array.Reverse(charArray);
-                string comId3 = new String(charArray);
-                comId3 += "%";
-                cdtId = new Condition("AND", "DM", "like", comId3);
-
-                Condition cdtId2 = new Condition();
-
-                cdtId2.AddSubCondition("AND", "SSDW", "like", comId3);
-                cdtId2.AddSubCondition("AND", "DELETED_MARK", "=", "0");
-                List<UnCaseSenseHashTable> sb = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtId2, "MACHINENO as DM", null, null, -1, -1);
-                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", cdtId, "DM,MC", null, null, -1, -1);
-                return JsonDateObject(new { sb = sb, dw = dw });
-            }
-            else
-            {
-                Condition cdtId2 = new Condition();
-                cdtId2.AddSubCondition("AND", "DELETED_MARK", "=", "0");
-                List<UnCaseSenseHashTable> sb = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", null, "MACHINENO as DM", null, null, -1, -1);
-                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", null, "DM,MC", null, null, -1, -1);
-                return JsonDateObject(new { sb = sb, dw = dw });
-            }
-        }
-
+        
         #region __TIPS__:框架通用函数( 增 删 改)
         public ActionResult JsonDataList()//业务主界面数据查询函数
         {
-            //接收的基本查询参数有： id,limit,offset,search,sort,order            
-            //__TIPS__*:根据表结构，修改以下函数的参数CompanyId
-            string MACHINENO = Request["MACHINENO"];
-            string SSDW = Request["SSDW"];
-
             Condition cdtIds = new Condition();
-            if (!String.IsNullOrEmpty(MACHINENO))
-            {
-                cdtIds.AddSubCondition("AND", "MACHINENO", "like", "%" + MACHINENO + "%");
-            }
-            if (!String.IsNullOrEmpty(SSDW))
-            {
-                cdtIds.AddSubCondition("AND", "SSDW", "=", SSDW);
-            }
             int RoleLevel = Membership.CurrentUser.RoleLevel;
-            if (RoleLevel != 0)
+            if (!Membership.CurrentUser.HaveAuthority("MACHINE.MACHINEMGR.QUERY_ALL_MACHINE"))
             {
                 string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
                 char[] c = COMPANY_ID.ToCharArray();
@@ -135,9 +67,25 @@ namespace MisFrameWork3.Areas.Machine.Controllers
                 cdtIds.AddSubCondition("AND", "SSDW", "like", comId3);
                 cdtIds.AddSubCondition("AND", "DELETED_MARK", "=", "0");
             }
-            return QueryDataFromEasyUIDataGrid("B_MACHINE", null, "*", cdtIds, "*");
+            return QueryDataFromEasyUIDataGrid("B_MACHINE", "CREATE_ON", "MACHINENO,SSDW,SSDW_V_D_FW_COMP__MC,SBFZR_V_D_FW_S_USERS__MC,PHONE,ADDRESS", cdtIds, "*");
         }
         
+        public ActionResult ViewFormAdd()
+        {
+            return View();
+        }
+        public ActionResult ViewFormEdit()
+        {
+            if (Membership.CurrentUser.HaveAuthority("MACHINE.MACHINEMGR.QUERY_ALL_MACHINE"))
+            {
+                ViewBag.ShowSBFZR = true;
+            }
+            else
+            {
+                ViewBag.ShowSBFZR = false;
+            }
+            return View();
+        }
         public ActionResult ActionAdd()
         {
             UnCaseSenseHashTable data = new UnCaseSenseHashTable();
@@ -317,7 +265,7 @@ namespace MisFrameWork3.Areas.Machine.Controllers
             {
                 int RoleLevel = Membership.CurrentUser.RoleLevel;
                 Condition cdtId2 = new Condition("AND", "ROLES_ID", "=", 1000);
-                if (RoleLevel != 0)
+                if (!Membership.CurrentUser.HaveAuthority("SYS.USER.SELECT_OTHOR_COMPANY"))
                 {
                     string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
                     char[] c = COMPANY_ID.ToCharArray();
@@ -340,17 +288,52 @@ namespace MisFrameWork3.Areas.Machine.Controllers
                     string comId3 = new String(charArray);
                     comId3 += "%";
                     cdtId2.AddSubCondition("AND", "COMPANY_ID", "like", comId3);
-                    return QueryDataFromEasyUIDataGrid(Request["dic"], null, "DM,MC", cdtId2, "*");
+                    return QueryDataFromEasyUIDataGrid(Request["dic"], null, "DM,MC,DW", cdtId2, "*");
                 }
                 else
                 {
 
-                    return QueryDataFromEasyUIDataGrid(Request["dic"], null, "DM,MC", cdtId2, "*");
+                    return QueryDataFromEasyUIDataGrid(Request["dic"], null, "DM,MC,DW", cdtId2, "*");
+                }
+            }
+            else if ("V_D_FW_COMP".Equals(Request["dic"]))
+            {
+                Condition cdtId2 = new Condition();
+                int RoleLevel = Membership.CurrentUser.RoleLevel;
+                if (!Membership.CurrentUser.HaveAuthority("SYS.USER.SELECT_OTHOR_COMPANY"))
+                {
+                    string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
+                    char[] c = COMPANY_ID.ToCharArray();
+                    string comId = "";
+                    bool temp = false;
+                    for (int i = c.Length - 1; i >= 0; i--)
+                    {
+                        string cc = c[i].ToString();
+                        if (cc != "0" && !temp)
+                        {
+                            temp = true;
+                        }
+                        if (temp)
+                        {
+                            comId += c[i];
+                        }
+                    }
+                    char[] charArray = comId.ToCharArray();
+                    Array.Reverse(charArray);
+                    string comId3 = new String(charArray);
+                    comId3 += "%";
+                    cdtId2.AddSubCondition("AND", "COMPANY_ID", "like", comId3);
+                    return QueryDataFromEasyUIDataGrid(Request["dic"], null, "DM,MC,DW", cdtId2, "*");
+                }
+                else
+                {
+
+                    return QueryDataFromEasyUIDataGrid(Request["dic"], null, "DM,MC,DW", cdtId2, "*");
                 }
             }
             else
             {
-                return QueryDataFromEasyUIDataGrid(Request["dic"], null, "DM,MC", null, "*");
+                return QueryDataFromEasyUIDataGrid(Request["dic"], null, "DM,MC,DW", null, "*");
             }
 
         }

@@ -25,6 +25,10 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
         {
             return View();
         }
+        public ActionResult JsonConditionCombinationInfo()
+        {
+            return View();
+        }
 
         public ActionResult ViewFormAdd()
         {
@@ -92,7 +96,7 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
                 return Json(new { success = false, message = ee }, JsonRequestBehavior.AllowGet);
             }
             int RoleLevel = Membership.CurrentUser.RoleLevel;
-            if (RoleLevel < sortCode)
+            if (RoleLevel <= sortCode || RoleLevel == 0 || RoleLevel == 9)
             {
                 data["ID"] = Request["OBJECT_ID"];
                 data["ROLE_NAME"] = Request["ROLE_NAME"];
@@ -182,12 +186,12 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
         {
             int RoleLevel = Membership.CurrentUser.RoleLevel;
             Condition cdtIds = new Condition();
-            if (RoleLevel != 0)
+            if (RoleLevel != 0 && RoleLevel != 9)
             {
                 cdtIds.AddSubCondition("AND", "SORT_CODE", ">", RoleLevel);
             }
             //#region 初始化基本查询参数 id,limit,offset,search,sort,order
-            return QueryDataFromEasyUIDataGrid("FW_S_ROLES", "CRATE_ON,UPDATE_ON", "ROLE_NAME,ROLE_DESCRIPT", cdtIds, "*");
+            return QueryDataFromEasyUIDataGrid("FW_S_ROLES", "CREATE_ON,UPDATE_ON", "ROLE_NAME,ROLE_DESCRIPT,CREATE_BY,UPDATE_BY", cdtIds, "*");
         }
 
         public ActionResult JsonMenuData()

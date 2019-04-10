@@ -22,44 +22,11 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
         {
             return View();
         }
-        public ActionResult GetSelect()
+
+        public ActionResult JsonConditionCombinationInfo()
         {
-            int RoleLevel = Membership.CurrentUser.RoleLevel;
-            Condition cdtId;
-            if (RoleLevel != 0)
-            {
-                string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
-                char[] c = COMPANY_ID.ToCharArray();
-                string comId = "";
-                bool temp = false;
-                for (int i = c.Length - 1; i >= 0; i--)
-                {
-                    string cc = c[i].ToString();
-                    if (cc != "0" && !temp)
-                    {
-                        temp = true;
-                    }
-                    if (temp)
-                    {
-                        comId += c[i];
-                    }
-                }
-                char[] charArray = comId.ToCharArray();
-                Array.Reverse(charArray);
-                string comId3 = new String(charArray);
-                comId3 += "%";
-                cdtId = new Condition("AND", "DM", "like", comId3);
-
-                List<UnCaseSenseHashTable> ssdw = DbUtilityManager.Instance.DefaultDbUtility.Query("D_XZQH", cdtId, "DM,MC", null, null, -1, -1);
-                return JsonDateObject(new { ssdw = ssdw });
-            }
-            else
-            {
-                List<UnCaseSenseHashTable> ssdw = DbUtilityManager.Instance.DefaultDbUtility.Query("D_XZQH", null, "DM,MC", null, null, -1, -1);
-                return JsonDateObject(new { ssdw = ssdw });
-            }
+            return View();
         }
-
 
         public ActionResult ViewFormAdd()
         {
@@ -244,61 +211,49 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
         public ActionResult JsonDataList()
         {
             //#region 初始化基本查询参数 id,limit,offset,search,sort,order
-
             Condition cdtMyCompany = new Condition();
-
-            if (!Membership.CurrentUser.HaveAuthority("SYS__USER__SELECT_OTHOR_COMPANY"))
-                cdtMyCompany.AddSubCondition("AND", "COMPANY_ID", "=", Membership.CurrentUser.CompanyId);
-
-            string USER_ID = Request["USER_ID"];
-            string USER_NAME = Request["USER_NAME"];
-            string COMPANY_ID = Request["COMPANY_ID"];
-            string CREATE_ON = Request["CREATE_ON"];
-            string START_DATE = Request["START_DATE"];
-            string END_DATE = Request["END_DATE"];
-
-            if (!String.IsNullOrEmpty(USER_ID))
+            int RoleLevel = Membership.CurrentUser.RoleLevel;
+            if (!Membership.CurrentUser.HaveAuthority("SYS.USER.QUERY_ALL_USER"))
             {
-                cdtMyCompany.AddSubCondition("AND", "USER_ID", "like", "%" + USER_ID + "%");
+                string COMPANYID= Membership.CurrentUser.CompanyId.ToString();
+                char[] c = COMPANYID.ToCharArray();
+                string comId = "";
+                bool temp = false;
+                for (int i = c.Length - 1; i >= 0; i--)
+                {
+                    string cc = c[i].ToString();
+                    if (cc != "0" && !temp)
+                    {
+                        temp = true;
+                    }
+                    if (temp)
+                    {
+                        comId += c[i];
+                    }
+                }
+                char[] charArray = comId.ToCharArray();
+                Array.Reverse(charArray);
+                string comId2 = new String(charArray);
+                comId2 += "%";
+                cdtMyCompany.AddSubCondition("AND", "COMPANY_ID", "like", comId2);
             }
-            if (!String.IsNullOrEmpty(USER_NAME))
-            {
-                cdtMyCompany.AddSubCondition("AND", "USER_NAME", "like", "%" + USER_NAME + "%");
-            }
-            if (!String.IsNullOrEmpty(COMPANY_ID))
-            {
-                cdtMyCompany.AddSubCondition("AND", "COMPANY_ID", "=", COMPANY_ID);
-            }
-            if (!String.IsNullOrEmpty(CREATE_ON))
-            {
-                cdtMyCompany.AddSubCondition("AND", "CREATE_ON", "=", Convert.ToDateTime(CREATE_ON));
-            }
-            if (!String.IsNullOrEmpty(START_DATE))
-            {
-                cdtMyCompany.AddSubCondition("AND", "START_DATE", ">=", Convert.ToDateTime(START_DATE));
-            }
-            if (!String.IsNullOrEmpty(END_DATE))
-            {
-                cdtMyCompany.AddSubCondition("AND", "END_DATE", "<=", Convert.ToDateTime(END_DATE));
-            }
-
-            return QueryDataFromEasyUIDataGrid("FW_S_USERS", "", "", cdtMyCompany, "USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_V_D_FW_COMP__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR");
+            return QueryDataFromEasyUIDataGrid("FW_S_USERS", "CREATE_ON", "USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_V_D_FW_COMP__MC", cdtMyCompany, "USER_ID,USER_NAME,ROLES_ID,ROLES_ID_V_D_FW_S_ROLES__MC,COMPANY_ID,COMPANY_ID_V_D_FW_COMP__MC,DISABLED,CREATE_BY,CREATE_ON,UPDATE_BY,UPDATE_ON,TEL1,TEL2,EMAIL,ADDR");
         }
 
         public ActionResult JsonRoles(string user_id)
         {
             Condition cdtMain = new Condition();
             //如果当前不是超级管理员，只查询自己有的角色。
-            if (Membership.CurrentUser.RoleLevel > 0)
+            if (Membership.CurrentUser.RoleLevel > 9)
             {
                 Condition cdtIsMe = new Condition();
                 foreach (UnCaseSenseHashTable record in Membership.CurrentUser.GetRolesId(true))
                 {
-                    cdtIsMe.AddSubCondition("OR", "ID", "=", record["ID"]);
+                    cdtIsMe.AddSubCondition("OR", "SORT_CODE", ">=", record["SORT_CODE"]);
                 }
                 foreach (UnCaseSenseHashTable record in Membership.CurrentUser.GetRolesId(false))
                 {
-                    cdtIsMe.AddSubCondition("OR", "ID", "=", record["ID"]);
+                    cdtIsMe.AddSubCondition("OR", "SORT_CODE", ">=", record["SORT_CODE"]);
                 }
                 cdtMain.AddSubCondition(cdtIsMe);
             }
@@ -326,7 +281,7 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
         {
             int RoleLevel = Membership.CurrentUser.RoleLevel;
             Condition cdtIds = new Condition();
-            if (RoleLevel != 0)
+            if (!Membership.CurrentUser.HaveAuthority("SYS.USER.SELECT_OTHOR_COMPANY"))
             {
                 string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
                 char[] c = COMPANY_ID.ToCharArray();

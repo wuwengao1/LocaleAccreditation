@@ -1,13 +1,21 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_LayoutStdQuery.cshtml";
-    //__TIPS__: 
+    Layout = "~/Views/Shared/_LayoutStdConditionCombinationQuery.cshtml";
+    //__TIPS__*: 
     //下面这行可以定义查询项中是否包含日期查询框，如果查询不需要日期的，可以没注释这句。
-    //ViewBag.DateRangeType = new string[] { "创建日期", "修改日期" };
+    ViewBag.DateRangeType = new string[] { "创建日期", "修改日期" };
     //系统默认是不允许删除记录的，如果要显示查询界面的删除按钮，就开启这句
     ViewBag.ShowDeleteButton = false;
     ViewBag.ShowChangeStateButton = true;
+    ViewBag.HideCommonButtons = true;
+
+    //以下这些语句设置按钮的状态，也可以Controller里根据权限进行配置
+    ViewBag.DisableBTN_Add = false;
+    ViewBag.DisableBTN_Edit = false;
+    ViewBag.DisableBTN_Delete = false;
+    ViewBag.DisableBTN_Disable = false;
+    ViewBag.DisableBTN_Enable = false;
 }
 <div id="winMainForm"></div>
 <script>
@@ -204,7 +212,7 @@
         },
         //toolbar: "#cmpDgToolBar",
         columns: [[
-            { field: 'ID', title: '标识', width: 80, sortable: true},
+            //{ field: 'ID', title: '标识', width: 80, sortable: true},
             { field: 'ROLE_NAME', title: '角色名称', width: 180, sortable: true },
             { field: 'SORT_CODE', title: '排序编号', width: 80, sortable: true },
             { field: 'CREATE_BY', title: '创建用户', width: 150, sortable: true },

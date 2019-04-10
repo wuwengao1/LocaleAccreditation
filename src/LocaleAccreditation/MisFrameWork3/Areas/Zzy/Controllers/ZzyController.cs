@@ -16,77 +16,20 @@ namespace MisFrameWork3.Areas.Zzy.Controllers
     {
         public ActionResult Index()
         {
-            int RoleLevel = Membership.CurrentUser.RoleLevel;
-            ViewBag.RoleLevel = RoleLevel;
             return View();
         }
-        public ActionResult GetSelect()
+        public ActionResult JsonConditionCombinationInfo()
         {
-            int RoleLevel = Membership.CurrentUser.RoleLevel;
-            Condition cdtId;
-            if (RoleLevel != 0)
-            {
-                string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
-                char[] c = COMPANY_ID.ToCharArray();
-                string comId = "";
-                bool temp = false;
-                for (int i = c.Length - 1; i >= 0; i--)
-                {
-                    string cc = c[i].ToString();
-                    if (cc != "0" && !temp)
-                    {
-                        temp = true;
-                    }
-                    if (temp)
-                    {
-                        comId += c[i];
-                    }
-                }
-                char[] charArray = comId.ToCharArray();
-                Array.Reverse(charArray);
-                string comId3 = new String(charArray);
-                comId3 += "%";
-                cdtId = new Condition("AND", "DM", "like", comId3);
-
-                Condition cdtId2 = new Condition("AND", "SSDW", "like", comId3);
-                List<UnCaseSenseHashTable> sb = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtId2, "MACHINENO as DM", null, null, -1, -1);
-                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", cdtId, "DM,MC", null, null, -1, -1);
-                return JsonDateObject(new { sb = sb, dw = dw });
-            }
-            else
-            {
-                List<UnCaseSenseHashTable> sb = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", null, "MACHINENO as DM", null, null, -1, -1);
-                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", null, "DM,MC", null, null, -1, -1);
-                return JsonDateObject(new { sb = sb, dw = dw });
-            }
+            return View();
         }
 
         #region __TIPS__:框架通用函数( 增 删 改)
         public ActionResult JsonDataList()//业务主界面数据查询函数
         {
-            //接收的基本查询参数有： id,limit,offset,search,sort,order            
-            //__TIPS__*:根据表结构，修改以下函数的参数CompanyId
-            //string MACHINENO = Request["MACHINENO"];
-            string SSDW = Request["SSDW"];
-            string ZZY_NAME = Request["ZZY_NAME"];
-
             Condition cdtIds = new Condition();
-            //if (!String.IsNullOrEmpty(MACHINENO))
-            //{
-            //    cdtIds.AddSubCondition("AND", "MACHINENO", "like", "%" + MACHINENO + "%");
-            //}
-            if (!String.IsNullOrEmpty(ZZY_NAME))
-            {
-                cdtIds.AddSubCondition("AND", "USER_NAME", "like", "%" + ZZY_NAME + "%");
-            }
-            if (!String.IsNullOrEmpty(SSDW))
-            {
-                cdtIds.AddSubCondition("AND", "COMPANY_ID", "=", SSDW);
-            }
-
             cdtIds.AddSubCondition("AND", "ROLES_ID_V_D_FW_S_ROLES__MC", "=", "制证员");
             int RoleLevel = Membership.CurrentUser.RoleLevel;
-            if (RoleLevel != 0)
+            if (!Membership.CurrentUser.HaveAuthority("ZZY.ZZYMGR.QUERY_ALL_ZZY"))
             {
                 string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
                 char[] c = COMPANY_ID.ToCharArray();
@@ -108,9 +51,9 @@ namespace MisFrameWork3.Areas.Zzy.Controllers
                 Array.Reverse(charArray);
                 string comId3 = new String(charArray);
                 comId3 += "%";
-                cdtIds.AddSubCondition("AND", "SSDW", "like", comId3);
+                cdtIds.AddSubCondition("AND", "COMPANY_ID", "like", comId3);
             }
-            return QueryDataFromEasyUIDataGrid("FW_S_USERS", null, "*", cdtIds, "*");
+            return QueryDataFromEasyUIDataGrid("FW_S_USERS", "CRATE_ON", "USER_NAME,COMPANY_ID,COMPANY_ID_V_D_FW_COMP__MC", cdtIds, "*");
         }
         public ActionResult ViewFormAdd()
         {
@@ -256,8 +199,117 @@ namespace MisFrameWork3.Areas.Zzy.Controllers
             }
             return Json(new { success = true, message = "操作成功" }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult GetSelect()
+        {
+            int RoleLevel = Membership.CurrentUser.RoleLevel;
+            Condition cdtId;
+            if (!Membership.CurrentUser.HaveAuthority("SYS.USER.SELECT_OTHOR_COMPANY"))
+            {
+                string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
+                char[] c = COMPANY_ID.ToCharArray();
+                string comId = "";
+                bool temp = false;
+                for (int i = c.Length - 1; i >= 0; i--)
+                {
+                    string cc = c[i].ToString();
+                    if (cc != "0" && !temp)
+                    {
+                        temp = true;
+                    }
+                    if (temp)
+                    {
+                        comId += c[i];
+                    }
+                }
+                char[] charArray = comId.ToCharArray();
+                Array.Reverse(charArray);
+                string comId3 = new String(charArray);
+                comId3 += "%";
+                cdtId = new Condition("AND", "DM", "like", comId3);
+
+                Condition cdtId2 = new Condition("AND", "SSDW", "like", comId3);
+                List<UnCaseSenseHashTable> sb = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtId2, "MACHINENO as DM", null, null, -1, -1);
+                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", cdtId, "DM,MC", null, null, -1, -1);
+                return JsonDateObject(new { sb = sb, dw = dw });
+            }
+            else
+            {
+                List<UnCaseSenseHashTable> sb = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", null, "MACHINENO as DM", null, null, -1, -1);
+                List<UnCaseSenseHashTable> dw = DbUtilityManager.Instance.DefaultDbUtility.Query("V_D_FW_COMP", null, "DM,MC", null, null, -1, -1);
+                return JsonDateObject(new { sb = sb, dw = dw });
+            }
+        }
         #endregion
 
+        #region __TIPS__:框架通用函数 ( 字典控件相关 )
+        public ActionResult JsonDicShort()
+        {
+            //__TIPS__:这里可以先过滤一下业务允许使用什么字典
+            List<UnCaseSenseHashTable> records = GetDicData(Request["dic"], null);
+            return Json(records, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult JsonDicLarge()
+        {
+            //__TIPS__:这里可以先过滤一下业务允许使用什么字典
+            if ("V_D_FW_S_USERS".Equals(Request["dic"]))
+            {
+                int RoleLevel = Membership.CurrentUser.RoleLevel;
+                Condition cdtId2 = new Condition("AND", "ROLES_ID", "=", 1000);
+                if (!Membership.CurrentUser.HaveAuthority("SYS.USER.SELECT_OTHOR_COMPANY"))
+                {
+                    string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
+                    char[] c = COMPANY_ID.ToCharArray();
+                    string comId = "";
+                    bool temp = false;
+                    for (int i = c.Length - 1; i >= 0; i--)
+                    {
+                        string cc = c[i].ToString();
+                        if (cc != "0" && !temp)
+                        {
+                            temp = true;
+                        }
+                        if (temp)
+                        {
+                            comId += c[i];
+                        }
+                    }
+                    char[] charArray = comId.ToCharArray();
+                    Array.Reverse(charArray);
+                    string comId3 = new String(charArray);
+                    comId3 += "%";
+                    cdtId2.AddSubCondition("AND", "COMPANY_ID", "like", comId3);
+                    return QueryDataFromEasyUIDataGrid(Request["dic"], null, "DM,MC", cdtId2, "*");
+                }
+                else
+                {
+
+                    return QueryDataFromEasyUIDataGrid(Request["dic"], null, "DM,MC", cdtId2, "*");
+                }
+            }
+            else
+            {
+                return QueryDataFromEasyUIDataGrid(Request["dic"], null, "DM,MC", null, "*");
+            }
+
+        }
+
+        public ActionResult ViewDicLargeUI()
+        {
+            /*
+             * __TIPS__:有些特殊的字典可能需要显示更多的东西所以这里可以根据Request的值返回不同的视图
+             *          以下演示根据字典内容，返回不同的视图。
+             * */
+
+            if ("V_D_FW_COMP".Equals(Request["dic"]))
+                return View("ViewSSDW");
+            else if ("V_D_FW_S_USERS".Equals(Request["dic"]))
+                return View("ViewSBFZR");
+            else
+                return View("~/Views/Shared/ViewCommonDicUI.cshtml");
+        }
+        #endregion
         #region 打印数据
         public FileResult ActionPrint(string name, string oject_id)
         {
