@@ -98,10 +98,21 @@ $.print = function (url, data, method) {
         //    var pair = this.split('=');
         //    //inputs += '<input type="hidden" name="' + Search + '" value="' + data2.Search + '" />';
         //});
-        inputs += '<input type="hidden" name="Search" value="' + data2.Search + '" />';
-        inputs += '<input type="hidden" name="date_range_type" value="' + data2.date_range_type + '" />';
-        inputs += '<input type="hidden" name="start_date" value="' + data2.start_date + '" />';
-        inputs += '<input type="hidden" name="end_date" value="' + data2.end_date + '" />';
+        if (data2.Search) {
+            inputs += '<input type="text" name="Search" value="' + data2.Search + '" />';
+        }
+        if (data2.date_range_type) {
+            inputs += '<input type="text" name="date_range_type" value="' + data2.date_range_type + '" />';
+        }
+        if (data2.start_date) {
+            inputs += '<input type="text" name="start_date" value="' + data2.start_date + '" />';
+        }
+        if (data2.end_date) {
+            inputs += '<input type="text" name="end_date" value="' + data2.end_date + '" />';
+        }
+        if (data2.cdt_combination) {
+            inputs += '<input type="text" name="cdt_combination" value="' + data2.cdt_combination + '" />';
+        }
         var html = '<div class="easyui-window"><iframe width="100%" height="100%"  frameborder="0" seamless marginheight="0" style="overflow:hidden;display:block"></iframe></div>';
         var win = window.top.$(html).appendTo(window.top.document.body);
         win.dialog({

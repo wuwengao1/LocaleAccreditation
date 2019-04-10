@@ -166,6 +166,8 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
                 cdtIds2.AddSubCondition("OR", "TEL2", "like", "%" + search + "%");
                 cdtIds2.AddSubCondition("OR", "ADDR_WORKING", "like", "%" + search + "%");
             }
+            cdtIds2.Relate = "AND";
+            cdtIds.AddSubCondition(cdtIds2);
             if (!string.IsNullOrEmpty(date_range_type) && date_range_type != "0" && (!string.IsNullOrEmpty(start_date) || !string.IsNullOrEmpty(end_date)))
             {
                 if (!string.IsNullOrEmpty(start_date))
@@ -179,9 +181,15 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
                     cdtIds.AddSubCondition("AND", "CREATE_ON", "<=", dtEndDate);
                 }
             }
-
-            cdtIds2.Relate = "AND";
-            cdtIds.AddSubCondition(cdtIds2);
+            
+            if (Request["cdt_combination"] != null)
+            {
+                string jsoncdtCombination = System.Text.ASCIIEncoding.UTF8.GetString(Convert.FromBase64String(Request["cdt_combination"]));
+                Condition cdtCombination = Condition.LoadFromJson(jsoncdtCombination);
+                cdtCombination.Relate = "AND";
+                ReplaceCdtCombinationOpreate(cdtCombination);
+                cdtIds.AddSubCondition(cdtCombination);
+            }
             List<UnCaseSenseHashTable> records = DbUtilityManager.Instance.DefaultDbUtility.Query("FW_S_COMAPANIES", cdtIds, "*", null, null, -1, -1);
 
             //设置打印图纸大小

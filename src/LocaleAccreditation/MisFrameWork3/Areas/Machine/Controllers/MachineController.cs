@@ -359,6 +359,7 @@ namespace MisFrameWork3.Areas.Machine.Controllers
             string date_range_type = Request["date_range_type"];
             string start_date = Request["start_date"];
             string end_date = Request["end_date"];
+            
             Condition cdtIds2 = new Condition();
             if (!string.IsNullOrEmpty(search))
             {
@@ -382,6 +383,14 @@ namespace MisFrameWork3.Areas.Machine.Controllers
                     dtEndDate = dtEndDate.AddDays(1);//加多一天
                     cdtIds.AddSubCondition("AND", "CREATE_ON", "<=", dtEndDate);
                 }
+            }
+            if (Request["cdt_combination"] != null)
+            {
+                string jsoncdtCombination = System.Text.ASCIIEncoding.UTF8.GetString(Convert.FromBase64String(Request["cdt_combination"]));
+                Condition cdtCombination = Condition.LoadFromJson(jsoncdtCombination);
+                cdtCombination.Relate = "AND";
+                ReplaceCdtCombinationOpreate(cdtCombination);
+                cdtIds.AddSubCondition(cdtCombination);
             }
 
             cdtIds2.Relate = "AND";

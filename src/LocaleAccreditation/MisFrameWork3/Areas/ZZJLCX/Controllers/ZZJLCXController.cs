@@ -98,6 +98,16 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
                 }
             }
 
+            if (Request["cdt_combination"] != null)
+            {
+                string cdt = Request["cdt_combination"].ToString();
+                string jsoncdtCombination = System.Text.ASCIIEncoding.UTF8.GetString(Convert.FromBase64String(cdt));
+                Condition cdtCombination = Condition.LoadFromJson(jsoncdtCombination);
+                cdtCombination.Relate = "AND";
+                ReplaceCdtCombinationOpreate(cdtCombination);
+                cdtIds.AddSubCondition(cdtCombination);
+            }
+
             if (!Membership.CurrentUser.HaveAuthority("SYS.USER.QUERY_ALL_USER"))
             {
                 string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();

@@ -264,6 +264,14 @@
                     data.date_range_type = $("#date_range_type").combobox("getValue");
                     data.start_date = $("#start_date").datebox("getValue");
                     data.end_date = $("#end_date").datebox("getValue");
+                    var result = {};
+                    var aa = $("#ttCdtResult").tree("getRoot");
+                    if (aa != null) {
+                        createConditionCombination(result, aa);
+                        var base = new Base64();
+                        var b64 = base.encode(JSON.stringify(result));
+                        data.cdt_combination = b64;
+                    }
                     console.log(data);
                     var url='@Url.Action("ActionPrint", "Users")';
                     $.print(url, data);

@@ -327,6 +327,8 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
                 cdtIds2.AddSubCondition("OR", "COMPANY_ID", "like", "%" + search + "%");
                 cdtIds2.AddSubCondition("OR", "COMPANY_ID_V_D_FW_COMP__MC", "like", "%" + search + "%");
             }
+            cdtIds2.Relate = "AND";
+            cdtIds.AddSubCondition(cdtIds2);
             if (!string.IsNullOrEmpty(date_range_type) && date_range_type != "0" && (!string.IsNullOrEmpty(start_date) || !string.IsNullOrEmpty(end_date)))
             {
                 if (!string.IsNullOrEmpty(start_date))
@@ -341,8 +343,14 @@ namespace MisFrameWork3.Areas.FWBase.Controllers
                 }
             }
 
-            cdtIds2.Relate = "AND";
-            cdtIds.AddSubCondition(cdtIds2);
+            if (Request["cdt_combination"] != null)
+            {
+                string jsoncdtCombination = System.Text.ASCIIEncoding.UTF8.GetString(Convert.FromBase64String(Request["cdt_combination"]));
+                Condition cdtCombination = Condition.LoadFromJson(jsoncdtCombination);
+                cdtCombination.Relate = "AND";
+                ReplaceCdtCombinationOpreate(cdtCombination);
+                cdtIds.AddSubCondition(cdtCombination);
+            }
             if (!Membership.CurrentUser.HaveAuthority("SYS.USER.QUERY_ALL_USER"))
             {
                 string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();

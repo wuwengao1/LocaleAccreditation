@@ -26,263 +26,6 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
             return View();
         }
         #region __TIPS__:单位制证数量统计
-        public ActionResult AcceptStat3()
-        {
-            int RoleLevel = Membership.CurrentUser.RoleLevel;
-            string comId2 = "";
-            if (!Membership.CurrentUser.HaveAuthority("ZZJL.ZZJLCX.QUERY_ALL_ZZJL"))
-            {
-                string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
-                char[] c = COMPANY_ID.ToCharArray();
-                string comId = "";
-                bool temp = false;
-                for (int i = c.Length - 1; i >= 0; i--)
-                {
-                    string cc = c[i].ToString();
-                    if (cc != "0" && !temp)
-                    {
-                        temp = true;
-                    }
-                    if (temp)
-                    {
-                        comId += c[i];
-                    }
-                }
-                char[] charArray = comId.ToCharArray();
-                Array.Reverse(charArray);
-                comId2 = new String(charArray);
-                comId2 += "%";
-            }
-            string search = Request["search"];
-            string query_sql;
-            if (string.IsNullOrEmpty(comId2))
-            {
-
-                if (string.IsNullOrEmpty(search))
-                {
-                    query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP  group by ZZXXZZDW,ZZXXZZDWMC ";
-                }
-                else
-                {
-                    query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where ZZXXZZDW like  '%" + search + "%' and ( ZZXXZZDWMC like  '%" + search + "%')  group by ZZXXZZDW,ZZXXZZDWMC ";
-                }
-            }
-            else
-            {
-                if (string.IsNullOrEmpty(search))
-                {
-                    query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where ZZXXZZDW like '" + comId2 + "' group by ZZXXZZDW,ZZXXZZDWMC ";
-                }
-                else
-                {
-                    query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where ZZXXZZDW like '" + comId2 + "' and ( ZZXXZZDW like  '%" + search + "%' OR ZZXXZZDWMC like  '%" + search + "%')  group by ZZXXZZDW,ZZXXZZDWMC ";
-                }
-            }
-
-            List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query(query_sql, -1, -1);
-            return JsonDateObject(record);
-        }
-
-        public ActionResult AcceptStat2()
-        {
-
-            string SSDW = Request["SSDW"];
-            string ZZY = Request["ZZY"];
-            string ACCEPT_DATE = Request["ACCEPT_DATE"];
-            string ACCEPT_DATE2 = Request["ACCEPT_DATE2"];
-            string zzys = "";
-            //根据单位先获取单位下的制证员，然后根据制证员id查询与制证员关联的设备编号，最后根据设备编号查询制证记录
-            if (!string.IsNullOrEmpty(SSDW))
-            {
-                char[] c = SSDW.ToCharArray();
-                string comId = "";
-                bool temp = false;
-                for (int i = c.Length - 1; i >= 0; i--)
-                {
-                    string cc = c[i].ToString();
-                    if (cc != "0" && !temp)
-                    {
-                        temp = true;
-                    }
-                    if (temp)
-                    {
-                        comId += c[i];
-                    }
-                }
-                char[] charArray = comId.ToCharArray();
-                Array.Reverse(charArray);
-                string comId2 = new String(charArray);
-                comId2 += "%";
-
-                Condition cdtId3 = new Condition();
-                cdtId3.AddSubCondition("AND", "COMPANY_ID", "like", comId2);
-                cdtId3.AddSubCondition("AND", "ROLES_ID_V_D_FW_S_ROLES__MC", "=", "制证员");
-                List<UnCaseSenseHashTable> re = DbUtilityManager.Instance.DefaultDbUtility.Query("FW_S_USERS", cdtId3, "USER_ID", null, null, -1, -1);
-                if (re.Count != 0)
-                {
-
-                    string userId = "(";
-                    for (int i = 0; i < re.Count; i++)
-                    {
-                        userId += "'" + re[i]["USER_ID"] + "',";
-                    }
-                    userId += "'0')";
-
-                    Condition cdtId = new Condition();
-                    cdtId.AddSubCondition("AND", "SBFZR", "in", "EXPR:" + userId);
-                    List<UnCaseSenseHashTable> rec = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtId, "MACHINENO", null, null, -1, -1);
-                    if (rec.Count != 0)
-                    {
-                        zzys = "(";
-                        for (int i = 0; i < re.Count; i++)
-                        {
-                            zzys += "'" + rec[i]["MACHINENO"] + "',";
-                        }
-                        zzys += "'0')";
-                    }
-                    else
-                    {
-                        zzys = "('0')";
-                    }
-                }
-                else
-                {
-                    zzys = "('0')";
-                }
-            }
-            string sbbh = "";
-            if (!string.IsNullOrEmpty(ZZY))
-            {
-                Condition cdtId = new Condition();
-                cdtId.AddSubCondition("AND", "SBFZR", "=", ZZY);
-                List<UnCaseSenseHashTable> rec = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtId, "MACHINENO", null, null, -1, -1);
-                if (rec.Count != 0)
-                {
-                    sbbh = rec[0]["MACHINENO"].ToString();
-                }
-            }
-
-            string query_sql;
-            if (string.IsNullOrEmpty(zzys) && string.IsNullOrEmpty(ACCEPT_DATE) && string.IsNullOrEmpty(ACCEPT_DATE2) && !string.IsNullOrEmpty(sbbh))
-            {
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + " and ZZSBID = '" + sbbh + " group by ZZSBID ";
-            }
-            else if (string.IsNullOrEmpty(zzys) && string.IsNullOrEmpty(ACCEPT_DATE) && string.IsNullOrEmpty(ACCEPT_DATE2) && string.IsNullOrEmpty(sbbh))
-            {
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + " group by ZZSBID ";
-            }
-
-            else if (!string.IsNullOrEmpty(zzys) && string.IsNullOrEmpty(ACCEPT_DATE) && string.IsNullOrEmpty(ACCEPT_DATE2) && !string.IsNullOrEmpty(sbbh))
-            {
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + " and ZZSBID in " + zzys + " and ZZSBID = '" + sbbh + "' group by ZZSBID ";
-            }
-            else if (!string.IsNullOrEmpty(zzys) && string.IsNullOrEmpty(ACCEPT_DATE) && string.IsNullOrEmpty(ACCEPT_DATE2) && string.IsNullOrEmpty(sbbh))
-            {
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + " and ZZSBID in " + zzys + " group by ZZSBID ";
-            }
-
-            else if (string.IsNullOrEmpty(zzys) && !string.IsNullOrEmpty(ACCEPT_DATE) && string.IsNullOrEmpty(ACCEPT_DATE2) && !string.IsNullOrEmpty(sbbh))
-            {
-                ACCEPT_DATE = ACCEPT_DATE + " 00:00:00";
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + " and ZZSBID = '" + sbbh + " and ZZXXZZRQ >= TO_DATE('" + ACCEPT_DATE + "', 'YYYY-MM-DD HH24:MI:SS') group by ZZSBID ";
-            }
-            else if (string.IsNullOrEmpty(zzys) && !string.IsNullOrEmpty(ACCEPT_DATE) && string.IsNullOrEmpty(ACCEPT_DATE2) && string.IsNullOrEmpty(sbbh))
-            {
-                ACCEPT_DATE = ACCEPT_DATE + " 00:00:00";
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + " and ZZXXZZRQ >= TO_DATE('" + ACCEPT_DATE + "', 'YYYY-MM-DD HH24:MI:SS') group by ZZSBID ";
-            }
-
-
-            else if (!string.IsNullOrEmpty(zzys) && !string.IsNullOrEmpty(ACCEPT_DATE) && string.IsNullOrEmpty(ACCEPT_DATE2) && !string.IsNullOrEmpty(sbbh))
-            {
-                ACCEPT_DATE = ACCEPT_DATE + " 00:00:00";
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + "  and ZZSBID in " + zzys + " and ZZSBID = '" + sbbh + "'and ZZXXZZRQ >= TO_DATE('" + ACCEPT_DATE + "', 'YYYY-MM-DD HH24:MI:SS') group by ZZSBID ";
-            }
-            else if (!string.IsNullOrEmpty(zzys) && !string.IsNullOrEmpty(ACCEPT_DATE) && string.IsNullOrEmpty(ACCEPT_DATE2) && string.IsNullOrEmpty(sbbh))
-            {
-                ACCEPT_DATE = ACCEPT_DATE + " 00:00:00";
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + "  and ZZSBID in " + zzys + " and ZZXXZZRQ >= TO_DATE('" + ACCEPT_DATE + "', 'YYYY-MM-DD HH24:MI:SS') group by ZZSBID ";
-            }
-
-            else if (string.IsNullOrEmpty(zzys) && string.IsNullOrEmpty(ACCEPT_DATE) && !string.IsNullOrEmpty(ACCEPT_DATE2) && !string.IsNullOrEmpty(sbbh))
-            {
-                ACCEPT_DATE2 = ACCEPT_DATE2 + " 23:59:59";
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + " and ZZSBID = '" + sbbh + " and ZZXXZZRQ <= TO_DATE('" + ACCEPT_DATE2 + "', 'YYYY-MM-DD HH24:MI:SS') group by ZZSBID ";
-            }
-            else if (string.IsNullOrEmpty(zzys) && string.IsNullOrEmpty(ACCEPT_DATE) && !string.IsNullOrEmpty(ACCEPT_DATE2) && string.IsNullOrEmpty(sbbh))
-            {
-                ACCEPT_DATE2 = ACCEPT_DATE2 + " 23:59:59";
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + " and ZZXXZZRQ <= TO_DATE('" + ACCEPT_DATE2 + "', 'YYYY-MM-DD HH24:MI:SS') group by ZZSBID ";
-            }
-
-
-            else if (!string.IsNullOrEmpty(zzys) && string.IsNullOrEmpty(ACCEPT_DATE) && !string.IsNullOrEmpty(ACCEPT_DATE2) && !string.IsNullOrEmpty(sbbh))
-            {
-                ACCEPT_DATE2 = ACCEPT_DATE2 + " 23:59:59";
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + " and ZZSBID in " + zzys + " and ZZSBID = '" + sbbh + "' and ZZXXZZRQ <= TO_DATE('" + ACCEPT_DATE2 + "', 'YYYY-MM-DD HH24:MI:SS') group by ZZSBID ";
-            }
-            else if (!string.IsNullOrEmpty(zzys) && string.IsNullOrEmpty(ACCEPT_DATE) && !string.IsNullOrEmpty(ACCEPT_DATE2) && string.IsNullOrEmpty(sbbh))
-            {
-                ACCEPT_DATE2 = ACCEPT_DATE2 + " 23:59:59";
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + " and ZZSBID in " + zzys + " and ZZXXZZRQ <= TO_DATE('" + ACCEPT_DATE2 + "', 'YYYY-MM-DD HH24:MI:SS') group by ZZSBID ";
-            }
-
-
-
-            else if (string.IsNullOrEmpty(zzys) && !string.IsNullOrEmpty(ACCEPT_DATE) && !string.IsNullOrEmpty(ACCEPT_DATE2) && !string.IsNullOrEmpty(sbbh))
-            {
-                ACCEPT_DATE = ACCEPT_DATE + " 00:00:00";
-                ACCEPT_DATE2 = ACCEPT_DATE2 + " 23:59:59";
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + " and ZZSBID = '" + sbbh + " and ZZXXZZRQ >= TO_DATE('" + ACCEPT_DATE + "', 'YYYY-MM-DD HH24:MI:SS') and ZZXXZZRQ <= TO_DATE('" + ACCEPT_DATE2 + "', 'YYYY-MM-DD HH24:MI:SS') group by ZZSBID ";
-            }
-            else if (string.IsNullOrEmpty(zzys) && !string.IsNullOrEmpty(ACCEPT_DATE) && !string.IsNullOrEmpty(ACCEPT_DATE2) && string.IsNullOrEmpty(sbbh))
-            {
-                ACCEPT_DATE = ACCEPT_DATE + " 00:00:00";
-                ACCEPT_DATE2 = ACCEPT_DATE2 + " 23:59:59";
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + " and ZZXXZZRQ >= TO_DATE('" + ACCEPT_DATE + "', 'YYYY-MM-DD HH24:MI:SS') and ZZXXZZRQ <= TO_DATE('" + ACCEPT_DATE2 + "', 'YYYY-MM-DD HH24:MI:SS') group by ZZSBID ";
-            }
-
-            else if (!string.IsNullOrEmpty(zzys) && !string.IsNullOrEmpty(ACCEPT_DATE) && !string.IsNullOrEmpty(ACCEPT_DATE2) && string.IsNullOrEmpty(sbbh))
-            {
-                ACCEPT_DATE = ACCEPT_DATE + " 00:00:00";
-                ACCEPT_DATE2 = ACCEPT_DATE2 + " 23:59:59";
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + " and ZZSBID in " + zzys + " and ZZXXZZRQ >= TO_DATE('" + ACCEPT_DATE + "', 'YYYY-MM-DD HH24:MI:SS') and ZZXXZZRQ <= TO_DATE('" + ACCEPT_DATE2 + "', 'YYYY-MM-DD HH24:MI:SS') group by ZZSBID ";
-            }
-            else
-            {
-                ACCEPT_DATE = ACCEPT_DATE + " 00:00:00";
-                ACCEPT_DATE2 = ACCEPT_DATE2 + " 23:59:59";
-                query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in " + GetMachineNo() + " and ZZSBID in " + zzys + " and ZZSBID = '" + sbbh + "' and ZZXXZZRQ >= TO_DATE('" + ACCEPT_DATE + "', 'YYYY-MM-DD HH24:MI:SS') and ZZXXZZRQ <= TO_DATE('" + ACCEPT_DATE2 + "', 'YYYY-MM-DD HH24:MI:SS') group by ZZSBID ";
-            }
-
-            List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query(query_sql, -1, -1);
-
-            Hashtable hash = new Hashtable();
-            List<UnCaseSenseHashTable> rows = new List<UnCaseSenseHashTable>();
-            if (record.Count != 0)
-            {
-                foreach (UnCaseSenseHashTable r in record)
-                {
-                    Condition cdtId = new Condition();
-                    cdtId.AddSubCondition("AND", "MACHINENO", "=", r["ZZSBID"]);
-                    List<UnCaseSenseHashTable> rec = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtId, "SBFZR", null, null, -1, -1);
-
-                    UnCaseSenseHashTable info = new UnCaseSenseHashTable();
-
-                    info["SBFZR"] = rec[0]["SBFZR"];
-                    info["COUNT"] = r["count"];
-                    if (rec[0]["SBFZR"] != null)
-                    {
-                        rows.Add(info);
-                    }
-                }
-            }
-
-            hash["rows"] = rows;
-            return JsonDateObject(hash);
-        }
-
-
         public ActionResult AcceptStat()
         {
             int RoleLevel = Membership.CurrentUser.RoleLevel;
@@ -292,7 +35,7 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
                 string sql = "";
                 if (Request["cdt_combination"] != null)
                 {
-                    sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP ";
+                    sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where 1=1 ";
                     string jsoncdtCombination = System.Text.ASCIIEncoding.UTF8.GetString(Convert.FromBase64String(Request["cdt_combination"]));
                     Condition cdtCombination = Condition.LoadFromJson(jsoncdtCombination);
                     cdtCombination.Relate = "AND";
@@ -327,7 +70,7 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
 
                     if (string.IsNullOrEmpty(search))
                     {
-                        query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP ";
+                        query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where 1=1 ";
                     }
                     else
                     {
@@ -477,63 +220,123 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
         public FileResult ActionPrint(string name, string oject_id)
         {
             //获取数据
-            Condition cdtIds = new Condition();
-            string search = Request["Search"];
-            string date_range_type = Request["date_range_type"];
-            string start_date = Request["start_date"];
-            string end_date = Request["end_date"];
-            Condition cdtIds2 = new Condition();
-            string query_sql;
-            if (!string.IsNullOrEmpty(search))
+            string QuerySql = "";
+            string sql = "";
+            if (!string.IsNullOrEmpty(Request["cdt_combination"]))
             {
-                query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where 1=1 and (ZZXXZZDW like  '%" + search + "%' or ZZXXZZDWMC like  '%" + search + "%') ";
+                sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where 1=1 ";
+                
+                string jsoncdtCombination = System.Text.ASCIIEncoding.UTF8.GetString(Convert.FromBase64String(Request["cdt_combination"]));
+                Condition cdtCombination = Condition.LoadFromJson(jsoncdtCombination);
+                cdtCombination.Relate = "AND";
+                ReplaceCdtCombinationOpreate(cdtCombination);
+                int count = cdtCombination.SubConditions.Count;
+                if (count != 0)
+                {
+                    for (int i = 0; i < count; i++)
+                    {
+                        Condition c = cdtCombination.SubConditions[i];
+                        if (c.Src == "ZZXXZZRQ")
+                        {
+                            sql += " " + c.Relate + " " + c.Src + " " + c.Op + "  TO_DATE('" + c.Tag + "', 'YYYY-MM-DD HH24:MI:SS') ";
+                        }
+                        else
+                        {
+                            sql += " " + c.Relate + " " + c.Src + " " + c.Op + " '" + c.Tag + "'";
+                        }
+                    }
+                }
+                if (!Membership.CurrentUser.HaveAuthority("SYS.USER.QUERY_ALL_USER"))
+                {
+                    string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
+                    char[] c = COMPANY_ID.ToCharArray();
+                    string comId = "";
+                    bool temp = false;
+                    for (int i = c.Length - 1; i >= 0; i--)
+                    {
+                        string cc = c[i].ToString();
+                        if (cc != "0" && !temp)
+                        {
+                            temp = true;
+                        }
+                        if (temp)
+                        {
+                            comId += c[i];
+                        }
+                    }
+                    char[] charArray = comId.ToCharArray();
+                    Array.Reverse(charArray);
+                    string comId3 = new String(charArray);
+                    comId3 += "%";
+                    sql += " AND ZZXXZZDW like '" + comId3 + "'";
+                }
+
+                sql += "  group by ZZXXZZDW,ZZXXZZDWMC";
+            }
+            if (!string.IsNullOrEmpty(sql))
+            {
+                QuerySql = sql;
             }
             else
             {
-                query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where 1=1 ";
-            }
-            
-            if (!string.IsNullOrEmpty(date_range_type) && date_range_type != "0" && (!string.IsNullOrEmpty(start_date) || !string.IsNullOrEmpty(end_date)))
-            {
-                if (!String.IsNullOrEmpty(start_date))
+                string search = Request["Search"];
+                string date_range_type = Request["date_range_type"];
+                string start_date = Request["start_date"];
+                string end_date = Request["end_date"];
+                string query_sql;
+                if (!string.IsNullOrEmpty(search))
                 {
-                    query_sql += " AND ZZXXZZRQ >=  TO_DATE('" + start_date + "', 'YYYY-MM-DD HH24:MI:SS') ";
+                    query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where 1=1 and (ZZXXZZDW like  '%" + search + "%' or ZZXXZZDWMC like  '%" + search + "%') ";
                 }
-                if (!String.IsNullOrEmpty(end_date))
+                else
                 {
-                    DateTime dtEndDate = DateTime.Parse(end_date);
-                    dtEndDate = dtEndDate.AddDays(1);//加多一天
-
-                    query_sql += " AND ZZXXZZRQ <=  TO_DATE('" + dtEndDate.ToString() + "', 'YYYY-MM-DD HH24:MI:SS') ";
+                    query_sql = "select ZZXXZZDW,ZZXXZZDWMC,count(*) as count from C_JZZ_TMP where 1=1 ";
                 }
-            }
 
-            if (!Membership.CurrentUser.HaveAuthority("SYS.USER.QUERY_ALL_USER"))
-            {
-                string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
-                char[] c = COMPANY_ID.ToCharArray();
-                string comId = "";
-                bool temp = false;
-                for (int i = c.Length - 1; i >= 0; i--)
+                if (!string.IsNullOrEmpty(date_range_type) && date_range_type != "0" && (!string.IsNullOrEmpty(start_date) || !string.IsNullOrEmpty(end_date)))
                 {
-                    string cc = c[i].ToString();
-                    if (cc != "0" && !temp)
+                    if (!String.IsNullOrEmpty(start_date))
                     {
-                        temp = true;
+                        query_sql += " AND ZZXXZZRQ >=  TO_DATE('" + start_date + "', 'YYYY-MM-DD HH24:MI:SS') ";
                     }
-                    if (temp)
+                    if (!String.IsNullOrEmpty(end_date))
                     {
-                        comId += c[i];
+                        DateTime dtEndDate = DateTime.Parse(end_date);
+                        dtEndDate = dtEndDate.AddDays(1);//加多一天
+
+                        query_sql += " AND ZZXXZZRQ <=  TO_DATE('" + dtEndDate.ToString() + "', 'YYYY-MM-DD HH24:MI:SS') ";
                     }
                 }
-                char[] charArray = comId.ToCharArray();
-                Array.Reverse(charArray);
-                string comId3 = new String(charArray);
-                comId3 += "%";
-                query_sql += " ZZXXZZDW like '" + comId3;
-             }
-            query_sql += " group by ZZXXZZDW,ZZXXZZDWMC";
-            List<UnCaseSenseHashTable> records = DbUtilityManager.Instance.DefaultDbUtility.Query(query_sql, -1, -1);
+
+                if (!Membership.CurrentUser.HaveAuthority("SYS.USER.QUERY_ALL_USER"))
+                {
+                    string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
+                    char[] c = COMPANY_ID.ToCharArray();
+                    string comId = "";
+                    bool temp = false;
+                    for (int i = c.Length - 1; i >= 0; i--)
+                    {
+                        string cc = c[i].ToString();
+                        if (cc != "0" && !temp)
+                        {
+                            temp = true;
+                        }
+                        if (temp)
+                        {
+                            comId += c[i];
+                        }
+                    }
+                    char[] charArray = comId.ToCharArray();
+                    Array.Reverse(charArray);
+                    string comId3 = new String(charArray);
+                    comId3 += "%";
+                    query_sql += " AND ZZXXZZDW like '" + comId3 + "'";
+                }
+                query_sql += " group by ZZXXZZDW,ZZXXZZDWMC";
+
+                QuerySql = query_sql;
+            }
+            List<UnCaseSenseHashTable> records = DbUtilityManager.Instance.DefaultDbUtility.Query(QuerySql, -1, -1);
 
             //设置打印图纸大小
             Document document = new Document(PageSize.A4);
