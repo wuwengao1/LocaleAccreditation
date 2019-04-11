@@ -34,6 +34,7 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
             //__TIPS__*:根据表结构，修改以下函数的参数
 
             Condition cdtIds = new Condition();
+            int RoleLevel = Membership.CurrentUser.RoleLevel;
             if (!Membership.CurrentUser.HaveAuthority("ZZJL.ZZJLCX.QUERY_ALL_ZZJL"))
             {
                 string COMPANY_ID = Membership.CurrentUser.CompanyId.ToString();
@@ -58,6 +59,22 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
                 comId2 += "%";
                 cdtIds.AddSubCondition("AND", "ZZXXZZDW", "like", comId2);
             }
+            if (Membership.CurrentUser.HaveAuthority("ZZJL.ZZJLCX.QUERY_OWN_ZZJL") && RoleLevel != 0)
+            {
+                string userId = Membership.CurrentUser.UserId;
+                
+                Condition cdtId = new Condition();
+                cdtId.AddSubCondition("AND", "SBFZR", "=", userId);
+                List<UnCaseSenseHashTable>  record = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtId, "MACHINENO", null, null, -1, -1);
+                
+                string zzjbh = "(";
+                for (int i = 0; i < record.Count; i++)
+                {
+                    zzjbh += "'" + record[i]["MACHINENO"] + "',";
+                }
+                zzjbh += "'0')";
+                cdtIds.AddSubCondition("AND", "ZZSBID", "in", "EXPR:" + zzjbh);
+            }
             return QueryDataFromEasyUIDataGrid("C_JZZ_TMP", "ZZXXZZRQ", "SLBH,ZZZXPH,GMSFHM,ZZSBID,ZZXXZZDW,ZZXXZZDWMC", cdtIds, "*");
         }
 
@@ -66,6 +83,7 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
         public FileResult ActionPrint(string name, string oject_id)
         {
             //获取数据
+            int RoleLevel = Membership.CurrentUser.RoleLevel;
             Condition cdtIds = new Condition();
             string search = Request["Search"];
             string date_range_type = Request["date_range_type"];
@@ -131,6 +149,22 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
                 string comId3 = new String(charArray);
                 comId3 += "%";
                 cdtIds.AddSubCondition("AND", "ZZXXZZDW", "like", comId3);
+            }
+            if (Membership.CurrentUser.HaveAuthority("ZZJL.ZZJLCX.QUERY_OWN_ZZJL") && RoleLevel != 0)
+            {
+                string userId = Membership.CurrentUser.UserId;
+
+                Condition cdtId = new Condition();
+                cdtId.AddSubCondition("AND", "SBFZR", "=", userId);
+                List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query("B_MACHINE", cdtId, "MACHINENO", null, null, -1, -1);
+
+                string zzjbh = "(";
+                for (int i = 0; i < record.Count; i++)
+                {
+                    zzjbh += "'" + record[i]["MACHINENO"] + "',";
+                }
+                zzjbh += "'0')";
+                cdtIds.AddSubCondition("AND", "ZZSBID", "in", "EXPR:" + zzjbh);
             }
             List<UnCaseSenseHashTable> records = DbUtilityManager.Instance.DefaultDbUtility.Query("C_JZZ_TMP", cdtIds, "*", null, null, -1, -1);
 

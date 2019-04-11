@@ -31,10 +31,11 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
         #region __TIPS__:设备制证数量统计
         public ActionResult AcceptStat()
         {
+            int RoleLevel = Membership.CurrentUser.RoleLevel;
             string sql = "";
             if (Request["cdt_combination"] != null)
             {
-                if (!Membership.CurrentUser.HaveAuthority("ZZJL.ZZJLCX.QUERY_ALL_ZZJL"))
+                if (!Membership.CurrentUser.HaveAuthority("ZZJL.MACHINEZZTJ.QUERY_ALL_ZZJL"))
                 {
                     sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in  " + GetMachineNo();
                 }
@@ -62,6 +63,12 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
                         }
                     }
                 }
+                if (Membership.CurrentUser.HaveAuthority("ZZJL.MACHINEZZTJ.QUERY_OWN_ZZJL") && RoleLevel != 0)
+                {
+                    string userId = Membership.CurrentUser.UserId;
+                    sql += " AND ZZSBID in (select MACHINENO from B_MACHINE where SBFZR = '" + userId + "')";
+                }
+
                 sql += " group by ZZSBID ";
             }
             if (!string.IsNullOrEmpty(sql))
@@ -75,7 +82,7 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
                 string search = Request["search"];
                 if (string.IsNullOrEmpty(search))
                 {
-                    if (!Membership.CurrentUser.HaveAuthority("ZZJL.ZZJLCX.QUERY_ALL_ZZJL"))
+                    if (!Membership.CurrentUser.HaveAuthority("ZZJL.MACHINEZZTJ.QUERY_ALL_ZZJL"))
                     {
                         query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in  " + GetMachineNo();
                     }
@@ -86,7 +93,7 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
                 }
                 else
                 {
-                    if (!Membership.CurrentUser.HaveAuthority("ZZJL.ZZJLCX.QUERY_ALL_ZZJL"))
+                    if (!Membership.CurrentUser.HaveAuthority("ZZJL.MACHINEZZTJ.QUERY_ALL_ZZJL"))
                     {
                         query_sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in  " + GetMachineNo() + " and ( ZZSBID like  '%" + search + "%' OR ZZXXZZDW like  '%" + search + "%' OR ZZXXZZDWMC like  '%" + search + "%') ";
 
@@ -125,6 +132,12 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
                         }
                     }
                 }
+
+                if (Membership.CurrentUser.HaveAuthority("ZZJL.MACHINEZZTJ.QUERY_OWN_ZZJL") && RoleLevel != 0)
+                {
+                    string userId = Membership.CurrentUser.UserId;
+                    query_sql += " AND ZZSBID in (select MACHINENO from B_MACHINE where SBFZR = '" + userId + "')";
+                }
                 query_sql += " group by ZZSBID ";
                 List<UnCaseSenseHashTable> record = DbUtilityManager.Instance.DefaultDbUtility.Query(query_sql, -1, -1);
                 return JsonDateObject(record);
@@ -143,11 +156,12 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
         public FileResult ActionPrint(string name, string oject_id)
         {
             //获取数据
+            int RoleLevel = Membership.CurrentUser.RoleLevel;
             string QuerySql = "";
             string sql = "";
             if (!string.IsNullOrEmpty(Request["cdt_combination"]))
             {
-                if (!Membership.CurrentUser.HaveAuthority("ZZJL.ZZJLCX.QUERY_ALL_ZZJL"))
+                if (!Membership.CurrentUser.HaveAuthority("ZZJL.MACHINEZZTJ.QUERY_ALL_ZZJL"))
                 {
                     sql = "select ZZSBID,count(*) as count from C_JZZ_TMP where ZZSBID in  " + GetMachineNo();
                 }
@@ -175,6 +189,11 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
                             sql += " " + c.Relate + " " + c.Src + " " + c.Op + " '" + c.Tag + "'";
                         }
                     }
+                }
+                if (Membership.CurrentUser.HaveAuthority("ZZJL.MACHINEZZTJ.QUERY_OWN_ZZJL") && RoleLevel != 0)
+                {
+                    string userId = Membership.CurrentUser.UserId;
+                    sql += " AND ZZSBID in (select MACHINENO from B_MACHINE where SBFZR = '" + userId + "')";
                 }
                 sql += " group by ZZSBID ";
             }
@@ -235,6 +254,11 @@ namespace MisFrameWork3.Areas.ZZJLCX.Controllers
                     string comId3 = new String(charArray);
                     comId3 += "%";
                     query_sql += " AND ZZXXZZDW like '" + comId3 + "'";
+                }
+                if (Membership.CurrentUser.HaveAuthority("ZZJL.MACHINEZZTJ.QUERY_OWN_ZZJL") && RoleLevel != 0)
+                {
+                    string userId = Membership.CurrentUser.UserId;
+                    query_sql += " AND ZZSBID in (select MACHINENO from B_MACHINE where SBFZR = '" + userId + "')";
                 }
                 query_sql += " group by ZZSBID";
                 QuerySql = query_sql;
