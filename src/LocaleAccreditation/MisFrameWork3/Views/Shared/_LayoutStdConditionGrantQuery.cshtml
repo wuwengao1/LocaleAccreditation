@@ -33,7 +33,8 @@
         "~/Scripts/kindeditor/kindeditor-all.js",
         "~/Scripts/kindeditor/lang/zh-CN.js",
         "~/Scripts/misframework3.js",
-        "~/Scripts/fw_plugins/export_datagrid.js"
+        "~/Scripts/fw_plugins/export_datagrid.js",
+        "~/Scripts/fw_plugins/framework-ui.js"
 
     })
 
@@ -45,7 +46,7 @@
                 @if (ViewBag.HideCommonButtons == null || !ViewBag.HideCommonButtons)
                 {
                     <a id="stdBtnAdd" href="#" onclick="btnAddEvent()" class="easyui-linkbutton" data-options="iconCls:'icon-add',plain:false,disabled:@(ViewBag.DisableBTN_Add!=null && ViewBag.DisableBTN_Add?"true":"false")">增加</a>
-                    <a id="stdBtnEdit" href="#" onclick="btnEditEvent()" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:false,disabled:@(ViewBag.DisableBTN_Edit!=null && ViewBag.DisableBTN_Edit?"true":"false")">修改</a>
+                    @*<a id="stdBtnEdit" href="#" onclick="btnEditEvent()" class="easyui-linkbutton" data-options="iconCls:'icon-edit',plain:false,disabled:@(ViewBag.DisableBTN_Edit!=null && ViewBag.DisableBTN_Edit?"true":"false")">修改</a>*@
                     if (ViewBag.ShowDeleteButton != null && ViewBag.ShowDeleteButton)
                     {
                         <a id="stdBtnDelete" href="#" onclick="btnRemoveEvent()" class="easyui-linkbutton" data-options="iconCls:'icon-remove',plain:false,disabled:@(ViewBag.DisableBTN_Delete != null && ViewBag.DisableBTN_Delete ? "true" : "false")">删除</a>

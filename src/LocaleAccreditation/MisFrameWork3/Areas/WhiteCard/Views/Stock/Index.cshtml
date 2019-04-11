@@ -18,7 +18,7 @@
 
     function btnAddEvent() {
         $('#winMainForm').dialog({
-            title: '增加信息',
+            title: '增加单位信息',
             width: 720,//窗体边框12,加上内部div的边距 20
             height: 480,
             top: 5,
@@ -48,19 +48,19 @@
     }
 
     function btnEditEvent() {
-        //var selectRow = $('#cmpDG').datagrid("getSelected");
-        //var plan_id = selectRow.PLAN_FILE;
-        //if (selectRow == null || selectRow == undefined) {
-        //    $.messager.alert({
-        //        icon: 'warning',
-        //        title: '提示',
-        //        msg: '请选择一条要 【编辑】 的记录'
-        //    });
-        //    return;
-        //}
+        var selectRow = $('#cmpDG').datagrid("getSelected");
+        var cpmpany_id = selectRow.COMPANY_ID;
+        if (cpmpany_id != "450000000000") {
+            $.messager.alert({
+                icon: 'warning',
+                title: '提示',
+                msg: '未拥有权限'
+            });
+            return;
+        }
         $('#winMainForm').dialog({
 
-            title: '修改库存',
+            title: '修改公安厅单位库存',
             width: 720,//窗体边框12,加上内部div的边距20
             height: 500,
             top: 5,
@@ -170,13 +170,39 @@
     });
     var pager = $("#cmpDG").datagrid().datagrid('getPager')
     pager.pagination({
-        buttons: [{
-            text: '导出',
-            iconCls: 'icon-table-export',
-            handler: function () {
-                ef3.datagridToExcel(params2);
+        buttons: [
+            {
+                text: '导出',
+                iconCls: 'icon-table-export',
+                handler: function () {
+                    ef3.datagridToExcel("#cmpDG");
+                }
+            },
+            {
+                text: '打印',
+                iconCls: 'icon-table-export',
+                handler: function () {
+                    var data = {};
+                    data.title = "打印库存报表";
+                    data.Search = $("#search").textbox("getValue");
+                    data.date_range_type = $("#date_range_type").combobox("getValue");
+                    data.start_date = $("#start_date").datebox("getValue");
+                    data.end_date = $("#end_date").datebox("getValue");
+                    
+                    var result = {};
+                    var aa = $("#ttCdtResult").tree("getRoot");
+                    if (aa != null) {
+                        createConditionCombination(result, aa);
+                        var base = new Base64();
+                        var b64 = base.encode(JSON.stringify(result));
+                        data.cdt_combination = b64;
+                    }
+                    console.log(data);
+                    var url='@Url.Action("ActionPrint", "Stock")';
+                    $.print(url, data);
+                }
             }
-        }]
+        ]
     });
 </script>
 

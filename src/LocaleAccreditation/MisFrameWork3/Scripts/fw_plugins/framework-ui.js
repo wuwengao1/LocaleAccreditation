@@ -98,6 +98,9 @@ $.print = function (url, data, method) {
         //    var pair = this.split('=');
         //    //inputs += '<input type="hidden" name="' + Search + '" value="' + data2.Search + '" />';
         //});
+      //inputs += '<input type="hidden" name="date_range_type" value="' + data2.date_range_type + '" />';
+        //inputs += '<input type="hidden" name="start_date" value="' + data2.start_date + '" />';
+        //inputs += '<input type="hidden" name="end_date" value="' + data2.end_date + '" />';
         if (data2.Search) {
             inputs += '<input type="text" name="Search" value="' + data2.Search + '" />';
         }

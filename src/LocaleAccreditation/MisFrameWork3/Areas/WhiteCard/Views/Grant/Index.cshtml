@@ -177,13 +177,38 @@
     });
     var pager = $("#cmpDG").datagrid().datagrid('getPager')
     pager.pagination({
-        buttons: [{
-            text: '导出',
-            iconCls: 'icon-table-export',
-            handler: function () {
-                ef3.datagridToExcel(params2);
+        buttons: [
+            {
+                text: '导出',
+                iconCls: 'icon-table-export',
+                handler: function () {
+                    ef3.datagridToExcel("#cmpDG");
+                }
+            },
+            {
+                text: '打印',
+                iconCls: 'icon-table-export',
+                handler: function () {
+                    var data = {};
+                    data.title = "打印发放记录报表";
+                    data.Search = $("#search").textbox("getValue");
+                    data.date_range_type = $("#date_range_type").combobox("getValue");
+                    data.start_date = $("#start_date").datebox("getValue");
+                    data.end_date = $("#end_date").datebox("getValue");
+                    var result = {};
+                    var aa = $("#ttCdtResult").tree("getRoot");
+                    if (aa != null) {
+                        createConditionCombination(result, aa);
+                        var base = new Base64();
+                        var b64 = base.encode(JSON.stringify(result));
+                        data.cdt_combination = b64;
+                    }
+                    console.log(data);
+                    var url='@Url.Action("ActionPrint", "Grant")';
+                    $.print(url, data);
+                }
             }
-        }]
+        ]
     });
 </script>
 

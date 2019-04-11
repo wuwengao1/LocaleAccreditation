@@ -179,6 +179,10 @@
     <Compile Include="Areas\FWBase\FWBaseAreaRegistration.cs" />
     <Compile Include="Areas\Machine\Controllers\MachineController.cs" />
     <Compile Include="Areas\Machine\MachineAreaRegistration.cs" />
+    <Compile Include="Areas\WhiteCard\Controllers\GrantController.cs" />
+    <Compile Include="Areas\WhiteCard\Controllers\RecoveryController.cs" />
+    <Compile Include="Areas\WhiteCard\Controllers\StockController.cs" />
+    <Compile Include="Areas\WhiteCard\WhiteCardAreaRegistration.cs" />
     <Compile Include="Areas\ZZJLCX\Controllers\SBZZJLController.cs" />
     <Compile Include="Areas\ZZJLCX\Controllers\ZZJLCXController.cs" />
     <Compile Include="Areas\ZZJLCX\Controllers\ZZYZZJLController.cs" />
@@ -257,6 +261,23 @@
     <Content Include="Areas\ZZJLCX\Views\ZZJLCX\Index.cshtml" />
     <Content Include="Areas\ZZJLCX\Views\SBZZJL\Index.cshtml" />
     <Content Include="Areas\ZZJLCX\Views\ZZYZZJL\Index.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Grant\Index.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Grant\JsonConditionGrant.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Grant\ViewCompanyType.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Grant\ViewFormAdd.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Grant\ViewFormEdit.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Recovery\Index.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Recovery\JsonConditionRecovery.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Recovery\ViewCardType.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Recovery\ViewFormAdd.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Recovery\ViewFormEdit.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Recovery\ViewRecovery.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Stock\Index.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Stock\JsonConditionStock.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Stock\ViewFormAdd.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Stock\ViewFormEdit.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\Stock\ViewStockType.cshtml" />
+    <Content Include="Areas\WhiteCard\Views\web.config" />
     <None Include="Views\Home\ViewHeader.cshtml" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -304,6 +325,10 @@
     <Content Include="Views\Shared\_LayoutSBZZJLQuery.cshtml" />
     <Content Include="Views\Shared\_LayoutZZJLCXQuery.cshtml" />
     <Content Include="Views\Shared\_LayoutZZYZZJLQuery.cshtml" />
+    <Content Include="Views\Shared\_LayoutStdConditionCombinationQuery.cshtml" />
+    <Content Include="Views\Shared\_LayoutStdConditionGrantQuery.cshtml" />
+    <Content Include="Views\Shared\_LayoutStdConditionRecoveryQuery.cshtml" />
+    <Content Include="Views\Shared\_LayoutStdConditionStockQuery.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
